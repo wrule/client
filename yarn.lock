@@ -1700,9 +1700,9 @@ benchmark@^2.1.4:
     lodash "^4.17.4"
     platform "^1.3.3"
 
-"better-mock@git+https://git.williamchan.me:10443/engine-npm/mockjs-next.git#88ecb3dbd66824bcf9f0de34f1372b8690740753":
+"better-mock@git+ssh://git@gitlab.perfma-inc.com:fed/node/better-mock.git#master", "multi-crypto-js@git+ssh://git@gitlab.perfma-inc.com:fed/node/better-mock.git#master":
   version "0.3.2"
-  resolved "git+https://git.williamchan.me:10443/engine-npm/mockjs-next.git#88ecb3dbd66824bcf9f0de34f1372b8690740753"
+  resolved "git+ssh://git@gitlab.perfma-inc.com:fed/node/better-mock.git#adc5f71771a54b89d85719a99c60b38187c50657"
   dependencies:
     china-location "^2.0.0"
     regexparam "^2.0.0"
@@ -2238,7 +2238,7 @@ crypt@0.0.2:
   resolved "https://registry.npmmirror.com/crypt/-/crypt-0.0.2.tgz#88d7ff7ec0dfb86f713dc87bbb42d044d3e6c41b"
   integrity sha512-mCxBlsHFYh9C+HVpiEacem8FEBnMXgU9gy4zmNC+SXAZNB/1idgp/aulFJ4FgCi7GPEVbfyng092GqL2k2rmow==
 
-crypto-js@^4.0.0, crypto-js@^4.1.1:
+crypto-js@^4.0.0:
   version "4.1.1"
   resolved "https://registry.npmmirror.com/crypto-js/-/crypto-js-4.1.1.tgz#9e485bcf03521041bd85844786b83fb7619736cf"
   integrity sha512-o2JlM7ydqd3Qk9CA0L4NL6mTzU2sdx96a+oOfPu8Mkl/PK51vSyoi8/rQ8NknZtk44vq15lmhAj9CIAGwgeWKw==
@@ -3948,11 +3948,6 @@ jsbi@^4.3.0:
   resolved "https://registry.npmmirror.com/jsbi/-/jsbi-4.3.0.tgz#b54ee074fb6fcbc00619559305c8f7e912b04741"
   integrity sha512-SnZNcinB4RIcnEyZqFPdGPVgrg2AcnykiBy0sHVJQKHYeaLUvi3Exj+iaPpLnFVkDPZIV4U0yvgC9/R4uEAZ9g==
 
-jsbn@1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmmirror.com/jsbn/-/jsbn-1.1.0.tgz#b01307cb29b618a1ed26ec79e911f803c4da0040"
-  integrity sha512-4bYVV3aAMtDTTu4+xsDYa6sy9GyJ69/amsu9sYF2zqjiEoZA5xJi3BrfX3uY+/IekIu7MwdObdbDWpoZdBv3/A==
-
 jsesc@^2.5.1:
   version "2.5.2"
   resolved "https://registry.npmmirror.com/jsesc/-/jsesc-2.5.2.tgz#80564d2e483dacf6e8ef209650a67df3f0c283a4"
@@ -4572,13 +4567,6 @@ mssql@9.0.1:
     tarn "^3.0.2"
     tedious "^15.0.1"
 
-"multi-crypto-js@git+https://git.williamchan.me:10443/engine-npm/multi-crypto-js.git#989f6afbfb7d82977a254894ef326240757550b3":
-  version "1.0.3"
-  resolved "git+https://git.williamchan.me:10443/engine-npm/multi-crypto-js.git#989f6afbfb7d82977a254894ef326240757550b3"
-  dependencies:
-    crypto-js "^4.1.1"
-    jsbn "1.1.0"
-
 multimatch@5.0.0:
   version "5.0.0"
   resolved "https://registry.npmmirror.com/multimatch/-/multimatch-5.0.0.tgz#932b800963cea7a31a033328fa1e0c3a1874dbe6"
@@ -4692,9 +4680,9 @@ node-addon-api@^5.0.0:
   resolved "https://registry.npmmirror.com/node-addon-api/-/node-addon-api-5.0.0.tgz#7d7e6f9ef89043befdb20c1989c905ebde18c501"
   integrity sha512-CvkDw2OEnme7ybCykJpVcKH+uAOLV2qLqiyla128dN9TkEWfrYmxG6C2boDe5KcNQqZF3orkqzGgOMvZ/JNekA==
 
-"node-dubbo@git+https://git.williamchan.me:10443/engine-npm/node-dubbo.git#5942ce431185699ab356a087158e6488e0dc5223":
+"node-dubbo@git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-dubbo.git#master":
   version "0.1.2"
-  resolved "git+https://git.williamchan.me:10443/engine-npm/node-dubbo.git#5942ce431185699ab356a087158e6488e0dc5223"
+  resolved "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-dubbo.git#8d79235a75446865f568f056e0273eedda0862b3"
   dependencies:
     compare-versions "^4.1.3"
     hessian.js "^2.10.0"
@@ -4730,15 +4718,15 @@ node-releases@^2.0.6:
   resolved "https://registry.npmmirror.com/node-releases/-/node-releases-2.0.6.tgz#8a7088c63a55e493845683ebf3c828d8c51c5503"
   integrity sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==
 
-"node-t2sdk@git+https://git.williamchan.me:10443/engine-npm/node-t2sdk.git#d26d5813e7b29cc1f0b86debc4a6cb523469e5bb":
+"node-t2sdk@git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-t2sdk.git#master":
   version "0.0.1"
-  resolved "git+https://git.williamchan.me:10443/engine-npm/node-t2sdk.git#d26d5813e7b29cc1f0b86debc4a6cb523469e5bb"
+  resolved "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-t2sdk.git#0acbbad8d85bd86dd099144ff1343ac844d00a2a"
   dependencies:
     node-addon-api "^5.0.0"
 
-"node-tzt@git+https://git.williamchan.me:10443/engine-npm/node-tzt.git#d1131ba47369befdc2f96b78c7657cc610f7b3e2":
+"node-tzt@git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-tzt.git#master":
   version "0.0.1"
-  resolved "git+https://git.williamchan.me:10443/engine-npm/node-tzt.git#d1131ba47369befdc2f96b78c7657cc610f7b3e2"
+  resolved "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-tzt.git#9ad92950b4e868c68e55550c4729dc50e5c2d1da"
   dependencies:
     node-addon-api "^5.0.0"
 
@@ -4942,9 +4930,9 @@ optionator@^0.9.1:
     type-check "^0.4.0"
     word-wrap "^1.2.3"
 
-"oracledb@git+https://git.williamchan.me:10443/engine-npm/node-oracledb.git#e718056666251d41c345a41c1b087e84c08dbbef":
+"oracledb@git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-oracledb.git#master":
   version "5.3.0"
-  resolved "git+https://git.williamchan.me:10443/engine-npm/node-oracledb.git#e718056666251d41c345a41c1b087e84c08dbbef"
+  resolved "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-oracledb.git#3fe59ca136c79b5a5400dd3bf22963e86017b9aa"
 
 os-dns-native@^1.2.0:
   version "1.2.0"
@@ -5205,9 +5193,9 @@ pkg-fetch@3.4.2:
     tar-fs "^2.1.1"
     yargs "^16.2.0"
 
-"pkg-preview@git+https://git.williamchan.me:10443/engine-npm/pkg.git#b93c47b837b0de163129154f47b97b4918b85447":
+"pkg-preview@git+ssh://git@gitlab.perfma-inc.com:fed/node/client-pkg-preview.git#master":
   version "5.5.2"
-  resolved "git+https://git.williamchan.me:10443/engine-npm/pkg.git#b93c47b837b0de163129154f47b97b4918b85447"
+  resolved "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-pkg-preview.git#88d4015d62a696cc190d63c55712d15615b7ad70"
   dependencies:
     "@babel/parser" "7.16.2"
     "@babel/types" "7.16.0"
@@ -6680,9 +6668,9 @@ ws@~8.2.3:
   resolved "https://registry.npmmirror.com/ws/-/ws-8.2.3.tgz#63a56456db1b04367d0b721a0b80cae6d8becbba"
   integrity sha512-wBuoj1BDpC6ZQ1B7DWQBYVLphPWkm8i9Y0/3YdHjHKHiohOJ1ws+3OccDWtH+PoC9DZD5WOTrJvNbWvjS6JWaA==
 
-"xlsx@git+https://git.williamchan.me:10443/engine-npm/sheetjs.git#23697aff409a4a82bd4140ce5d8d906bc34e77a1":
+"xlsx@git+ssh://git@gitlab.perfma-inc.com:fed/node/client-sheetjs.git#master":
   version "0.18.8"
-  resolved "git+https://git.williamchan.me:10443/engine-npm/sheetjs.git#23697aff409a4a82bd4140ce5d8d906bc34e77a1"
+  resolved "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-sheetjs.git#1870e541d4eb00d699d3a9b10f78a6e154ba3776"
 
 xmlhttprequest-ssl@~2.0.0:
   version "2.0.0"
