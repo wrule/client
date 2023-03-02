@@ -1,0 +1,149 @@
+# -----------------------------------------------------------
+# This file is part of the XEngine.
+# @author William Chan <root@williamchan.me>
+# -----------------------------------------------------------
+
+control:
+  host: 127.0.0.1
+  port: 3001
+http:
+  host: 0.0.0.0
+  port: 3000
+  rules:
+    testapp:
+      routes:
+        - id: "1"
+          path: /test/{id}
+          method: post
+          response:
+            - id: wahaha
+              statusCode: 200
+              body: hello world
+              contentType: text/plain
+        - id: "2"
+          path: /test
+          method: GET
+          response:
+            - id: wahaha
+              statusCode: 200
+              body: hello world122
+              contentType: text/plain
+            - id: hit
+              statusCode: 200
+              body: hit
+              contentType: text/plain
+            - id: 1
+              statusCode: 200
+              body: yeah
+              contentType: text/plain
+          assertGroup:
+            - asserts:
+                - key: login
+                  area: params
+                  assert: 0
+                  value: "my_login"
+              target: hit
+            - asserts:
+                - key: login
+                  area: params
+                  assert: 0
+                  value: "y"
+              target: 1
+        - id: "3"
+          path: /xml/{id}
+          method: get
+          response:
+            - id: wahaha
+              statusCode: 200
+              contentType: application/xml
+              schema:
+                type: object
+                properties:
+                  "?xml":
+                    type: object
+                    xml:
+                      attributes:
+                        - key: version
+                          value: "1.0"
+                        - key: encoding
+                          value: UTF-8
+                  root:
+                    type: object
+                    xml:
+                      attributes:
+                        - key: key
+                          value: value
+                    properties:
+                      ua:
+                        type: string
+                        mock:
+                          mock: ${headers["user-agent"]}
+                      userIp:
+                        type: string
+                      ids:
+                        type: array
+                        items:
+                          type: integer
+                        description: 主键ID集合
+                      remark:
+                        type: string
+                        description: 备注
+                      stageId:
+                        type: integer
+                        description: 阶段ID
+                      resultStatus:
+                        type: string
+                        description: 用例结果
+                title: 批量执行手工用例请求参数
+          assertGroup:
+            - asserts:
+                - key: id
+                  area: path
+                  assert: 0
+                  value: "1"
+              target: wahaha
+        - id: "4"
+          path: /json/{id}
+          method: get
+          response:
+            - id: wahaha
+              statusCode: 200
+              contentType: application/json
+              schema:
+                type: object
+                properties:
+                  root:
+                    type: object
+                    properties:
+                      modifyTime:
+                        type: string
+                      xxmodifyTime:
+                        type: number
+                      ua:
+                        type: number
+                        mock:
+                          mock: ${path["id"]}
+                      userIp:
+                        type: string
+                      ids:
+                        type: array
+                        items:
+                          type: integer
+                        description: 主键ID集合
+                      remark:
+                        type: string
+                        description: 备注
+                      stageId:
+                        type: integer
+                        description: 阶段ID
+                      resultStatus:
+                        type: string
+                        description: 用例结果
+                title: 批量执行手工用例请求参数
+          assertGroup:
+            - asserts:
+                - key: id
+                  area: path
+                  assert: 0
+                  value: "1"
+              target: wahaha

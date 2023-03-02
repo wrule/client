@@ -1,0 +1,12 @@
+{
+  "all": true,
+  "include": [
+    "src/**/*.ts",
+    "plugin/**/*.ts",
+    "mock/**/*.ts"
+  ],
+  "reporter": [
+    "text-summary"
+  ],
+  "temp-dir": "./node_modules/.cache"
+}

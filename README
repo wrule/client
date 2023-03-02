@@ -1,0 +1,40 @@
+,ggg,          ,gg   ,ggggggg,
+dP"""Y8,      ,dP'  ,dP""""""Y8b
+Yb,_  "8b,   d8"    d8'    a  Y8
+ `""    Y8,,8P'     88     "Y8P'                            gg
+         Y88"       `8baaaa                                 ""
+        ,888b      ,d8P""""       ,ggg,,ggg,     ,gggg,gg   gg    ,ggg,,ggg,    ,ggg,
+       d8" "8b,    d8"           ,8" "8P" "8,   dP"  "Y8I   88   ,8" "8P" "8,  i8" "8i
+     ,8P'    Y8,   Y8,           I8   8I   8I  i8'    ,8I   88   I8   8I   8I  I8, ,8I
+    d8"       "Yb, `Yba,,_____, ,dP   8I   Yb,,d8,   ,d8I _,88,_,dP   8I   Yb, `YbadP'
+  ,8P'          "Y8  `"Y8888888 8P'   8I   `Y8P"Y8888P"8888P""Y88P'   8I   `Y8888P"Y888
+                                                     ,d8I'
+                                                   ,dP'8I
+                                                  ,8"  8I
+                                                  I8   8I
+                                                  `8, ,8I
+                                                   `Y8P"
+
+XEngine
+=======
+
+A high-performance automated test execution engine
+
+Development
+You need the following tools to compile XEngine, the package names vary between distributions.
+
+binutils diff find flex gawk gcc-6+ g++ getopt grep install libc-dev libz-dev
+make4.1+ python3.6+ unzip which patch nodejs16+
+
+Windows: Microsoft Visual C++ Build Tools 2015+
+
+macOS: Xcode9+
+brew install pkg-config cairo pango libpng jpeg giflib librsvg
+
+Credits
+got https://github.com/sindresorhus/got
+node-mysql2 https://github.com/sidorares/node-mysql2
+node-mongodb-native https://github.com/mongodb/node-mongodb-native
+node-oracledb https://github.com/oracle/node-oracledb
+ioredis https://www.npmjs.com/package/ioredis
+pkg https://github.com/vercel/pkg

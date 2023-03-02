@@ -1,0 +1,22 @@
+diff --git a/node_modules/got/dist/source/core/index.js b/node_modules/got/dist/source/core/index.js
+index c6cebd5..7d1ec8f 100644
+--- a/node_modules/got/dist/source/core/index.js
++++ b/node_modules/got/dist/source/core/index.js
+@@ -329,7 +329,7 @@ class Request extends stream_1.Duplex {
+                     throw new TypeError('Missing `url` property');
+                 }
+                 this.requestUrl = normalizedURL.toString();
+-                decodeURI(this.requestUrl);
++                // decodeURI(this.requestUrl);
+                 await this._finalizeBody();
+                 await this._makeRequest();
+                 if (this.destroyed) {
+@@ -865,7 +865,7 @@ class Request extends stream_1.Duplex {
+                 // Handles invalid URLs. See https://github.com/sindresorhus/got/issues/604
+                 const redirectUrl = new url_1.URL(redirectBuffer, url);
+                 const redirectString = redirectUrl.toString();
+-                decodeURI(redirectString);
++                // decodeURI(redirectString);
+                 // eslint-disable-next-line no-inner-declarations
+                 function isUnixSocketURL(url) {
+                     return url.protocol === 'unix:' || url.hostname === 'unix';

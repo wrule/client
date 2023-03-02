@@ -1,0 +1,13 @@
+diff --git a/node_modules/@mongosh/browser-runtime-electron/lib/electron-interpreter-environment.js b/node_modules/@mongosh/browser-runtime-electron/lib/electron-interpreter-environment.js
+index 6961fe0..cb2fe4c 100644
+--- a/node_modules/@mongosh/browser-runtime-electron/lib/electron-interpreter-environment.js
++++ b/node_modules/@mongosh/browser-runtime-electron/lib/electron-interpreter-environment.js
+@@ -11,7 +11,7 @@ class ElectronInterpreterEnvironment {
+         vm_1.default.createContext(context);
+     }
+     sloppyEval(code) {
+-        return vm_1.default.runInContext(code, this.context, { breakOnSigint: true });
++        return vm_1.default.runInContext(code, this.context);
+     }
+     getContextObject() {
+         return this.context;

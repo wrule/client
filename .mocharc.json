@@ -1,0 +1,16 @@
+{
+  "extension": ["ts"],
+  "spec": [
+    "test/**/*.test.ts",
+    "plugin/**/tests/**/*.test.ts"
+  ],
+  "require": [
+    "ts-node/register",
+    "tsconfig-paths/register"
+  ],
+  "parallel": true,
+  "recursive": true,
+  "reporter": "spec",
+  "timeout": 5000,
+  "global": true
+}

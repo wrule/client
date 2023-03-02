@@ -1,0 +1,13 @@
+{
+  "restartable": "rs",
+  "ignore": [".git", "node_modules/**/node_modules"],
+  "execMap": {
+    "ts": "node --trace-warnings -r ts-node/register -r tsconfig-paths/register"
+  },
+  "env": {
+    "GIT_COMMIT": "develop",
+    "NODE_ENV": "develop",
+    "BUILD_TIME": 0
+  },
+  "ext": "js,json,ts,yaml"
+}

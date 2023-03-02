@@ -1,0 +1,33 @@
+.DS_Store
+.idea
+node_modules
+
+# lock
+package-lock.json
+
+# log
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# dist
+dist
+bin
+coverage
+modules
+engine_output
+
+# dev
+src/dev/data/*.json
+/mock-config.yaml
+
+# 暂时去掉的 cpp node-plugin 前端不好维护 先用JS版本简单替代
+node-engine-utils-plugin
+node-engine-variable-state-plugin
+
+# rust plugin
+rust-vm
+rust-http-proxy
+
+# except for .gitkeep
+!.gitkeep
