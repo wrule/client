@@ -76,6 +76,7 @@ let exec: Execute | null = null;
 let channel: MessagePort | null = null;
 
 if (!isMainThread && parentPort) {
+  // 主线程通信channel端口监听事件
   parentPort.on('message', async (event: Task) => {
     // Logger.debug(JSON.stringify(event), '11111111111111111');
     switch (event.task) {
@@ -114,7 +115,7 @@ if (!isMainThread && parentPort) {
 
   parentPort.postMessage(`[thread] online pid: ${process.pid}`);
   setInterval(() => {
-    if (parentPort) parentPort.postMessage(1);
+    if (parentPort) parentPort.postMessage(1); // 定时器和主线程通信，刷新worker存活状态
   }, 2000);
 }
 

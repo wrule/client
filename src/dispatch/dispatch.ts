@@ -273,6 +273,7 @@ export default class Dispatch extends EventEmitter {
    * @returns {Promise<void>}
    */
   private async execute(data: ExecuteTaskData, retry: number): Promise<EXECUTE_STATUS> {
+    // 这里每次调度时，如果没有空闲worker，await后return逻辑不会走，因而调度过程相当于被挂起了
     const worker = this.useDebugPool ? await debugWorkerPool.runWithTask(data) : await workerPool.runWithTask(data);
     return new Promise((resolve) => {
       const complete = (status: EXECUTE_STATUS): void => {

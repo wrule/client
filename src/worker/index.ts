@@ -151,7 +151,7 @@ class WorkerPool {
           } as ExecuteLogMessage);
         }
         worker.setStatus(WORKER_STATUS.DIE);
-        await worker.instance.terminate();
+        await worker.instance.terminate(); // 如果该worker实例60秒没有通信，则手动kill
       }
     });
   };
@@ -207,7 +207,8 @@ class WorkerPool {
         event.emit('exit', code);
       }
       const index = this.worker.findIndex((item) => item === worker);
-      if (index !== -1) this.worker.splice(index, 1);
+      if (index !== -1) this.worker.splice(index, 1); // 找到worker对象，从池子中移除
+      // 创建线程时，就监听了exit事件，当该线程退出时（可能是由于执行事件过长，线程阻塞长时间没有和主线程通信），会调用一遍next，看一下队列中是否有等待执行的调度
       next();
     });
     this.worker.push(worker);
@@ -235,6 +236,7 @@ class WorkerPool {
 
   /**
    * 获取空闲的线程 FIFO
+   * @description 尝试获取空闲worker，return一个promise，先把resolve返回worker的回调函数丢到队列中，然后立即执行一次next方法去遍历池子中是否存在空闲线程
    * @returns {Promise<WorkerTask>}
    */
   private getIdleWorker(): Promise<WorkerEventInstance> {
@@ -333,6 +335,8 @@ class WorkerPool {
         event.emit('cancel-done');
       });
     } else {
+      // 利用MessageChannel 实现主线程和worker的通信
+      // worker本身只能监听一些exit等事件，无法实现业务上的事件通讯如：用例执行完毕worker空闲
       const { port1, port2 } = new MessageChannel();
       /** 监听上层来的 query 事件下发 */
       event.on('query', (e: QueryMessage) => {
@@ -347,6 +351,7 @@ class WorkerPool {
         worker.instance.postMessage({ task: WORKER_TASK_TYPE.CANCEL, cancel: 1 } as CancelTask);
       });
       // 端口关闭
+      // 主线程端口监听事件，注册处理逻辑
       port1.once('close', () => {
         // Logger.debug('[worker pool] port close 4');
         worker.setStatus(WORKER_STATUS.IDLE);
@@ -367,6 +372,7 @@ class WorkerPool {
         if (e.event === 'done' || e.event === 'exit') {
           /**
            * 进程退出状态 不要设置空闲
+           * worker执行完毕用例，拿到done事件，进行线程池对该worker的状态重置为空闲
            */
           if (e.event === 'done' && e.cancel !== true) {
             // Logger.debug('[worker pool] port close 5');
@@ -390,7 +396,7 @@ class WorkerPool {
       // send execute message
       // console.log('send data', data);
       worker.instance.postMessage({
-        channel: port2,
+        channel: port2, // 将port2传入worker，实现和主线程通信
         data,
         task: WORKER_TASK_TYPE.EXECUTE,
       } as WorkerTask, transform);
