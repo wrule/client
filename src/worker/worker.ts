@@ -48,9 +48,9 @@ import '@addon/tzt';
 
 // import '@plugin/browser';
 
-if (isDeveloper) {
-  require('inspector').open(9230);
-}
+// if (isDeveloper) {
+//   require('inspector').open(9230);
+// }
 
 // // 临时
 // const root = process.cwd();
