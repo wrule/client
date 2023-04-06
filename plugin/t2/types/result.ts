@@ -32,4 +32,5 @@ export interface T2DetailResult extends SingleControllerDetailResult {
 
 export interface T2Result extends BaseResult<T2ExtraResult> {
   type: CONTROLLER_TYPE.T2;
+  data?: any;
 }

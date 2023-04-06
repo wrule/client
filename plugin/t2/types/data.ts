@@ -5,7 +5,7 @@
 
 import { CONTROLLER_TYPE } from '@engine/core/enum';
 import { SingleControllerData } from '@engine/core/types/data';
-import { T2Options } from '@engine/dispatch/types/server';
+import { T2Options, T2Server } from '@engine/dispatch/types/server';
 
 /**
   * 支持三种模式
@@ -29,3 +29,10 @@ export interface T2ControllerData extends SingleControllerData {
   };
   options?: T2Options;
 }
+
+export type T2Whale<T> = {
+  functionId: number;
+  t2Server: T;
+};
+
+export type T2WhaleOptions = T2Whale<T2Server>
