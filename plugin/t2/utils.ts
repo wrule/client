@@ -16,7 +16,8 @@ type T2WhaleResult = {
   success: boolean;
   error?: string;
   data: {
-    data?: any[][];
+    responseMsg?: any;
+    requestMsg?: any;
   };
 }
 

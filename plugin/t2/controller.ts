@@ -126,7 +126,7 @@ export default class T2Controller extends SingleController<T2ControllerData> {
       //   throw new ResponseError(getT2Error(result));
       // }
       this.result = result;
-      this.variable.setLocal('RESULT_DATA', result.data);
+      this.variable.setLocal('RESULT_DATA', result.data?.data?.responseMsg);
       // this.variable.setLocal('RESULT_CODE', result.errcode);
     } catch (e) {
       if (e instanceof ResponseError) {
