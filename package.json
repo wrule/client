@@ -131,7 +131,7 @@
     "mocha": "^10.1.0",
     "nodemon": "^2.0.20",
     "nyc": "^15.1.0",
-    "patch-package": "^6.5.0",
+    "patch-package": "^6.5.1",
     "pkg-preview": "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-pkg-preview.git#master",
     "rimraf": "^3.0.2",
     "rollup": "^2.79.1",
