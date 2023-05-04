@@ -120,6 +120,16 @@ program.option('--jdbc-service-port <number>', 'jdbc service port', (port) => {
   return p;
 }, 9123);
 
+program.option('--t2-service-host <string>', 't2 service host', '127.0.0.1');
+
+program.option('--t2-service-port <number>', 't2 service port', (port) => {
+  const p = Number(port);
+  if (p <= 0 || p > 0xffff) {
+    throw new InvalidArgumentError('Unreasonable port range.');
+  }
+  return p;
+}, 9123);
+
 // ------------------------------------ MOCK ------------------------------------
 program.option('--mock', 'enable mock server mode');
 
