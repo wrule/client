@@ -101,7 +101,7 @@ export default class T2Controller extends SingleController<T2ControllerData> {
   protected createPostVMContext(): PostContext {
     const vmContext = Object.create(null) as PostContext;
     vmContext.post = Object.create(null);
-    vmContext.post.getResultData = () => this.result?.data;
+    vmContext.post.getResultData = () => this.result?.data?.data?.responseMsg;
     // vmContext.post.getResultCode = () => this.result?.errcode;
 
     return vmContext;
@@ -162,7 +162,7 @@ export default class T2Controller extends SingleController<T2ControllerData> {
     return {
       ...base,
       body: this.params.body || this.data.body,
-      result: this.result?.data,
+      result: this.result?.data?.data?.responseMsg,
       // error: this.result && this.result.errcode !== 0 ? {
       //   errcode: this.result.errcode,
       //   errmsg: this.result.errmsg,
