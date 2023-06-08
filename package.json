@@ -79,7 +79,7 @@
     "moment": "^2.29.4",
     "mongodb": "4.1.4",
     "mssql": "9.0.1",
-    "multi-crypto-js": "git+ssh://git@gitlab.perfma-inc.com:fed/node/better-mock.git#master",
+    "multi-crypto-js": "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-multi-crypto.git#master",
     "mustache": "^4.2.0",
     "mysql2": "^2.3.3",
     "node-dubbo": "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-dubbo.git#master",
