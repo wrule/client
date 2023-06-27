@@ -1,6 +1,6 @@
 {
   "name": "x-engine",
-  "version": "0.0.43",
+  "version": "0.0.44",
   "description": "A high-performance test execution engine",
   "author": "William Chan",
   "preview": true,
@@ -53,8 +53,8 @@
   "dependencies": {
     "@grpc/grpc-js": "^1.7.3",
     "@grpc/proto-loader": "^0.7.3",
-    "@mongosh/browser-runtime-electron": "^1.6.0",
-    "@mongosh/service-provider-server": "^1.6.0",
+    "@mongosh/browser-runtime-electron": "1.6.0",
+    "@mongosh/service-provider-server": "1.6.0",
     "amqplib": "^0.10.3",
     "better-mock": "git+ssh://git@gitlab.perfma-inc.com:fed/node/better-mock.git#master",
     "bson": "^4.7.0",
@@ -111,7 +111,7 @@
     "@types/mime": "^3.0.1",
     "@types/mocha": "^10.0.0",
     "@types/mssql": "^8.1.1",
-    "@types/node": "^18.11.7",
+    "@types/node": "18.11.18",
     "@types/oracledb": "^5.2.3",
     "@types/papaparse": "^5.3.5",
     "@types/pg-pool": "^2.0.3",
