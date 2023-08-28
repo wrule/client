@@ -27,8 +27,8 @@ export const CONFIG = {
    * HTTP
    */
   HTTP_DEFAULT_HEADERS: {
-    // 'User-Agent': `XEngine/${ENGINE_VERSION}`,
-    // 'X-Engine': ENGINE_VERSION,
+    'User-Agent': `XEngine/${ENGINE_VERSION}`,
+    'X-Engine': ENGINE_VERSION,
     Accept: '*/*',
     'Accept-Encoding': 'gzip, deflate, br',
     'Cache-Control': 'no-cache',
