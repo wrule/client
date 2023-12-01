@@ -113,14 +113,21 @@ export default class T2Controller extends SingleController<T2ControllerData> {
   protected async execute(): Promise<boolean> {
     try {
       const timeout = this.data.config?.timeout || CONFIG.T2_DEFAULT_TIMEOUT;
+      const body = this.getBody();
+      let bodyStr = this.data.body;
+      try {
+        bodyStr = JSON.stringify(body);
+      } catch (error) {
+
+      }
       const result = await execute({
         functionId: this.data.functionNo,
         t2Server: {
           ...this.services,
         },
-      }, timeout, this.data.body);
+      }, timeout, bodyStr);
       this.totalTime = result.totalTime;
-      this.params.body = this.getBody();
+      this.params.body = body;
       this.params.options = changeContentFromVariables(this.params.options, this.variable);
       // if (result.errcode !== 0 && !this.data.assert?.length) {
       //   throw new ResponseError(getT2Error(result));
