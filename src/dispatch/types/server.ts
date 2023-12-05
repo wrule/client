@@ -11,6 +11,7 @@ export enum SERVER_TYPE {
   /** 从抓包来看 其实也是TCP的一种 修改了部分TCP的特性 所以是TCP2 */
   T2 = 3,
   GRPC = 4,
+  T3 = 5,
   TZT = 10000,
 }
 
@@ -93,4 +94,35 @@ export interface T2Server extends BaseServer {
   readonly options?: T2Options;
 }
 
-export type Server = TCPServer | T2Server | GRPCServer;
+interface T3CertConfig {
+  cert: FileData;
+  certPwd?: string;
+}
+
+export interface T3Options {
+  /** T3功能号 */
+  functionNo: number;
+  /** 服务名 */
+  service: string;
+}
+
+export interface T3Server extends BaseServer {
+  readonly type: SERVER_TYPE.T3;
+  /** 端口是必填项 T2不清楚默认端口是多少 */
+  readonly port: number;
+  readonly config: {
+    /** 使用SSL */
+    tls?: T2CertConfig;
+    /**
+     * 内容编码，会对发送和返回都进行编码解码，默认 UTF-8
+     * #define T2_CONTENT_CHARSET_UTF8 0
+     * #define T2_CONTENT_CHARSET_GBK 1
+     */
+    encoding?: number;
+    /** license 是必填项 */
+    license: T2CertConfig;
+  };
+  readonly options?: T2Options;
+}
+
+export type Server = TCPServer | T2Server | GRPCServer | T3Server;
