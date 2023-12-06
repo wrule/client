@@ -35,6 +35,10 @@ export interface T3ControllerData extends SingleControllerData {
 
 export type T3Whale<T> = {
   functionId: number;
+  service: string;
+  security: string;
+  requestParams: string;
+  shardingInfo: string;
   t3Server: T;
 };
 

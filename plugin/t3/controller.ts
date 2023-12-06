@@ -96,6 +96,10 @@ export default class T3Controller extends SingleController<T3ControllerData> {
       }
       const result = await execute({
         functionId: this.data.functionNo,
+        service: this.data.service,
+        security: this.data.security,
+        requestParams: this.data.requestParams,
+        shardingInfo: this.data.shardingInfo,
         t3Server: {
           ...this.services,
         },

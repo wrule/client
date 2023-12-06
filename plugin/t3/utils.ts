@@ -52,11 +52,12 @@ const agent = new http.Agent({
 export const execute = async (options: T3WhaleOptions, timeout: number, body?: T3Body): Promise<T3Result> => {
   const result = {
   } as T3Result;
+  // t3和t2类似，访问的地址这里不做区分，使用同一份配置
   const server = `${opts.t2ServiceHost}:${opts.t2ServicePort}`;
   // const server = '10.10.16.105:9123';
   try {
     // select * from test2
-    const data = await Got<T3WhaleResult>(`http://${server}/twhale/t2`, {
+    const data = await Got<T3WhaleResult>(`http://${server}/twhale/t3`, {
       method: 'POST',
       json: {
         ...options,
