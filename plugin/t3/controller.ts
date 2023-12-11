@@ -133,6 +133,10 @@ export default class T3Controller extends SingleController<T3ControllerData> {
     return {
       // options: this.params?.options || this.data.options,
       functionNo: this.data.functionNo,
+      service: this.data.service,
+      security: this.data.security,
+      requestParams: this.data.requestParams,
+      shardingInfo: this.data.shardingInfo,
       serverId: this.data.serverId,
       serverName: this.services?.serverName,
       config: this.data.config,
@@ -167,6 +171,10 @@ export default class T3Controller extends SingleController<T3ControllerData> {
       type: CONTROLLER_TYPE.T3,
       extra: {
         functionNo: data.functionNo,
+        service: data.service,
+        security: data.security,
+        requestParams: data.requestParams,
+        shardingInfo: data.shardingInfo,
         // options: data.options,
         serverId: data.serverId,
         config: data.config,

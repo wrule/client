@@ -11,6 +11,10 @@ import { CONTROLLER_TYPE } from '@engine/core/enum';
 
 export interface T3ExtraResult {
   functionNo: number;
+  service: string;
+  security: string;
+  requestParams: string;
+  shardingInfo: string;
   serverId: string;
   serverName?: string;
   options?: T3Options;
