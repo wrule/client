@@ -88,6 +88,7 @@ export default class T3Controller extends SingleController<T3ControllerData> {
     try {
       const timeout = this.data.config?.timeout || CONFIG.T3_DEFAULT_TIMEOUT;
       const body = this.getBody();
+      this.params.body = body;
       let bodyStr = this.data.body;
       try {
         bodyStr = JSON.stringify(body);
@@ -105,11 +106,6 @@ export default class T3Controller extends SingleController<T3ControllerData> {
         },
       }, timeout, bodyStr);
       this.totalTime = result.totalTime;
-      this.params.body = body;
-      // this.params.options = changeContentFromVariables(this.params.options, this.variable);
-      // if (result.errcode !== 0 && !this.data.assert?.length) {
-      //   throw new ResponseError(getT3Error(result));
-      // }
       this.result = result;
       this.variable.setLocal('RESULT_DATA', result.data?.data?.responseMsg);
       // this.variable.setLocal('RESULT_CODE', result.errcode);

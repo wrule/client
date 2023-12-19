@@ -29,14 +29,7 @@ export const downloadT3File = async (data: T3ControllerData, context: Context): 
   const server = getServerById<T3Server>(data.serverId, SERVER_TYPE.T3, context.env.server);
   if (server) {
     if (server.config.license) {
-      await downloadFile(server.config.license.cert);
-    }
-    if (server.config?.tls) {
-      const cfg = server.config.tls;
-      if (cfg.cert.ext) {
-        cfg.cert.ext = 'pfx';
-      }
-      await downloadFile(cfg.cert);
+      await downloadFile(server.config.license);
     }
   }
 };

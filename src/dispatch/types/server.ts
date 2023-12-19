@@ -94,11 +94,6 @@ export interface T2Server extends BaseServer {
   readonly options?: T2Options;
 }
 
-interface T3CertConfig {
-  cert: FileData;
-  certPwd?: string;
-}
-
 export interface T3Options {
   /** T3功能号 */
   functionNo: number;
@@ -111,18 +106,9 @@ export interface T3Server extends BaseServer {
   /** 端口是必填项 T2不清楚默认端口是多少 */
   readonly port: number;
   readonly config: {
-    /** 使用SSL */
-    tls?: T2CertConfig;
-    /**
-     * 内容编码，会对发送和返回都进行编码解码，默认 UTF-8
-     * #define T2_CONTENT_CHARSET_UTF8 0
-     * #define T2_CONTENT_CHARSET_GBK 1
-     */
-    encoding?: number;
     /** license 是必填项 */
-    license: T2CertConfig;
+    license: FileData;
   };
-  readonly options?: T2Options;
 }
 
 export type Server = TCPServer | T2Server | GRPCServer | T3Server;
