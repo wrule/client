@@ -19,8 +19,6 @@ export type T3Body = Record<string, unknown> | unknown[] | string;
 
 export interface T3ControllerData extends SingleControllerData {
   type: CONTROLLER_TYPE.T3;
-  /** 可以是空包 */
-  body?: T3Body;
   /** T3服务器 */
   serverId: string;
   functionNo: number;

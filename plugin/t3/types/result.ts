@@ -31,7 +31,7 @@ export interface T3DetailResult extends SingleControllerDetailResult {
     errcode: number;
     errmsg: string;
   };
-  body?: T3Body;
+  requestParams?: T3Body;
 }
 
 export interface T3Result extends BaseResult<T3ExtraResult> {

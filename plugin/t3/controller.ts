@@ -16,7 +16,7 @@ export default class T3Controller extends SingleController<T3ControllerData> {
   // 因为不使用node-t2sdk的连接池，所以结构中没有errcode和errmsg
   private result?: { data?: any };
   private readonly params!: {
-    body?: T3Body;
+    requestParams?: T3Body;
   };
 
   /**
@@ -33,7 +33,7 @@ export default class T3Controller extends SingleController<T3ControllerData> {
       this.setError(new SystemError(`T3 Configuration ${this.data.serverId} not found.`));
     }
     this.params = {
-      body: this.data.body,
+      requestParams: this.data.requestParams,
     };
   }
 
@@ -42,17 +42,17 @@ export default class T3Controller extends SingleController<T3ControllerData> {
    * @returns {Record<string, unknown> | unknown[]}
    */
   private getBody(): Record<string, unknown> | unknown[] {
-    if (typeof this.params.body === 'string') {
-      const body = this.variable.replace(this.params.body);
+    if (typeof this.params.requestParams === 'string') {
+      const requestParams = this.variable.replace(this.params.requestParams);
       let rt = {};
       try {
-        rt = JSON.parse(body);
+        rt = JSON.parse(requestParams);
       } catch (e) {
-        throw new ExecuteError(`T3 body is not a valid json string: ${body}`);
+        throw new ExecuteError(`T3 requestParams is not a valid json string: ${requestParams}`);
       }
       return rt;
     }
-    return changeContentFromVariables(this.params.body, this.variable);
+    return changeContentFromVariables(this.params.requestParams, this.variable);
   }
 
   /**
@@ -61,8 +61,8 @@ export default class T3Controller extends SingleController<T3ControllerData> {
   protected createPreVMContext(): PreContext {
     const vmContext = Object.create(null) as PreContext;
     vmContext.pre = Object.create(null);
-    vmContext.pre.setBody = (body: any) => {
-      this.params.body = body;
+    vmContext.pre.setBody = (requestParams: any) => {
+      this.params.requestParams = requestParams;
     };
     vmContext.pre.getBody = () => this.getBody();
     return vmContext;
@@ -88,8 +88,8 @@ export default class T3Controller extends SingleController<T3ControllerData> {
     try {
       const timeout = this.data.config?.timeout || CONFIG.T3_DEFAULT_TIMEOUT;
       const body = this.getBody();
-      this.params.body = body;
-      let bodyStr = this.data.body;
+      this.params.requestParams = body;
+      let bodyStr = this.data.requestParams;
       try {
         bodyStr = JSON.stringify(body);
       } catch (error) {
@@ -146,7 +146,7 @@ export default class T3Controller extends SingleController<T3ControllerData> {
     const base = await super.getDetailResult();
     return {
       ...base,
-      body: this.params.body || this.data.body,
+      requestParams: this.params.requestParams || this.data.requestParams,
       result: this.result?.data?.data?.responseMsg,
       // error: this.result && this.result.errcode !== 0 ? {
       //   errcode: this.result.errcode,
