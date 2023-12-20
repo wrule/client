@@ -4,6 +4,7 @@
  */
 import EventEmitter from 'node:events';
 import crypto from 'node:crypto';
+import { performance } from 'node:perf_hooks';
 import { CookieJar, MemoryCookieStore } from 'tough-cookie';
 import { encodeDateTime } from '@/utils/format';
 import Logger from '@/logger';
@@ -20,7 +21,7 @@ import { CONFIG, opts } from '@/config';
 import transform from '@/utils/serialize';
 import { encodeBrotli, decodeWithOptionsAsObject } from '@/utils/zlib';
 import type { ContentType } from '@/utils/serialize/type';
-import { performance } from 'node:perf_hooks';
+import { ExecuteDoneResult } from '@/server/types/message';
 
 const stdoutWrite = process.stdout.write.bind(process.stdout);
 const stderrWrite = process.stderr.write.bind(process.stderr);
@@ -78,8 +79,8 @@ export interface ExecuteEvents {
   status: (e: EXECUTE_STATUS) => void;
   progress: (e: ExecuteStatus) => void;
   // done cancel 外部区分 实际一样
-  done: (e: Buffer) => void;
-  cancel: (e: Buffer) => void;
+  done: (e: ExecuteDoneResult) => void;
+  cancel: (e: ExecuteDoneResult) => void;
   close: () => void;
   ['set-global-variable']: (e: SetGlobalVariableData) => void;
   ['interact-ask']: (e: InteractAskData) => void;
@@ -603,11 +604,20 @@ class Execute extends EventEmitter {
     try {
       this.free();
       const result = await this.build();
+      const statusResult = this.getStatusResult();
       Logger.info('----------- [%s] End -----------', this.id);
       if (this.result.isStop() === true) {
-        this.emit('cancel', result);
+        this.emit('cancel', {
+          result,
+          startTime: statusResult.startTime,
+          endTime: statusResult.endTime,
+        });
       } else {
-        this.emit('done', result);
+        this.emit('done', {
+          result,
+          startTime: statusResult.startTime,
+          endTime: statusResult.endTime,
+        });
       }
     } catch (e) {
       Logger.error(`[execute] ${e.message}`);
