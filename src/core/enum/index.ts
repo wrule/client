@@ -116,6 +116,8 @@ export enum CONTROLLER_TYPE {
   DEVICE = 161,
   /** TCP2 特殊行业定制 */
   T2 = 200,
+  /** TCP3 特殊行业定制 */
+  T3 = 300,
   JDBC = 254,
   TZT = 50000,
 }

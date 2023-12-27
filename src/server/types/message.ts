@@ -84,9 +84,17 @@ export interface ExecuteErrorMessage {
 export interface ExecuteDoneMessage {
   event: 'done';
   executeId: number;
+  startTime?: number;
+  endTime?: number;
   data: Buffer;
   retry?: number;
   cancel?: boolean;
+}
+
+export interface ExecuteDoneResult {
+  startTime?: number;
+  endTime?: number;
+  result: Buffer;
 }
 
 export type ExecuteMessageData =

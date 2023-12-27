@@ -11,6 +11,7 @@ import {
   ExecuteLogMessage, ExecuteProgressMessage,
 } from '@/server/types';
 import { EXECUTE_ERROR } from '@/server/error/execute';
+import { ExecuteDoneResult } from '@/server/types/message';
 
 export interface ExecuteSetGlobalVariableMessage {
   event: 'set-global-variable';
@@ -89,20 +90,24 @@ export const createExecuteListener = (data: WorkerTask): ExecuteEvents => {
     };
     channel.postMessage(msg);
   };
-  const done = (e: Buffer): void => {
+  const done = (e: ExecuteDoneResult): void => {
     const msg: ExecuteDoneMessage = {
       event: 'done',
       executeId,
-      data: e,
+      startTime: e.startTime,
+      endTime: e.endTime,
+      data: e.result,
     };
     channel.postMessage(msg, [msg.data.buffer]);
   };
 
-  const cancel = (e: Buffer): void => {
+  const cancel = (e: ExecuteDoneResult): void => {
     const msg: ExecuteDoneMessage = {
       event: 'done',
       executeId,
-      data: e,
+      startTime: e.startTime,
+      endTime: e.endTime,
+      data: e.result,
       cancel: true,
     };
     channel.postMessage(msg, [msg.data.buffer]);
