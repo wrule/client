@@ -198,6 +198,7 @@ export default class URLManager {
   }
 
   public get port(): string {
+    if (this.data.port === '') return '';
     const port = Number(this.replace(this.data.port));
     if (port <= 0 || port > 0xffff) {
       return '0';
