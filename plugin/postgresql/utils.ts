@@ -53,7 +53,7 @@ export const execute = async (
       result.rows = data.rows;
     } else {
       result.data = {
-        rowsAffected: data.rowCount,
+        rowsAffected: data.rowCount as any,
       };
     }
   } finally {
