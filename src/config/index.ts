@@ -154,7 +154,7 @@ export const CONFIG = {
   /**
    * 浏览器步骤默认超时时间
    */
-  BROWSER_DEFAULT_TIMEOUT: 60000,
+  BROWSER_DEFAULT_TIMEOUT: 60000 * 60,
 
 };
 
