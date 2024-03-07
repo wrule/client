@@ -5,7 +5,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "resolveJsonModule": true,
-    "types": ["node", "mocha", "webdriverio/async"],
+    "types": ["node", "mocha"],
     "sourceMap": false,
     "strict": true,
     "useUnknownInCatchVariables": false,
