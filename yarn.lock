@@ -6670,7 +6670,6 @@
   "version" "2.1.2"
 
 "saslprep@^1.0.3", "saslprep@mongodb-js/saslprep#v1.0.4":
-  "resolved" "git+ssh://git@github.com/mongodb-js/saslprep.git#9813a626d0685f54e4f2fac6160470d6e01d8c96"
   "version" "1.0.4"
   dependencies:
     "sparse-bitfield" "^3.0.3"
