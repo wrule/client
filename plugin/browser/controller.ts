@@ -130,8 +130,7 @@ export default class BrowserController extends SingleController<BrowserControlle
       const processScript: ProcessScript = {
         type: -1,
         script: this.data.command,
-        // timeout: this.data.config?.timeout || CONFIG.BROWSER_DEFAULT_TIMEOUT,
-        timeout: 60000 * 60,
+        timeout: this.data.config?.timeout || CONFIG.BROWSER_DEFAULT_TIMEOUT,
       };
       // console.log(await browser.session);
       const result = (await executeScript([processScript], {

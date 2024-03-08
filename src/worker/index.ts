@@ -138,7 +138,7 @@ class WorkerPool {
         await worker.instance.terminate();
       }
       // 15秒内没有响应，强行结束掉，可能出现了死循环
-      if (worker.isInit && now - worker.lastPingTime > 1000 * 60) {
+      if (worker.isInit && now - worker.lastPingTime > 1000 * 60 * 60) {
         Logger.error('[worker pool] Worker unresponsive, killed, executeId = %d, threadId = %d', worker.executeId, worker.instance.threadId);
         // 最后活跃时间
         Logger.error('[worker pool] Worker last active time: %s, now: %s', worker.lastPingTime, now);
