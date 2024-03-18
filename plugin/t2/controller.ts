@@ -126,7 +126,8 @@ export default class T2Controller extends SingleController<T2ControllerData> {
         t2Server: {
           ...this.services,
         },
-      }, timeout, bodyStr);
+        timeout,
+      } as any, timeout, bodyStr);
       this.totalTime = result.totalTime;
       this.params.options = changeContentFromVariables(this.params.options, this.variable);
       // if (result.errcode !== 0 && !this.data.assert?.length) {
