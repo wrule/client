@@ -11,6 +11,7 @@ import { getSystemInfo } from '@/utils/info';
 import { opts, CONFIG } from '@/config';
 import execute from '@/cli';
 import { ENGINE_VERSION } from '@/utils';
+// import VM from '@/vm';
 
 // 下个版本去掉
 require('oracledb');
@@ -59,6 +60,16 @@ Logger.info(`pid: ${info.pid}`);
 Logger.info(`tmpdir: ${info.tmpdir}`);
 Logger.info(`cwd: ${process.cwd()}`);
 Logger.info('mem=%sGB, thread=%d', (info.totalmem / 1024 / 1024 / 1024).toFixed(2), info.maxWorker);
+
+// const a = VM.spawn(`
+//   console.log(1234);
+//   console.log(5678);
+//   console.log(9999);
+
+// &&&&
+
+//                     console.log(;
+// `.trim());
 
 // nodejs 中 process.stdin.fd 永远是 0 写死的既定规则
 // 但是 windows cmd 和 PowerShell 在没有重定向 stdin 并不一定百分百是 0

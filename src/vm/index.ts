@@ -35,6 +35,28 @@ interface VMOptions {
 
 export const VM_TAG = 'XEngine.<VM>';
 
+function niceError(error: any) {
+  let result = '未定位到脚本错误位置，请手动检查代码';
+  const stacks: string[] = error.stack?.toString()?.split('\n')
+    ?.filter((line: any) => line?.trim());
+  const lineNumRegExp = /XEngine.<VM>:(\d+)/;
+  const lineNumIndex = stacks.findIndex((item) => lineNumRegExp.test(item));
+  const lineNumCode = stacks[lineNumIndex];
+  const errLineCode = stacks[lineNumIndex + 1];
+  const pointErrLineCode = stacks[lineNumIndex + 2];
+  const lineNum = Number(lineNumCode?.match(lineNumRegExp)?.[1]);
+  const charNum = pointErrLineCode.indexOf('^') + 1;
+  if (lineNumCode && errLineCode && pointErrLineCode) {
+    result = `
+脚本执行出错！
+${errLineCode}
+${pointErrLineCode}
+第 ${lineNum} 行，第 ${charNum} 个字符处发生错误，请检查脚本
+    `.trim();
+  }
+  return result;
+}
+
 /**
  * VM Module
  * @author William Chan <root@williamchan.me>
