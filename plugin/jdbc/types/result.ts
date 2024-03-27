@@ -10,6 +10,7 @@ export interface JDBCFields {
   column: string;
   type: string;
   izBinary: boolean;
+  [name: string]: any;
 }
 
 export interface JDBCRows {

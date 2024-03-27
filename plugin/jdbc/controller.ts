@@ -179,6 +179,7 @@ export default class JDBCController extends SingleController<JDBCControllerData>
             const data: JDBCProxyData = {};
             const fields = this.result.fields || [];
             fields.forEach((item, index) => {
+              data[item.name] = dat[index];
               data[item.column] = dat[index];
             });
             return data;
