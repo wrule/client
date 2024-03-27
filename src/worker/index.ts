@@ -307,13 +307,14 @@ class WorkerPool {
 
     port1.on('message', (e: CallReplyMessage) => {
       // Logger.debug('[worker pool] port close 2');
+      (e.data as any).rows = [['231']];
       Logger.info('JDBC-msg-4', JSON.stringify(e.data));
       event.emit('message', e);
       worker.setStatus(WORKER_STATUS.IDLE);
     });
 
     try {
-      Logger.info('[JDBC-p2]', data);
+      Logger.info('[JDBC-p2]', JSON.stringify(data));
     } catch (error) { console.log(error); }
     // send execute message
     worker.instance.postMessage({
