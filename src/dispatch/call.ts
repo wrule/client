@@ -5,12 +5,14 @@
 import { debugWorkerPool } from '@/worker';
 import { CALL_ERROR } from '@/server/error/call';
 import { CallMessage, CallReplyMessage, CallErrorMessage } from '@/server/types';
+import Logger from '@/logger';
 
 /**
  * 调度简易任务
  * @returns
  */
 export const dispatchCall = async (data: CallMessage): Promise<CallReplyMessage | CallErrorMessage> => {
+  Logger.info('[JDBC-dd-1]', JSON.stringify(data));
   const event = await debugWorkerPool.runWithCall(data);
   return new Promise((resolve) => {
     event.on('message', (message: CallReplyMessage | CallErrorMessage) => {
@@ -19,9 +21,11 @@ export const dispatchCall = async (data: CallMessage): Promise<CallReplyMessage 
         // eslint-disable-next-line no-param-reassign
         if (message.params?.password) delete message.params.password;
       }
+      Logger.info('[JDBC-dd-2]', JSON.stringify(message));
       resolve(message);
     });
     event.on('close', () => {
+      Logger.info('[JDBC-dd-3]', JSON.stringify(data));
       resolve({
         ...data,
         success: false,
