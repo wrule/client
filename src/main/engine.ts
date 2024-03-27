@@ -61,24 +61,30 @@ Logger.info(`tmpdir: ${info.tmpdir}`);
 Logger.info(`cwd: ${process.cwd()}`);
 Logger.info('mem=%sGB, thread=%d', (info.totalmem / 1024 / 1024 / 1024).toFixed(2), info.maxWorker);
 
-const a = VM.spawn(`
+const debugScript = `
 let a = {
   b: 1,
   c: undefined,
 };
 
+&&&
+
 console.log(a);
 
 a.d = 2;
+`;
 
-console.log(a);
+// VM.spawn(debugScript.trim());
 
-a.e = 3;
+// async function main() {
+//   const b = await executeScript([{
+//     type: PROCESS_SCRIPT_TYPE.PRE_AND_POST,
+//     script: debugScript,
+//   }]);
+//   console.log(1124, b);
+// }
 
-console.log(a);
-
-a.f = 4;
-`.trim());
+// main();
 
 // nodejs 中 process.stdin.fd 永远是 0 写死的既定规则
 // 但是 windows cmd 和 PowerShell 在没有重定向 stdin 并不一定百分百是 0
