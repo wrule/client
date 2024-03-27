@@ -264,7 +264,10 @@ export default class ClientEvent {
       // if (isBusy()) {
       //   return this.sendCallError(event, CALL_ERROR.BUSY);
       // }
-      dispatchCall(event).then((data) => this.client.emit('call', data));
+      dispatchCall(event).then((data) => {
+        Logger.info('[JDBC-call1]', JSON.stringify(data));
+        this.client.emit('call', data);
+      });
     } catch (e) {
       this.sendCallError(event, e);
     }
@@ -283,6 +286,7 @@ export default class ClientEvent {
     };
     Logger.error(`[call][error][${event.requestId || 'unknown'}] ${msg.data.message}`);
     Logger.debug(msg.data.stack);
+    Logger.info('[JDBC-call2]', JSON.stringify(msg));
     this.client.emit('call', msg);
   }
 }
