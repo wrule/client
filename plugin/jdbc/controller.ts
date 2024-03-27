@@ -112,8 +112,21 @@ export default class JDBCController extends SingleController<JDBCControllerData>
    */
   private responseHandler(result: ExecuteResult): void {
     this.result.command = result.command;
+    // this.totalTime = result.totalTime;
+    // this.result.network = result.network;
+    // this.result.version = result.version;
+    // if (result.explain) {
+    //   if (result.explain[1] && Array.isArray(result.explain[0])) {
+    //     const explain: MySQLExplainResult = {
+    //       fields: this.createFields(result.explain[1]),
+    //       rows: result.explain[0],
+    //     };
+    //     this.result.explain = explain;
+    //   }
+    // }
     if (result.rows && result.fields) {
       this.result.rows = result.rows;
+      // this.result.fields = this.createFields(result.fields);
       this.result.fields = result.fields;
       const proxyResult = new Proxy(this.result.rows, this.createProxyHandler());
       this.result.resultData = proxyResult;
@@ -128,6 +141,27 @@ export default class JDBCController extends SingleController<JDBCControllerData>
       Logger.info('[JDBC-data-result3]', JSON.stringify(this.result));
     } catch (error) { }
   }
+
+  // /**
+  //  * Create fields
+  //  * @fixme mysql2 typescript not fully supported
+  //  * @param item
+  //  * @returns {MySQLFields[]}
+  //  */
+  // private createFields(fields: mysql.FieldPacket[] | any): MySQLFields[] {
+  //   if (Array.isArray(fields)) {
+  //     return fields.map((field): MySQLFields => ({
+  //       name: field.name,
+  //       characterSet: field.characterSet,
+  //       columnLength: field.columnLength,
+  //       columnType: field.columnType,
+  //       decimals: field.decimals,
+  //       encoding: field.encoding,
+  //       flags: field.flags,
+  //     }));
+  //   }
+  //   return [];
+  // }
 
   /**
    * create proxy handler
