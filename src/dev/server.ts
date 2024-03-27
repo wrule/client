@@ -76,6 +76,7 @@ createServer().then(() => {
     //   },
     // });
 
+    Logger.info('[JDBC-dispatch]', 1, JSON.stringify(debugData));
     client.emit('dispatch', {
       // data: fs.readFileSync('./src/dev/data/1'),
       data: encodeBufferDispatch(debugData),
