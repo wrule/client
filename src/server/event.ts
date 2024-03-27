@@ -134,7 +134,9 @@ export default class ClientEvent {
       this.context.dispatch[requestId] = instance;
       // 执行线程发送的内容 主动推送
       instance.on('message', (data: ExecuteMessageData) => {
+        try {
         Logger.info('[JDBC-data-result5]', JSON.stringify(data));
+        } catch (error) { }
         this.client.emit('message', { requestId, ...data } as ExecuteMessageEvent);
       });
       // 执行线程查询的内容 被动推送
@@ -150,7 +152,9 @@ export default class ClientEvent {
         // if (!event.debug) setQueueCounter(-data.length);
         setQueueCounter(-data.length);
         delete this.context.dispatch[requestId];
+        try {
         Logger.info('[JDBC-dispatch]', 2, JSON.stringify(data));
+        } catch (error) { }
         this.client.emit('dispatch', { event: 'done', data, requestId } as DispatchDoneMessage);
         Logger.info(`[dispatch][done][${requestId}] finished`);
         Logger.info(`[dispatch][stat][${requestId}] delete queue ${data.length}`);
@@ -166,7 +170,9 @@ export default class ClientEvent {
       });
       // instance.dispatch(event.debug);
       instance.dispatch();
+      try {
       Logger.info('[JDBC-dispatch]', 3, requestId);
+      } catch (error) { }
       this.client.emit('dispatch', { event: 'success', requestId } as DispatchSuccessMessage);
       Logger.info(`[dispatch][accept][${requestId}] ip=%s, clientId=%s`, this.client.handshake.address, this.client.id);
     } catch (e) {
@@ -187,7 +193,9 @@ export default class ClientEvent {
     };
     Logger.error(`[dispatch][error][${event.requestId || 'unknown'}] ${msg.data.message}`);
     Logger.debug(msg.data.stack);
+    try {
     Logger.info('[JDBC-dispatch]', 4, JSON.stringify(msg));
+    } catch (error) { }
     this.client.emit('dispatch', msg);
   }
 
@@ -266,7 +274,9 @@ export default class ClientEvent {
       // }
       dispatchCall(event).then((data: any) => {
         // data.data.rows = [['11']];
+        try {
         Logger.info('[JDBC-call1]', JSON.stringify(data));
+        } catch (error) { }
         this.client.emit('call', data);
       });
     } catch (e) {
@@ -287,7 +297,9 @@ export default class ClientEvent {
     };
     Logger.error(`[call][error][${event.requestId || 'unknown'}] ${msg.data.message}`);
     Logger.debug(msg.data.stack);
+    try {
     Logger.info('[JDBC-call2]', JSON.stringify(msg));
+    } catch (error) { }
     this.client.emit('call', msg);
   }
 }

@@ -570,7 +570,9 @@ class Execute extends EventEmitter {
         for (let index = 0; index < this.data.steps.length; index++) {
           const step = this.data.steps[index];
           const instance = await execute(step, this.context, { index, bypass });
+          try {
           Logger.info('[JDBC1]', JSON.stringify(instance));
+          } catch (error) { }
           if (instance.hasError()) {
             error = true;
             if (!ignoreExecuteError) {

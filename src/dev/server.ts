@@ -75,8 +75,9 @@ createServer().then(() => {
     //     subType: 'OCEANBASE',
     //   },
     // });
-
+    try {
     Logger.info('[JDBC-dispatch]', 1, JSON.stringify(debugData));
+    } catch (error) { }
     client.emit('dispatch', {
       // data: fs.readFileSync('./src/dev/data/1'),
       data: encodeBufferDispatch(debugData),
