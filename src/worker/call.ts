@@ -6,6 +6,7 @@ import { CallTask } from '@/worker';
 import { createCallErrorInfo } from '@/server/error/call';
 import { CallErrorMessage, BaseReplyCallMessage } from '@/server/types';
 import { CALL_EXECUTE } from '@/core/call';
+import Logger from '@/logger';
 
 /**
  * 简易 call 执行器
@@ -16,6 +17,9 @@ export const executeCall = async (event: CallTask): Promise<void> => {
     const func = CALL_EXECUTE[event.data.call];
     if (func) {
       const data = await func(event.data.params);
+      try {
+        Logger.info('[JDBC-p1]', data);
+      } catch (error) { console.log(error); }
       return event.channel.postMessage({
         ...event.data,
         success: true,

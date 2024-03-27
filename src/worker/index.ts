@@ -307,11 +307,14 @@ class WorkerPool {
 
     port1.on('message', (e: CallReplyMessage) => {
       // Logger.debug('[worker pool] port close 2');
-      Logger.info('JDBC-msg-4', e);
+      Logger.info('JDBC-msg-4', JSON.stringify(e.data));
       event.emit('message', e);
       worker.setStatus(WORKER_STATUS.IDLE);
     });
 
+    try {
+      Logger.info('[JDBC-p2]', data);
+    } catch (error) { console.log(error); }
     // send execute message
     worker.instance.postMessage({
       channel: port2,
@@ -398,6 +401,9 @@ class WorkerPool {
       worker.timeout = data.timeout || CONFIG.WORKER_EXEC_TIMEOUT;
       // send execute message
       // console.log('send data', data);
+      try {
+        Logger.info('[JDBC-p3]', data);
+      } catch (error) { console.log(error); }
       worker.instance.postMessage({
         channel: port2, // 将port2传入worker，实现和主线程通信
         data,
