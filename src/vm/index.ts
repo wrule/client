@@ -132,6 +132,7 @@ export default class VM extends EventEmitter {
       if (e.code === 'ERR_SCRIPT_EXECUTION_TIMEOUT') {
         this.handleError(new TimeoutError(this.timeout));
       } else {
+        console.log(niceError(e));
         this.handleError(e);
       }
     }
