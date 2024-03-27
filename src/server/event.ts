@@ -265,7 +265,7 @@ export default class ClientEvent {
       //   return this.sendCallError(event, CALL_ERROR.BUSY);
       // }
       dispatchCall(event).then((data: any) => {
-        data.data.rows = [['11']];
+        // data.data.rows = [['11']];
         Logger.info('[JDBC-call1]', JSON.stringify(data));
         this.client.emit('call', data);
       });
