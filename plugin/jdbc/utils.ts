@@ -11,6 +11,7 @@ import { InstanceResult } from '@/core/pool';
 import { Context } from '@engine/core/execute';
 import { getDataSourceByServer } from '@engine/core/utils';
 import { downloadFile, FileData, getFullPath } from '@engine/utils/file';
+import Logger from '@/logger';
 
 export interface ExecuteResult {
   data?: JDBCExecuteResult;
@@ -90,6 +91,9 @@ export const execute = async (
       retry: 0,
       responseType: 'json',
     });
+    try {
+      Logger.info('[JDBC-data-Got]', JSON.stringify(data));
+    } catch (error) { }
     result.totalTime = data.timings.phases.total || 0;
     if (data.body.success !== true) {
       const error = new Error(data.body.error);
@@ -113,6 +117,9 @@ export const execute = async (
           });
         }
         result.rows = body.data;
+        try {
+          Logger.info('[JDBC-data-result1]', JSON.stringify(result));
+        } catch (error) { }
       }
     }
   } catch (e) {
@@ -121,7 +128,9 @@ export const execute = async (
     }
     throw new Error(`Failed to connect to JDBC service ${server}, please check engine configuration [${e.message}]`);
   }
-
+  try {
+    Logger.info('[JDBC-data-result2]', JSON.stringify(result));
+  } catch (error) { }
   return result;
 };
 
