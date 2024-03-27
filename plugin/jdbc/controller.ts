@@ -180,12 +180,16 @@ export default class JDBCController extends SingleController<JDBCControllerData>
       fields: this.result.fields,
       rows: this.result.rows,
     } : undefined;
-    return {
+    const rt = {
       ...base,
       data,
       result: this.result.result,
       command: this.result.command || this.getCommand(),
     };
+    try {
+      Logger.info('[JDBC-data-result4]', JSON.stringify(rt));
+    } catch (error) { }
+    return rt;
   }
 
   /**
