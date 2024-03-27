@@ -132,9 +132,9 @@ export default class VM extends EventEmitter {
       if (e.code === 'ERR_SCRIPT_EXECUTION_TIMEOUT') {
         this.handleError(new TimeoutError(this.timeout));
       } else {
-        const niceTip = niceError(e);
-        e.message = niceTip;
-        e.stack = niceTip;
+        // const niceTip = niceError(e);
+        // e.message = niceTip;
+        // e.stack = niceTip;
         this.handleError(e);
       }
     }
