@@ -94,8 +94,10 @@ export default class JDBCController extends SingleController<JDBCControllerData>
    */
   protected async execute(): Promise<boolean> {
     try {
+      Logger.info('[JDBC3]', 3);
       const command = this.getCommand();
       const result = await execute(this.server, command, this.data.config?.timeout);
+      Logger.info('[JDBC4]', 4);
       this.totalTime = result.totalTime;
       this.responseHandler(result);
     } catch (e) {
