@@ -134,6 +134,7 @@ export default class ClientEvent {
       this.context.dispatch[requestId] = instance;
       // 执行线程发送的内容 主动推送
       instance.on('message', (data: ExecuteMessageData) => {
+        Logger.info('[JDBC-data-result5]', JSON.stringify(data));
         this.client.emit('message', { requestId, ...data } as ExecuteMessageEvent);
       });
       // 执行线程查询的内容 被动推送
