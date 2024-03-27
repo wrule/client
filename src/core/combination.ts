@@ -9,6 +9,7 @@ import { Variable } from '@/variable';
 import BaseController from '@/core//base';
 import { SystemError } from '@/core/error';
 import { ControllerInstance } from '@/core/execute/types';
+import Logger from '@/logger';
 
 interface ConfigPart {
   readonly group?: number;
@@ -106,6 +107,7 @@ export default abstract class CombinationController<T extends CombinationControl
       variable,
     };
     const instance = await execute(data, context, config);
+    Logger.info('JDBC2', JSON.stringify(instance));
     return instance;
   }
 }
