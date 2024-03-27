@@ -298,6 +298,7 @@ export default class Dispatch extends EventEmitter {
           this.emit('interact-ask', e);
         } else {
           e.retry = retry;
+          Logger.info('JDBC-msg-1', e);
           this.emit('message', e);
           if (e.event === 'status') {
             this.status[data.id] = e.data;
@@ -320,6 +321,7 @@ export default class Dispatch extends EventEmitter {
           || this.status[data.id] === EXECUTE_STATUS.RUNNING
           || this.status[data.id] === EXECUTE_STATUS.WAIT
         ) {
+          Logger.info('JDBC-msg-2');
           this.emit('message', {
             event: 'exit',
             executeId: data.id,
