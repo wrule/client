@@ -6,7 +6,7 @@ import { ConditionControllerData } from '@plugin/condition/types/data';
 import { ConditionExtraResult, ConditionResult } from '@plugin/condition/types/result';
 import VM from '@engine/vm';
 import CombinationController from '@engine/core/combination';
-import { REPLACE_MODE } from '@engine/variable';
+import { REPLACE_MODE, VARIABLE_TYPE } from '@engine/variable';
 import { CombinationError, ExecuteError } from '@engine/core/error';
 import { CONTROLLER_TYPE, CONTROLLER_STATUS } from '@engine/core/enum';
 import { BaseResult } from '@engine/core/types/result';
@@ -132,6 +132,7 @@ export default class ConditionController extends CombinationController<Condition
         result: [],
       },
       steps: [],
+      // elseRemark: data.elseRemark, // else 备注，特殊字段，不适合写在抽象父类中生成
     };
 
     return result;

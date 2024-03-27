@@ -35,11 +35,22 @@ export default class ComponentController extends CombinationController<Component
       /**
        * 开辟新变量寄存管理
        * @notice 元件内只共享 global execute 级别的变量，和现有逻辑不同
+       * @description 只继承用例变量以及环境变量，不继承上下文变量，上下文变量由元件自己管理
        */
       this.internalVariable = new VariableManager(this.context.variable, [
         VARIABLE_TYPE.ENV,
         VARIABLE_TYPE.EXECUTE,
       ]);
+
+      // 元件步骤初始化时，从父级的变量管理器中继承的父步骤的local变量（包含父步骤的结果等，以及如果是数据集的话，包含数据集的数据）
+      const localVariable = this.variable.local;
+      // 将local中的变量设置到元件的内部变量管理器的上下文变量中去，该行为主要为了避免数据集数据在元件中优先级最高的问题
+      Object.keys(localVariable).forEach((key) => {
+        this.internalVariable.set(key, localVariable[key]);
+      });
+      this.variable.reset(); // 清理local
+
+      // 将元件入参设置为元件上下文变量，这里若有和以上步骤中local重名的变量，将会覆盖它
       // 根据入参，设置值
       const params = this.data.params;
       if (params) {
@@ -47,6 +58,7 @@ export default class ComponentController extends CombinationController<Component
         params.forEach((item) => {
           const key = item.key;
           const value = this.variable.replace(item.value, REPLACE_MODE.AUTO);
+          // 设置元件上下文变量
           this.internalVariable.set(key, value);
           resultParams.push({ key, value });
         });

@@ -58,6 +58,8 @@ export interface VariableManagerProxy extends VariableManager {
   set(key: string, value?: unknown): unknown;
   /** 将变量设置在当前空间内 */
   setLocal(key: string, value?: unknown): void;
+  /** 清理local，目前主要提供给元件步骤执行子步骤时使用 */
+  reset(): void;
   replace(content?: unknown, mode?: REPLACE_MODE.SYNTAX): string;
   replace(content?: unknown, mode?: REPLACE_MODE.STRING): string;
   replace(content?: unknown, mode?: REPLACE_MODE.AUTO): string | any;
@@ -89,6 +91,8 @@ export default class VariableManager {
     };
     if (variable) {
       if (variable instanceof VariableManager) {
+        // 基于现有的变量管理器，构造新的变量管理器实例时，针对上下文变量，进行浅拷贝，其他的变量类型，直接引用
+        // 如果指定了types，那么只会针对types的类型进行初始化
         const map = types || Object.keys(variable.getVariables()) as unknown as VARIABLE_TYPE[];
         map.forEach((type) => {
           if (type === VARIABLE_TYPE.CONTEXT) {
@@ -111,7 +115,7 @@ export default class VariableManager {
   }
 
   /**
-   * 获取所有变量
+   * 获取所有变量，不提供给用户在业务中使用
    * @param type
    * @returns {Variable}
    */
@@ -131,7 +135,7 @@ export default class VariableManager {
   }
 
   /**
-   * 通用的变量获取方法
+   * 通用的变量获取方法，根据传入的变量类型、变量key的规范确定以何种形式获取变量值，如：mock、变量替换、直接返回变量值等，内部方法
    * @param type
    * @param key
    * @param toString
@@ -191,7 +195,7 @@ export default class VariableManager {
   }
 
   /**
-   * set Variable
+   * 设置对应类型的某变量值
    * @param type
    * @param key
    * @param value
@@ -207,7 +211,7 @@ export default class VariableManager {
   }
 
   /**
-   * del Variable
+   * 删除对应类型的某个变量
    * @param type
    * @param key
    */
@@ -307,7 +311,10 @@ export default class VariableManager {
    * @returns {VariableManagerProxy}
    */
   public createLocal(): VariableManagerProxy {
+    // 闭包维护local，针对每个步骤独立维护
+    // 主要用于存储如每个步骤的执行结果类数据以及每个步骤开始前的独享数据，如数据集的行数据和行索引
     const local: Variable = {};
+    // 代理整个变量管理器实例
     const proxy = new Proxy(this, {
       get: (target, prop, receiver) => {
         if (prop === 'get') {
@@ -351,6 +358,15 @@ export default class VariableManager {
           };
         }
 
+        if (prop === 'reset') {
+          return (): void => {
+            Object.keys(local).forEach((key) => {
+              delete local[key];
+            });
+          };
+        }
+
+        // 其余实例方法使用Reflect.get直接调用原始方法
         return Reflect.get(target, prop, receiver);
       },
     }) as unknown as VariableManagerProxy;
