@@ -14,6 +14,7 @@ import { Context, ControllerExtraConfig } from '@engine/core/execute';
 import { SystemError, ExecuteError } from '@engine/core/error';
 import { getDataSourceByServer } from '@engine/core/utils';
 import { SocketInfo } from '@engine/utils/socket';
+import Logger from '@/logger';
 
 interface JDBCProxyData {
   [key: string]: any;
@@ -121,6 +122,9 @@ export default class JDBCController extends SingleController<JDBCControllerData>
       this.result.result = executeResult;
       this.variable.setLocal('AFFECT_ROWS', executeResult.rowsAffected);
     }
+    try {
+      Logger.info('[JDBC-data-result3]', JSON.stringify(this.result));
+    } catch (error) { }
   }
 
   /**
