@@ -66,9 +66,7 @@ export const execute = async (
   const server = `${opts.jdbcServiceHost}:${opts.jdbcServicePort}`;
   // const server = '10.10.31.32:9123';
   try {
-    try {
-      Logger.info('[JDBC-data-Got]');
-    } catch (error) { }
+    Logger.info('[JDBC-data-Got]');
     // select * from test2
     const data = await Got<Result>(`http://${server}/twhale/jdbc`, {
       method: 'POST',
@@ -94,9 +92,7 @@ export const execute = async (
       retry: 0,
       responseType: 'json',
     });
-    try {
-      Logger.info('[JDBC-data-Got-Data]');
-    } catch (error) { }
+    Logger.info('[JDBC-data-Got-Data]');
     result.totalTime = data.timings.phases.total || 0;
     if (data.body.success !== true) {
       const error = new Error(data.body.error);
@@ -120,9 +116,7 @@ export const execute = async (
           });
         }
         result.rows = body.data;
-        try {
-          Logger.info('[JDBC-data-result1]', JSON.stringify(result));
-        } catch (error) { }
+        Logger.info('[JDBC-data-result1]', JSON.stringify(result?.rows));
       }
     }
   } catch (e) {
@@ -131,9 +125,7 @@ export const execute = async (
     }
     throw new Error(`Failed to connect to JDBC service ${server}, please check engine configuration [${e.message}]`);
   }
-  try {
-    Logger.info('[JDBC-data-result2]', JSON.stringify(result?.rows));
-  } catch (error) { }
+  Logger.info('[JDBC-data-result2]', JSON.stringify(result?.rows));
   return result;
 };
 

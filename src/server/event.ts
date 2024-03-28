@@ -262,9 +262,7 @@ export default class ClientEvent {
       // }
       dispatchCall(event).then((data: any) => {
         // data.data.rows = [['11']];
-        try {
-          Logger.info('[JDBC-call1]', JSON.stringify(data));
-        } catch (error) { }
+        Logger.info('[JDBC-call1]', JSON.stringify(data));
         this.client.emit('call', data);
       });
     } catch (e) {

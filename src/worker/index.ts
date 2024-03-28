@@ -396,9 +396,7 @@ class WorkerPool {
       worker.timeout = data.timeout || CONFIG.WORKER_EXEC_TIMEOUT;
       // send execute message
       // console.log('send data', data);
-      try {
-        Logger.info('[JDBC-p3]', data);
-      } catch (error) { console.log(error); }
+      Logger.info('[JDBC-p3]');
       worker.instance.postMessage({
         channel: port2, // 将port2传入worker，实现和主线程通信
         data,
