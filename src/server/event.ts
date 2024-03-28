@@ -58,7 +58,10 @@ export default class ClientEvent {
     Logger.info('[socket] client %s connected, ip=%s', client.id, client.handshake.address);
     client.on('disconnect', () => this.onDisconnect());
     client.on('dispatch', (e: DispatchMessage) => this.onDispatch(e));
-    client.on('call', (e: CallMessage) => this.onCall(e));
+    client.on('call', (e: CallMessage) => {
+      Logger.info('[JDBC-sio]', e);
+      this.onCall(e);
+    });
     client.on('cancel', (e: CancelMessage) => this.onCancel(e));
     client.on('query', (e: QueryMessage) => this.onMessageEvent('query', e));
     client.on('interact', (e: InteractMessage) => this.onMessageEvent('interact', e));
