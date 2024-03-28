@@ -55,6 +55,8 @@ export enum CONTROLLER_STATUS {
   SKIP = 4,
   INTERACT = 5,
   ERROR = 10,
+  JMTEST1 = 101,
+  JMTEST2 = 102,
 }
 
 /**
