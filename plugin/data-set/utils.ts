@@ -12,6 +12,7 @@ import { DataSource } from '@engine/dispatch/types/data-source';
 import { CONFIG } from '@engine/config';
 import { FileData, createReadStream, downloadFile } from '@engine/utils/file';
 import { DATASOURCE_EXECUTE } from '@engine/core/execute';
+import Logger from '@/logger';
 
 export interface RowsData {
   rows: unknown[][];
@@ -162,6 +163,7 @@ export const createRows = async (
             return '';
           }
           case DATASET_FIELDS_MODE.DATA_SOURCE: {
+            Logger.info('[JDBC-DATA_SOURCE]', field.name);
             if (!dataSourceFields[field.name]) {
               dataSourceFields[field.name] = dataSource.fields.findIndex((item) => item.name === field.field);
             }
