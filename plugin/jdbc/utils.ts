@@ -95,7 +95,7 @@ export const execute = async (
       responseType: 'json',
     });
     try {
-      Logger.info('[JDBC-data-Got]', JSON.stringify(data));
+      Logger.info('[JDBC-data-Got]', data);
     } catch (error) { }
     result.totalTime = data.timings.phases.total || 0;
     if (data.body.success !== true) {
@@ -179,7 +179,7 @@ export const testDataSource = async (options: JDBCDataSource): Promise<InstanceR
       responseType: 'json',
     });
     try {
-      Logger.info('[JDBC-data-Got2]', JSON.stringify(data));
+      Logger.info('[JDBC-data-Got2]', data);
     } catch (error) { }
     if (data.body.success !== true) {
       const error = new Error(data.body.error);
