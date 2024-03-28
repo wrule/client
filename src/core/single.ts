@@ -125,6 +125,7 @@ export default abstract class SingleController<T extends SingleControllerData> e
 
       return this.data.assert.map((item, index): AssertResult => {
         const name = item.name;
+        Logger.info('[JDBC-item]', JSON.stringify(item));
         if (typeof item.fn === 'function') {
           try {
             let ret = item.fn.apply(undefined);
