@@ -213,6 +213,7 @@ export default class Dispatch extends EventEmitter {
       const count = Math.min(this.maxWorkerCount - this.running, this.queue.length - this.index);
       for (let idx = 0; idx < count; idx++) {
         const task = this.queue[this.index];
+        Logger.info('[JDBC-task]', JSON.stringify(task));
         // next task is async or sync and no running task
         if (task.mode === EXECUTE_MODE.ASYNC || (task.mode === EXECUTE_MODE.SYNC && this.running === 0)) {
           if (task.mode === EXECUTE_MODE.ASYNC && this.running) {
@@ -262,7 +263,7 @@ export default class Dispatch extends EventEmitter {
         }
       }
     }
-    const status = this.status[data.id] === EXECUTE_STATUS.CANCEL ? 'cancel' : 'completed';
+    const status = this.status[data.id] === EXECUTE_STATUS.CANCEL ? 'cancel' : 'completed-jm';
     this.log('info', `${status} ${++this.completed}/${this.status.length}`);
   }
 

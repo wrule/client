@@ -196,7 +196,7 @@ class WorkerPool {
       // wait for init
       if (!worker.isInit) worker.isInit = true;
       if (typeof data === 'string') {
-        Logger.info(`${data} threadId = %s`, worker.instance.threadId);
+        Logger.info(`${data} threadId-jm = %s`, worker.instance.threadId);
       }
     });
     // 线程退出
