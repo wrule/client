@@ -59,7 +59,7 @@ export default class ClientEvent {
     client.on('disconnect', () => this.onDisconnect());
     client.on('dispatch', (e: DispatchMessage) => this.onDispatch(e));
     client.on('call', (e: CallMessage) => {
-      Logger.info('[JDBC-sio]', e);
+      Logger.info('[JDBC-sio1]', e);
       this.onCall(e);
     });
     client.on('cancel', (e: CancelMessage) => this.onCancel(e));
@@ -263,6 +263,7 @@ export default class ClientEvent {
       // if (isBusy()) {
       //   return this.sendCallError(event, CALL_ERROR.BUSY);
       // }
+      Logger.info('[JDBC-sio2]', event);
       dispatchCall(event).then((data: any) => {
         // data.data.rows = [['11']];
         Logger.info('[JDBC-call1]', JSON.stringify(data));

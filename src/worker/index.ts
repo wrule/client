@@ -294,6 +294,7 @@ class WorkerPool {
    * @returns {Promise<EventEmitter>}
    */
   public async runWithCall(data: CallMessage): Promise<EventEmitter> {
+    Logger.info('[JDBC-sio4]', data);
     const worker = await this.getIdleWorker();
     const event = worker.event;
     const { port1, port2 } = new MessageChannel();
@@ -307,11 +308,12 @@ class WorkerPool {
     port1.on('message', (e: CallReplyMessage) => {
       // Logger.debug('[worker pool] port close 2');
       // (e.data as any).rows = [['231']];
+      Logger.info('[JDBC-sio6]', e);
       event.emit('message', e);
       worker.setStatus(WORKER_STATUS.IDLE);
     });
-    Logger.info('[JDBC-p2]');
     // send execute message
+    Logger.info('[JDBC-sio5]', data);
     worker.instance.postMessage({
       channel: port2,
       data,

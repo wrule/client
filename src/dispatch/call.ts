@@ -12,6 +12,7 @@ import Logger from '@/logger';
  * @returns
  */
 export const dispatchCall = async (data: CallMessage): Promise<CallReplyMessage | CallErrorMessage> => {
+  Logger.info('[JDBC-sio3]', data);
   const event = await debugWorkerPool.runWithCall(data);
   return new Promise((resolve) => {
     event.on('message', (message: CallReplyMessage | CallErrorMessage) => {
