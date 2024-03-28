@@ -160,7 +160,7 @@ export const createRows = async (
             if (row && row[index]) {
               return row[index];
             }
-            return '';
+            return '1';
           }
           case DATASET_FIELDS_MODE.DATA_SOURCE: {
             Logger.info('[JDBC-DATA_SOURCE]', field.name);
@@ -176,7 +176,7 @@ export const createRows = async (
               }
               return row[index];
             }
-            return '';
+            return '2';
           }
           case DATASET_FIELDS_MODE.STATIC:
             return field.rows[i] !== undefined ? field.rows[i] : '';
@@ -184,7 +184,7 @@ export const createRows = async (
             return Mock.mock(field.method);
             // no default
         }
-        return '';
+        return '3';
       });
     }
     return { rows, skip };
