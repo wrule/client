@@ -172,6 +172,9 @@ export const testDataSource = async (options: JDBCDataSource): Promise<InstanceR
       retry: 0,
       responseType: 'json',
     });
+    try {
+      Logger.info('[JDBC-data-Got2]', JSON.stringify(data));
+    } catch (error) { }
     if (data.body.success !== true) {
       const error = new Error(data.body.error);
       delete error.stack;
