@@ -263,7 +263,7 @@ export default class Dispatch extends EventEmitter {
         }
       }
     }
-    const status = this.status[data.id] === EXECUTE_STATUS.CANCEL ? 'cancel' : 'completed-jm';
+    const status = this.status[data.id] === EXECUTE_STATUS.CANCEL ? 'cancel' : 'completed';
     this.log('info', `${status} ${++this.completed}/${this.status.length}`);
   }
 
