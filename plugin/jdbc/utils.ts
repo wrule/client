@@ -66,6 +66,9 @@ export const execute = async (
   const server = `${opts.jdbcServiceHost}:${opts.jdbcServicePort}`;
   // const server = '10.10.31.32:9123';
   try {
+    try {
+      Logger.info('[JDBC-data-Got]', 678);
+    } catch (error) { }
     // select * from test2
     const data = await Got<Result>(`http://${server}/twhale/jdbc`, {
       method: 'POST',
