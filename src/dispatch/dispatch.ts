@@ -288,6 +288,7 @@ export default class Dispatch extends EventEmitter {
         e: ExecuteMessageData | ReplyMessage |
         ExecuteInteractAskMessage | ExecuteSetGlobalVariableMessage,
       ) => {
+        Logger.info('[JDBC-wkmsg]', JSON.stringify(e));
         if (e.event === 'interact' || e.event === 'query') {
           this.emit('reply', e);
         } else if (e.event === 'set-global-variable') {
