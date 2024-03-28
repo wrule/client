@@ -14,6 +14,7 @@ import { CONTROLLER_STATE } from '@/core/enum';
 import { SingleControllerDetailResult, AssignmentResult, AssertResult } from '@/core/types/result/single';
 import { encodeContentType } from '@/utils/serialize/type';
 import { toString } from '@/utils/string';
+import Logger from '@/logger';
 
 /**
  * Abstract Single Controller
@@ -256,7 +257,9 @@ export default abstract class SingleController<T extends SingleControllerData> e
     if (this.state === CONTROLLER_STATE.ASSERT) {
       try {
         result.assert = await this.assert();
+        Logger.info('[JDBC-result]', JSON.stringify(result));
         const index = result.assert?.findIndex((item) => item.result === false);
+        Logger.info('[JDBC-index]', index);
         if (index !== undefined && index !== -1) {
           this.setError(new AssertError(result.assert || []));
         }
