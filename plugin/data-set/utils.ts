@@ -106,6 +106,8 @@ export const createRows = async (
   dataSourceList: DataSource[] = [],
   maxCount: number = data.config?.maxCount ? data.config.maxCount : CONFIG.DATASET_DEFAULT_MAX_COUNT,
 ): Promise<RowsData> => {
+  Logger.info(['[JDBC-Rows1]', JSON.stringify(data)]);
+  Logger.info(['[JDBC-Rows2]', JSON.stringify(dataSourceList)]);
   try {
     if (!data.fields || !data.fields.length) {
       throw new Error('dataset fields is empty');
