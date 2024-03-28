@@ -166,7 +166,10 @@ export const createRows = async (
           }
           case DATASET_FIELDS_MODE.DATA_SOURCE: {
             if (!dataSourceFields[field.name]) {
-              dataSourceFields[field.name] = dataSource.fields.findIndex((item) => item.name === field.field);
+              dataSourceFields[field.name] = dataSource.fields.findIndex((item) =>
+                item.name === field.field ||
+                item.name.toLowerCase() === field.field.toLowerCase()
+              );
             }
             const index = dataSourceFields[field.name];
             const row = dataSource.rows[i];
@@ -182,7 +185,7 @@ export const createRows = async (
             Logger.info('[JDBC-DATA_SOURCE-index]', index);
             Logger.info('[JDBC-DATA_SOURCE-field]', JSON.stringify(field));
             Logger.info('[JDBC-DATA_SOURCE-row]', JSON.stringify(row));
-            return '8771';
+            return '';
           }
           case DATASET_FIELDS_MODE.STATIC:
             return field.rows[i] !== undefined ? field.rows[i] : '';
