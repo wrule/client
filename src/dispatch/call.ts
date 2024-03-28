@@ -12,9 +12,6 @@ import Logger from '@/logger';
  * @returns
  */
 export const dispatchCall = async (data: CallMessage): Promise<CallReplyMessage | CallErrorMessage> => {
-  try {
-  Logger.info('[JDBC-dd-1]', JSON.stringify(data));
-  } catch (error) { }
   const event = await debugWorkerPool.runWithCall(data);
   return new Promise((resolve) => {
     event.on('message', (message: CallReplyMessage | CallErrorMessage) => {
@@ -23,15 +20,9 @@ export const dispatchCall = async (data: CallMessage): Promise<CallReplyMessage 
         // eslint-disable-next-line no-param-reassign
         if (message.params?.password) delete message.params.password;
       }
-      try {
-      Logger.info('[JDBC-dd-2]', JSON.stringify(message));
-      } catch (error) { }
       resolve(message);
     });
     event.on('close', () => {
-      try {
-      Logger.info('[JDBC-dd-3]', JSON.stringify(data));
-      } catch (error) { }
       resolve({
         ...data,
         success: false,

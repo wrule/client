@@ -94,10 +94,8 @@ export default class JDBCController extends SingleController<JDBCControllerData>
    */
   protected async execute(): Promise<boolean> {
     try {
-      Logger.info('[JDBC3]', 3);
       const command = this.getCommand();
       const result = await execute(this.server, command, this.data.config?.timeout);
-      Logger.info('[JDBC4]', 4);
       this.totalTime = result.totalTime;
       this.responseHandler(result);
     } catch (e) {
@@ -137,9 +135,6 @@ export default class JDBCController extends SingleController<JDBCControllerData>
       this.result.result = executeResult;
       this.variable.setLocal('AFFECT_ROWS', executeResult.rowsAffected);
     }
-    try {
-      Logger.info('[JDBC-data-result3]', JSON.stringify(this.result));
-    } catch (error) { }
   }
 
   // /**
@@ -223,9 +218,6 @@ export default class JDBCController extends SingleController<JDBCControllerData>
       result: this.result.result,
       command: this.result.command || this.getCommand(),
     };
-    try {
-      Logger.info('[JDBC-data-result4]', JSON.stringify(rt));
-    } catch (error) { }
     return rt;
   }
 

@@ -67,7 +67,7 @@ export const execute = async (
   // const server = '10.10.31.32:9123';
   try {
     try {
-      Logger.info('[JDBC-data-Got]', 678);
+      Logger.info('[JDBC-data-Got]');
     } catch (error) { }
     // select * from test2
     const data = await Got<Result>(`http://${server}/twhale/jdbc`, {
@@ -95,7 +95,7 @@ export const execute = async (
       responseType: 'json',
     });
     try {
-      Logger.info('[JDBC-data-Got]', data);
+      Logger.info('[JDBC-data-Got-Data]');
     } catch (error) { }
     result.totalTime = data.timings.phases.total || 0;
     if (data.body.success !== true) {
@@ -151,9 +151,6 @@ export const testDataSource = async (options: JDBCDataSource): Promise<InstanceR
   }
 
   try {
-    try {
-      Logger.info('[JDBC-data-Got2]', 123);
-    } catch (error) { }
     // select * from test2
     const data = await Got<Result>(`http://${server}/twhale/jdbc`, {
       method: 'POST',
@@ -178,9 +175,6 @@ export const testDataSource = async (options: JDBCDataSource): Promise<InstanceR
       retry: 0,
       responseType: 'json',
     });
-    try {
-      Logger.info('[JDBC-data-Got2]', data);
-    } catch (error) { }
     if (data.body.success !== true) {
       const error = new Error(data.body.error);
       delete error.stack;

@@ -107,9 +107,6 @@ export default abstract class CombinationController<T extends CombinationControl
       variable,
     };
     const instance = await execute(data, context, config);
-    try {
-    Logger.info('[JDBC2]', JSON.stringify(instance));
-    } catch (error) { }
     return instance;
   }
 }

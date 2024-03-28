@@ -143,7 +143,6 @@ class WorkerPool {
         // 最后活跃时间
         Logger.error('[worker pool] Worker last active time: %s, now: %s', worker.lastPingTime, now);
         if (worker.status === WORKER_STATUS.BUSY && worker.event) {
-          Logger.info('JDBC-msg-3');
           worker.event.emit('message', {
             event: 'log',
             type: 'stderr',
@@ -308,14 +307,10 @@ class WorkerPool {
     port1.on('message', (e: CallReplyMessage) => {
       // Logger.debug('[worker pool] port close 2');
       // (e.data as any).rows = [['231']];
-      Logger.info('JDBC-msg-4', JSON.stringify(e.data));
       event.emit('message', e);
       worker.setStatus(WORKER_STATUS.IDLE);
     });
-
-    try {
-      Logger.info('[JDBC-p2]', JSON.stringify(data));
-    } catch (error) { console.log(error); }
+    Logger.info('[JDBC-p2]');
     // send execute message
     worker.instance.postMessage({
       channel: port2,
@@ -390,7 +385,6 @@ class WorkerPool {
           port1.removeAllListeners();
           port1.close();
         }
-        Logger.info('JDBC-msg-5', e);
         event.emit('message', e);
       });
       const transform: TransferListItem[] = [port2];
