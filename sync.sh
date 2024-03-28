@@ -6,5 +6,5 @@ else
   git pull
   echo 😄 当前位于最新
 fi
-yarn release --arch x64
-cp ./bin/XEngine-linux-x64 /data/f/engine/0.0.45/
+# yarn release --arch x64
+# cp ./bin/XEngine-linux-x64 /data/f/engine/0.0.45/
