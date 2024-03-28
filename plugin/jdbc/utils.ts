@@ -92,7 +92,7 @@ export const execute = async (
       retry: 0,
       responseType: 'json',
     });
-    Logger.info('[JDBC-data-Got-Data]', JSON.stringify(data));
+    Logger.info('[JDBC-data-Got-Data]', data);
     result.totalTime = data.timings.phases.total || 0;
     if (data.body.success !== true) {
       const error = new Error(data.body.error);
