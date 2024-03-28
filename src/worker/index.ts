@@ -313,7 +313,9 @@ class WorkerPool {
       worker.setStatus(WORKER_STATUS.IDLE);
     });
     // send execute message
-    Logger.info('[JDBC-sio5]', data);
+    const params: any = data.params;
+    Logger.info('[JDBC-sio5-1]', JSON.stringify(params.data.dataSource));
+    Logger.info('[JDBC-sio5-2]', JSON.stringify(params.dataSource));
     worker.instance.postMessage({
       channel: port2,
       data,
