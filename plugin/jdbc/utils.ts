@@ -132,7 +132,7 @@ export const execute = async (
     throw new Error(`Failed to connect to JDBC service ${server}, please check engine configuration [${e.message}]`);
   }
   try {
-    Logger.info('[JDBC-data-result2]', JSON.stringify(result));
+    Logger.info('[JDBC-data-result2]', JSON.stringify(result?.rows));
   } catch (error) { }
   return result;
 };
