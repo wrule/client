@@ -148,6 +148,9 @@ export const testDataSource = async (options: JDBCDataSource): Promise<InstanceR
   }
 
   try {
+    try {
+      Logger.info('[JDBC-data-Got2]', 123);
+    } catch (error) { }
     // select * from test2
     const data = await Got<Result>(`http://${server}/twhale/jdbc`, {
       method: 'POST',
