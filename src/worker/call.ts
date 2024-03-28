@@ -17,7 +17,6 @@ export const executeCall = async (event: CallTask): Promise<void> => {
     const func = CALL_EXECUTE[event.data.call];
     if (func) {
       const data = await func(event.data.params);
-      Logger.info('[JDBC-p1]');
       return event.channel.postMessage({
         ...event.data,
         success: true,

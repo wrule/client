@@ -294,7 +294,6 @@ class WorkerPool {
    * @returns {Promise<EventEmitter>}
    */
   public async runWithCall(data: CallMessage): Promise<EventEmitter> {
-    Logger.info('[JDBC-sio4]', data);
     const worker = await this.getIdleWorker();
     const event = worker.event;
     const { port1, port2 } = new MessageChannel();
@@ -307,15 +306,11 @@ class WorkerPool {
 
     port1.on('message', (e: CallReplyMessage) => {
       // Logger.debug('[worker pool] port close 2');
-      // (e.data as any).rows = [['231']];
-      Logger.info('[JDBC-sio6]', e);
       event.emit('message', e);
       worker.setStatus(WORKER_STATUS.IDLE);
     });
     // send execute message
     const params: any = data.params;
-    Logger.info('[JDBC-sio5-1]', JSON.stringify(params.data.dataSource));
-    Logger.info('[JDBC-sio5-2]', JSON.stringify(params.dataSource));
     worker.instance.postMessage({
       channel: port2,
       data,
@@ -400,7 +395,6 @@ class WorkerPool {
       worker.timeout = data.timeout || CONFIG.WORKER_EXEC_TIMEOUT;
       // send execute message
       // console.log('send data', data);
-      Logger.info('[JDBC-p3]');
       worker.instance.postMessage({
         channel: port2, // 将port2传入worker，实现和主线程通信
         data,

@@ -106,8 +106,6 @@ export const createRows = async (
   dataSourceList: DataSource[] = [],
   maxCount: number = data.config?.maxCount ? data.config.maxCount : CONFIG.DATASET_DEFAULT_MAX_COUNT,
 ): Promise<RowsData> => {
-  Logger.info(['[JDBC-Rows1]', JSON.stringify(data)]);
-  Logger.info(['[JDBC-Rows2]', JSON.stringify(dataSourceList)]);
   try {
     if (!data.fields || !data.fields.length) {
       throw new Error('dataset fields is empty');
@@ -180,11 +178,6 @@ export const createRows = async (
               }
               return row[index];
             }
-            Logger.info('[JDBC-DATA_SOURCE-dataSourceFields]', JSON.stringify(dataSourceFields));
-            Logger.info('[JDBC-DATA_SOURCE-dataSource]', JSON.stringify(dataSource));
-            Logger.info('[JDBC-DATA_SOURCE-index]', index);
-            Logger.info('[JDBC-DATA_SOURCE-field]', JSON.stringify(field));
-            Logger.info('[JDBC-DATA_SOURCE-row]', JSON.stringify(row));
             return '';
           }
           case DATASET_FIELDS_MODE.STATIC:
