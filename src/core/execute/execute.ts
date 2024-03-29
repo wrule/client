@@ -605,8 +605,8 @@ class Execute extends EventEmitter {
       this.free();
       const result = await this.build();
       const statusResult = this.getStatusResult();
-      Logger.info('\n[JDBC-statusResult1]', result);
-      Logger.info('\n[JDBC-statusResult2]', statusResult);
+      Logger.info('[JDBC-statusResult1]', result);
+      Logger.info('[JDBC-statusResult2]', statusResult);
       Logger.info('----------- [%s] End -----------', this.id);
       if (this.result.isStop() === true) {
         this.emit('cancel', {
