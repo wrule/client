@@ -112,7 +112,7 @@ export default class JDBCController extends SingleController<JDBCControllerData>
    * @param result
    */
   private responseHandler(result: ExecuteResult): void {
-    flog('[JDBC-responseHandler]');
+    flog('[JDBC-responseHandler]', result);
     this.result.command = result.command;
     // this.totalTime = result.totalTime;
     // this.result.network = result.network;
@@ -136,9 +136,10 @@ export default class JDBCController extends SingleController<JDBCControllerData>
       this.variable.setLocal('RESULT_DATA', proxyResult);
       this.variable.setLocal('RESULT_DATA_LENGTH', proxyResult.length);
     } else if (result.data) {
+      flog('[JDBC-AFFECT_ROWS-2]');
       const executeResult: JDBCExecuteResult = { ...result.data };
       this.result.result = executeResult;
-      flog('[JDBC-AFFECT_ROWS]', executeResult);
+      flog('[JDBC-AFFECT_ROWS-3]', executeResult);
       this.variable.setLocal('AFFECT_ROWS', executeResult.rowsAffected);
     }
   }
