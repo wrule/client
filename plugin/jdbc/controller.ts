@@ -135,7 +135,7 @@ export default class JDBCController extends SingleController<JDBCControllerData>
       this.result.resultData = proxyResult;
       this.variable.setLocal('RESULT_DATA', proxyResult);
       this.variable.setLocal('RESULT_DATA_LENGTH', proxyResult.length);
-    } else if (result.data) {
+    } else {
       flog('[JDBC-AFFECT_ROWS-2]');
       const executeResult: JDBCExecuteResult = { ...result.data };
       this.result.result = executeResult;
