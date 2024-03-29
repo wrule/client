@@ -93,7 +93,7 @@ export const execute = async (
       retry: 0,
       responseType: 'json',
     });
-    flog('[JDBC-data-Got-Data]', data);
+    flog('[JDBC-data-Got-Data]', data.body);
     result.totalTime = data.timings.phases.total || 0;
     if (data.body.success !== true) {
       const error = new Error(data.body.error);
