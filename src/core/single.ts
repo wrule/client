@@ -142,6 +142,7 @@ export default abstract class SingleController<T extends SingleControllerData> e
         if (fn) {
           const mode = REPLACE_MODE.AUTO;
           // const mode = item.fn === ASSERT.EXIST || item.fn === ASSERT.NOT_EXIST ? REPLACE_MODE.ORIGIN : REPLACE_MODE.AUTO;
+          flog('[JDBC-replace]', item.source, mode);
           const source = this.variable.replace(item.source, mode);
           const target = this.variable.replace(item.target, mode);
           const assertResult = {
