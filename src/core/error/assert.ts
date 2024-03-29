@@ -22,7 +22,7 @@ export default class AssertError extends BaseError {
   public constructor(result: AssertResult[]) {
     super();
     const n = result.filter((item) => item.result === false);
-    this.message = `${n.length} asserts failed`;
+    this.message = `${n.length} asserts failed [JDBC]`;
     this.code = CONTROLLER_ERROR.ASSERT_ERROR;
     delete this.stack;
   }
