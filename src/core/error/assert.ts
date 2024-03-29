@@ -24,8 +24,7 @@ export default class AssertError extends BaseError {
   public constructor(result: AssertResult[]) {
     super();
     const n = result.filter((item) => item.result === false);
-    flog('[JDBC-flog]');
-    this.message = `${n.length} asserts failed [JDBC]`;
+    this.message = `${n.length} asserts failed`;
     this.code = CONTROLLER_ERROR.ASSERT_ERROR;
     delete this.stack;
   }

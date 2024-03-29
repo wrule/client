@@ -22,6 +22,7 @@ import transform from '@/utils/serialize';
 import { encodeBrotli, decodeWithOptionsAsObject } from '@/utils/zlib';
 import type { ContentType } from '@/utils/serialize/type';
 import { ExecuteDoneResult } from '@/server/types/message';
+import flog from '@/utils/jmlog';
 
 const stdoutWrite = process.stdout.write.bind(process.stdout);
 const stderrWrite = process.stderr.write.bind(process.stderr);
@@ -605,8 +606,8 @@ class Execute extends EventEmitter {
       this.free();
       const result = await this.build();
       const statusResult = this.getStatusResult();
-      Logger.info('[JDBC-statusResult1]', result);
-      Logger.info('[JDBC-statusResult2]', statusResult);
+      flog('[JDBC-statusResult1]', result);
+      flog('[JDBC-statusResult2]', statusResult);
       Logger.info('----------- [%s] End -----------', this.id);
       if (this.result.isStop() === true) {
         this.emit('cancel', {

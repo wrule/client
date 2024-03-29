@@ -39,6 +39,7 @@ import Logger from '@/logger';
 import { decodeContentType } from '@/utils/serialize/type';
 import { CONFIG } from '@/config';
 import { EXECUTE_MODE, EXECUTE_OPTIONS } from '@/dispatch/enum';
+import flog from '@/utils/jmlog';
 
 export type ExecuteStatusCollection = EXECUTE_STATUS[];
 export { ExecuteInteractAskMessage } from '@/worker';
@@ -213,7 +214,7 @@ export default class Dispatch extends EventEmitter {
       const count = Math.min(this.maxWorkerCount - this.running, this.queue.length - this.index);
       for (let idx = 0; idx < count; idx++) {
         const task = this.queue[this.index];
-        Logger.info('[JDBC-task]', JSON.stringify(task));
+        flog('[JDBC-task]', task);
         // next task is async or sync and no running task
         if (task.mode === EXECUTE_MODE.ASYNC || (task.mode === EXECUTE_MODE.SYNC && this.running === 0)) {
           if (task.mode === EXECUTE_MODE.ASYNC && this.running) {

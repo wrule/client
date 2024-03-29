@@ -12,6 +12,7 @@ import { Context } from '@engine/core/execute';
 import { getDataSourceByServer } from '@engine/core/utils';
 import { downloadFile, FileData, getFullPath } from '@engine/utils/file';
 import Logger from '@/logger';
+import flog from '@/utils/jmlog';
 
 export interface ExecuteResult {
   data?: JDBCExecuteResult;
@@ -66,7 +67,7 @@ export const execute = async (
   const server = `${opts.jdbcServiceHost}:${opts.jdbcServicePort}`;
   // const server = '10.10.31.32:9123';
   try {
-    Logger.info('[JDBC-data-Got]');
+    flog('[JDBC-data-Got]');
     // select * from test2
     const data = await Got<Result>(`http://${server}/twhale/jdbc`, {
       method: 'POST',
@@ -92,7 +93,7 @@ export const execute = async (
       retry: 0,
       responseType: 'json',
     });
-    Logger.info('[JDBC-data-Got-Data]', data);
+    flog('[JDBC-data-Got-Data]', data);
     result.totalTime = data.timings.phases.total || 0;
     if (data.body.success !== true) {
       const error = new Error(data.body.error);

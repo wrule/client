@@ -15,6 +15,7 @@ import { SystemError, ExecuteError } from '@engine/core/error';
 import { getDataSourceByServer } from '@engine/core/utils';
 import { SocketInfo } from '@engine/utils/socket';
 import Logger from '@/logger';
+import flog from '@/utils/jmlog';
 
 interface JDBCProxyData {
   [key: string]: any;
@@ -133,7 +134,7 @@ export default class JDBCController extends SingleController<JDBCControllerData>
     } else if (result.data) {
       const executeResult: JDBCExecuteResult = { ...result.data };
       this.result.result = executeResult;
-      Logger.info('[JDBC-AFFECT_ROWS]', JSON.stringify(executeResult));
+      flog('[JDBC-AFFECT_ROWS]', executeResult);
       this.variable.setLocal('AFFECT_ROWS', executeResult.rowsAffected);
     }
   }
