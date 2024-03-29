@@ -153,10 +153,12 @@ export default abstract class SingleController<T extends SingleControllerData> e
             targetOrigin: item.target,
           } as AssertResult;
           try {
+            flog('[JDBC-s-t-1]', source, target);
             const ret = fn(source as never, target as never);
             assertResult.result = ret;
             return assertResult;
           } catch (e) {
+            flog('[JDBC-s-t-2]', source, target);
             assertResult.result = false;
             assertResult.error = e.message;
             return assertResult;
