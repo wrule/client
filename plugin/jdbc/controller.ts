@@ -95,9 +95,11 @@ export default class JDBCController extends SingleController<JDBCControllerData>
    */
   protected async execute(): Promise<boolean> {
     try {
+      flog('[JDBC-execute]');
       const command = this.getCommand();
       const result = await execute(this.server, command, this.data.config?.timeout);
       this.totalTime = result.totalTime;
+      flog('[JDBC-execute-ok]');
       this.responseHandler(result);
     } catch (e) {
       throw new ExecuteError(e);
@@ -110,6 +112,7 @@ export default class JDBCController extends SingleController<JDBCControllerData>
    * @param result
    */
   private responseHandler(result: ExecuteResult): void {
+    flog('[JDBC-responseHandler]');
     this.result.command = result.command;
     // this.totalTime = result.totalTime;
     // this.result.network = result.network;
@@ -124,6 +127,7 @@ export default class JDBCController extends SingleController<JDBCControllerData>
     //   }
     // }
     if (result.rows && result.fields) {
+      flog('[JDBC-AFFECT_ROWS-1]');
       this.result.rows = result.rows;
       // this.result.fields = this.createFields(result.fields);
       this.result.fields = result.fields;
