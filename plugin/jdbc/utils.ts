@@ -101,6 +101,12 @@ export const execute = async (
       throw error;
     } else {
       const body = data.body.data;
+      if (body.effectRows) {
+        result.data = {
+          ...result.data,
+          rowsAffected: body.effectRows,
+        };
+      }
       if (body.metadata && body.data) {
         result.fields = body.metadata;
 
