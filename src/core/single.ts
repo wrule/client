@@ -125,7 +125,7 @@ export default abstract class SingleController<T extends SingleControllerData> e
 
       return this.data.assert.map((item, index): AssertResult => {
         const name = item.name;
-        Logger.info('[JDBC-item]', JSON.stringify(item));
+        // Logger.info('[JDBC-item]', JSON.stringify(item));
         if (typeof item.fn === 'function') {
           try {
             let ret = item.fn.apply(undefined);
@@ -258,10 +258,11 @@ export default abstract class SingleController<T extends SingleControllerData> e
     if (this.state === CONTROLLER_STATE.ASSERT) {
       try {
         result.assert = await this.assert();
-        Logger.info('[JDBC-result]', JSON.stringify(result));
+        // Logger.info('[JDBC-result]', JSON.stringify(result));
         const index = result.assert?.findIndex((item) => item.result === false);
-        Logger.info('[JDBC-index]', index);
+        // Logger.info('[JDBC-index]', index);
         if (index !== undefined && index !== -1) {
+          Logger.info('[JDBC-AssertError]');
           this.setError(new AssertError(result.assert || []));
         }
       } catch (e) {
