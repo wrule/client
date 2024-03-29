@@ -133,7 +133,7 @@ export default class JDBCController extends SingleController<JDBCControllerData>
     } else if (result.data) {
       const executeResult: JDBCExecuteResult = { ...result.data };
       this.result.result = executeResult;
-      Logger.info('[JDBC-AFFECT_ROWS]', JSON.stringify(executeResult));
+      Logger.info('\n[JDBC-AFFECT_ROWS]', JSON.stringify(executeResult));
       this.variable.setLocal('AFFECT_ROWS', executeResult.rowsAffected);
     }
   }
