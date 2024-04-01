@@ -41,7 +41,11 @@ export default class VMConsole {
         // 前端打印的是这个
         dat.content.stack = `${dat.content.name}: ${dat.content.message}`;
       }
-      logs.push(dat);
+      try {
+        logs.push(JSON.parse(JSON.stringify(dat)));
+      } catch (error) {
+        logs.push(dat);
+      }
     });
     this.logs.push({ level, logs });
   }
