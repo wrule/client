@@ -59,6 +59,8 @@ interface GlobalSystemMethods {
    * @param timeout 超时时间
    */
   exec(filename: string, args: string[], timeout: number): Promise<[string, SpawnSyncReturns<Buffer>]>;
+
+  log(...args: any[]): void;
 }
 
 export interface SystemContext {

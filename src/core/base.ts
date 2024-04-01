@@ -158,6 +158,15 @@ export default abstract class BaseController<T extends BaseControllerData> {
       this.context.setGlobalVariable(key, type);
       this.context.variable.setEnv(key, content);
     };
+    vmContext.sys.log = (...args: any[]) => {
+      const jsArgs = args.map((item) => {
+        try {
+          return JSON.parse(JSON.stringify(item));
+        } catch (error) { }
+        return item;
+      });
+      console.log(...jsArgs);
+    };
     vmContext.sys.sleep = sleep;
     /** @todo */
     // vmContext.sys.getGlobal = (key: string) => this.context.variable.getGlobal(key);
