@@ -52,6 +52,16 @@ export default class ComponentController extends CombinationController<Component
       // 将元件入参设置为元件上下文变量，这里若有和以上步骤中local重名的变量，将会覆盖它
       // 根据入参，设置值
       const params = this.data.params;
+
+      const entries = Object.entries(this.variable.local);
+      const keys = params?.map((item) => item.key) ?? [];
+      this.variable.reset();
+      entries.forEach(([key, value]) => {
+        if (!keys.includes(key)) {
+          this.variable.set(key, value);
+        }
+      });
+
       if (params) {
         const resultParams: ComponentControllerResultParams[] = [];
         params.forEach((item) => {
@@ -63,7 +73,6 @@ export default class ComponentController extends CombinationController<Component
         });
         this.result.params = resultParams;
       }
-      this.variable.reset(); // 最后再清理local，因为入参值可能需要需要根据local转换
     }
     return true;
   }
