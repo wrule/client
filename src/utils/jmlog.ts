@@ -3,6 +3,7 @@ import moment from 'moment';
 
 export default
 function flog(...args: any[]) {
+  return;
   const time = moment().format('HH:mm:ss');
   fs.appendFileSync('flog.log', `[${time}]\n`);
   args.forEach((argv, index) => {
