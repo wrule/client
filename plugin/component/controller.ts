@@ -53,14 +53,14 @@ export default class ComponentController extends CombinationController<Component
       // 根据入参，设置值
       const params = this.data.params;
 
-      const entries = Object.entries(this.variable.local);
-      const keys = params?.map((item) => item.key) ?? [];
-      this.variable.reset();
-      entries.forEach(([key, value]) => {
-        if (!keys.includes(key)) {
-          this.variable.set(key, value);
-        }
-      });
+      // const entries = Object.entries(this.variable.local);
+      // const keys = params?.map((item) => item.key) ?? [];
+      // this.variable.reset();
+      // entries.forEach(([key, value]) => {
+      //   if (!keys.includes(key)) {
+      //     this.variable.set(key, value);
+      //   }
+      // });
 
       if (params) {
         const resultParams: ComponentControllerResultParams[] = [];
