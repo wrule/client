@@ -48,7 +48,7 @@ export default class ComponentController extends CombinationController<Component
       Object.keys(localVariable).forEach((key) => {
         this.internalVariable.set(key, localVariable[key]);
       });
-      // this.variable.reset(); // 清理local
+      this.variable.reset(); // 清理local
 
       // 将元件入参设置为元件上下文变量，这里若有和以上步骤中local重名的变量，将会覆盖它
       // 根据入参，设置值
