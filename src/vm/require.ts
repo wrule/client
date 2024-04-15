@@ -23,6 +23,7 @@ const REQUIRE_MODULE = {
   'crypto-js': true,
   'multi-crypto-js': true,
   'fast-xml-parser': true,
+  'node-rsa': true,
   cheerio: true,
   moment: true,
   uuid: true,
