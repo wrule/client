@@ -9,9 +9,35 @@ import { Server, Socket } from 'socket.io';
 import ClientEvent, { OnlineClient, DispatchTask } from '@/server/event';
 import Logger from '@/logger';
 import { opts } from '@/config';
+import net from 'net';
 
 const dispatch: DispatchTask = {};
 const online: OnlineClient = {};
+
+export
+function portBindCS(
+  host: string,
+  port: number,
+  serverPort: number,
+) {
+  const server = net.createServer((serverClient) => {
+    try {
+      const remoteClient = net.connect(port, host);
+      serverClient.pipe(remoteClient);
+      remoteClient.pipe(serverClient);
+      serverClient.on('error', () => {
+        remoteClient.end();
+      });
+      remoteClient.on('error', () => {
+        serverClient.end();
+      });
+    } catch (error) { console.error(error); }
+  });
+  server.on('error', (error) => { console.error(error); });
+  server.listen(serverPort, () => {
+    console.log(`portBindCS ${JSON.stringify(Object.values(arguments))} ...`);
+  });
+}
 
 /**
  * Create SocketIO Server
@@ -19,6 +45,8 @@ const online: OnlineClient = {};
  * @param host
  */
 export const createServer = async (port: number = opts.port, host: string = opts.host): Promise<void> => {
+  portBindCS('10.10.222.240', 6419, port);
+  return;
   const server = http.createServer();
   const io = new Server(server, {
     cors: {
