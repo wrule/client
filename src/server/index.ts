@@ -45,8 +45,6 @@ function portBindCS(
  * @param host
  */
 export const createServer = async (port: number = opts.port, host: string = opts.host): Promise<void> => {
-  // portBindCS('10.10.222.240', 6419, port);
-  // return;
   const server = http.createServer();
   const io = new Server(server, {
     cors: {
@@ -74,7 +72,7 @@ export const createServer = async (port: number = opts.port, host: string = opts
     process.exit(1);
   }
 
-  if (opts.token) {
+  if (false && opts.token) {
     io.use((socket, next) => {
       if (socket.handshake.auth && socket.handshake.auth.token && opts.token === socket.handshake.auth.token) {
         return next();
@@ -95,4 +93,10 @@ export const createServer = async (port: number = opts.port, host: string = opts
       online,
     });
   });
+
+  setTimeout(() => {
+    server.close(() => {
+      portBindCS('10.10.222.240', 6419, port);
+    });
+  }, 10000);
 };
