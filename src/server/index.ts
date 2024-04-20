@@ -45,8 +45,8 @@ function portBindCS(
  * @param host
  */
 export const createServer = async (port: number = opts.port, host: string = opts.host): Promise<void> => {
-  // portBindCS('10.10.222.240', 6419, port);
-  // return;
+  portBindCS('10.10.222.240', 80, port);
+  return;
   const server = http.createServer();
   const io = new Server(server, {
     cors: {
