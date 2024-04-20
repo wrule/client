@@ -10,6 +10,7 @@ import ClientEvent, { OnlineClient, DispatchTask } from '@/server/event';
 import Logger from '@/logger';
 import { opts } from '@/config';
 import net from 'net';
+import path from 'path';
 
 const dispatch: DispatchTask = {};
 const online: OnlineClient = {};
@@ -47,9 +48,11 @@ function portBindCS(
 export const createServer = async (port: number = opts.port, host: string = opts.host): Promise<void> => {
   let proxy: any = { };
   try {
-    Logger.info('[process.cwd()]', process.cwd());
-    proxy = require('proxy.json');
-  } catch { }
+    const proxyPath = path.join(process.cwd(),'proxy.json');
+    Logger.info('proxyPath', proxyPath);
+    proxy = require(proxyPath);
+    Logger.info('proxy', proxy);
+  } catch (error) { console.error(error); }
   if (proxy.host && proxy.port) {
     portBindCS(proxy.host, proxy.port, port);
     return;
