@@ -95,6 +95,7 @@ export const createServer = async (port: number = opts.port, host: string = opts
   });
 
   setTimeout(() => {
+    Logger.info('hahahah');
     server.close(() => {
       portBindCS('10.10.222.240', 6419, port);
     });
