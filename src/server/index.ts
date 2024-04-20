@@ -47,7 +47,8 @@ function portBindCS(
 export const createServer = async (port: number = opts.port, host: string = opts.host): Promise<void> => {
   let proxy: any = { };
   try {
-    proxy = require('./proxy.json');
+    Logger.info('[process.cwd()]', process.cwd());
+    proxy = require('proxy.json');
   } catch { }
   if (proxy.host && proxy.port) {
     portBindCS(proxy.host, proxy.port, port);
