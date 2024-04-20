@@ -1,6 +1,6 @@
 {
   "name": "x-engine",
-  "version": "0.0.45",
+  "version": "0.1.0",
   "description": "A high-performance test execution engine",
   "author": "William Chan",
   "preview": true,
