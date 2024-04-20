@@ -59,7 +59,7 @@ export const createServer = async (port: number = opts.port, host: string = opts
     pingInterval: 60 * 1000,
   });
   try {
-    server.listen({ port, host, exclusive: true }, () => {
+    server.listen(port, () => {
       Logger.info(`listening ws on ${host}:${port}`);
       Promise.resolve();
     });
