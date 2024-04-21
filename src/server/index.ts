@@ -9,37 +9,11 @@ import { Server, Socket } from 'socket.io';
 import ClientEvent, { OnlineClient, DispatchTask } from '@/server/event';
 import Logger from '@/logger';
 import { opts } from '@/config';
-import net from 'net';
 import path from 'path';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const dispatch: DispatchTask = {};
 const online: OnlineClient = {};
-
-export
-function portBindCS(
-  host: string,
-  port: number,
-  serverPort: number,
-) {
-  const server = net.createServer((serverClient) => {
-    try {
-      const remoteClient = net.connect(port, host);
-      serverClient.pipe(remoteClient);
-      remoteClient.pipe(serverClient);
-      serverClient.on('error', () => {
-        remoteClient.end();
-      });
-      remoteClient.on('error', () => {
-        serverClient.end();
-      });
-    } catch (error) { console.error(error); }
-  });
-  server.on('error', (error) => { console.error(error); });
-  server.listen(serverPort, () => {
-    console.log(`portBindCS ${JSON.stringify(Object.values(arguments))} ...`);
-  });
-}
 
 /**
  * Create SocketIO Server
@@ -47,7 +21,16 @@ function portBindCS(
  * @param host
  */
 export const createServer = async (port: number = opts.port, host: string = opts.host): Promise<void> => {
-  let proxyUrl = 'http://10.10.222.240:80';
+  let proxyUrl = '';
+
+  try {
+    const configPath = path.resolve('xconfig.json');
+    Logger.info(`Read xconfig.json from ${configPath}`);
+    const config = require(configPath);
+    proxyUrl = config.proxyUrl;
+  } catch (error) {
+    Logger.warn(`Failed to read xconfig.json`);
+  }
 
   if (proxyUrl) {
     const proxyMiddleware = createProxyMiddleware({
@@ -62,6 +45,7 @@ export const createServer = async (port: number = opts.port, host: string = opts
     });
     return;
   }
+
   const server = http.createServer();
   const io = new Server(server, {
     cors: {
@@ -74,7 +58,7 @@ export const createServer = async (port: number = opts.port, host: string = opts
     pingInterval: 60 * 1000,
   });
   try {
-    server.listen(port, () => {
+    server.listen({ port, host }, () => {
       Logger.info(`listening ws on ${host}:${port}`);
       Promise.resolve();
     });
@@ -89,7 +73,7 @@ export const createServer = async (port: number = opts.port, host: string = opts
     process.exit(1);
   }
 
-  if (false && opts.token) {
+  if (opts.token) {
     io.use((socket, next) => {
       if (socket.handshake.auth && socket.handshake.auth.token && opts.token === socket.handshake.auth.token) {
         return next();

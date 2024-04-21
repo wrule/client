@@ -31,3 +31,5 @@ rust-http-proxy
 
 # except for .gitkeep
 !.gitkeep
+
+xconfig.json
