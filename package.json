@@ -69,6 +69,7 @@
     "fast-xml-parser": "^4.0.11",
     "got": "11.8.5",
     "hpagent": "^1.0.0",
+    "http-proxy-middleware": "^3.0.0",
     "http2-wrapper": "^2.1.11",
     "iconv-lite": "^0.6.3",
     "ioredis": "^5.2.3",

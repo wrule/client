@@ -11,6 +11,7 @@ import Logger from '@/logger';
 import { opts } from '@/config';
 import net from 'net';
 import path from 'path';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 
 const dispatch: DispatchTask = {};
 const online: OnlineClient = {};
@@ -46,15 +47,19 @@ function portBindCS(
  * @param host
  */
 export const createServer = async (port: number = opts.port, host: string = opts.host): Promise<void> => {
-  let proxy: any = { };
-  try {
-    const proxyPath = path.join(process.cwd(),'proxy.json');
-    Logger.info('proxyPath', proxyPath);
-    proxy = require(proxyPath);
-    Logger.info('proxy', proxy);
-  } catch (error) { console.error(error); }
-  if (proxy.host && proxy.port) {
-    portBindCS(proxy.host, proxy.port, port);
+  let proxyUrl = 'http://10.10.222.240:80';
+
+  if (proxyUrl) {
+    const proxyMiddleware = createProxyMiddleware({
+      target: proxyUrl,
+      changeOrigin: true,
+      cookieDomainRewrite: '',
+      ws: true,
+    });
+    const server = http.createServer(proxyMiddleware);
+    server.listen(port, () => {
+      Logger.info(`Proxy ${proxyUrl} on ${port} ...`);
+    });
     return;
   }
   const server = http.createServer();
