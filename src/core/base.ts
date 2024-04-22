@@ -100,10 +100,13 @@ export default abstract class BaseController<T extends BaseControllerData> {
     return true;
   }
 
+  private runStartTime = 0;
+
   /**
    * run action
    */
   public async run(skip = false): Promise<void> {
+    this.runStartTime = Date.now();
     if (((this.data.flag || 0) & CONTROLLER_FLAG.DISABLED) !== 0 || skip === true) {
       this.setStatus(CONTROLLER_STATUS.SKIP);
       await this.skip();
@@ -362,7 +365,8 @@ export default abstract class BaseController<T extends BaseControllerData> {
    */
   private async complete(): Promise<void> {
     const totalTime = this.calcTotalTime();
-    this.totalTime = totalTime;
+    // this.totalTime = totalTime;
+    this.totalTime = Date.now() - this.runStartTime;
     // check isInteract
     if (this.status === CONTROLLER_STATUS.RUNNING) {
       if (this.isInteract) {
