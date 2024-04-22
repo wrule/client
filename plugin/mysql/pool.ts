@@ -42,6 +42,9 @@ const getOptions = (server: MySQLDataSource): mysql.PoolOptions => {
     // connectionLimit: 1000,
     // debug: false,
     // trace: false
+    ssl: {
+      rejectUnauthorized: false,
+    },
   };
   return options;
 };
