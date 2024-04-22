@@ -88,6 +88,7 @@ export const execute = async <T extends ControllerData>(
   context: Context,
   config: ExecuteConfigData,
 ): Promise<ControllerInstance> => {
+  console.log('step');
   const Controller = CONTROLLER[data.type] || UnknownController;
   const extra: ControllerExtraConfig = {
     id: `${config.id ? `${config.id}_` : ''}${config.group !== undefined ? `${config.group}_` : ''}${config.index}`,
