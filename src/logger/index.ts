@@ -27,5 +27,5 @@ const log4js = configure({
 });
 
 const Logger = log4js.getLogger('XEngine');
-
+Logger.level = 'OFF';
 export default Logger;
