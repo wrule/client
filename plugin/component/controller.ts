@@ -53,15 +53,6 @@ export default class ComponentController extends CombinationController<Component
       // 根据入参，设置值
       const params = this.data.params;
 
-      // const entries = Object.entries(this.variable.local);
-      // const keys = params?.map((item) => item.key) ?? [];
-      // this.variable.reset();
-      // entries.forEach(([key, value]) => {
-      //   if (!keys.includes(key)) {
-      //     this.variable.set(key, value);
-      //   }
-      // });
-
       if (params) {
         const resultParams: ComponentControllerResultParams[] = [];
         params.forEach((item) => {
@@ -69,6 +60,7 @@ export default class ComponentController extends CombinationController<Component
           const value = this.variable.replace(item.value, REPLACE_MODE.AUTO);
           // 设置元件上下文变量
           this.internalVariable.set(key, value);
+          this.variable.set(key, value);
           resultParams.push({ key, value });
         });
         this.result.params = resultParams;
