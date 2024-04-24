@@ -92,8 +92,10 @@ export default abstract class CombinationController<T extends CombinationControl
     merge: ChildControllerConfig,
   ): Promise<ControllerInstance> {
     const localVariable = this.variable.local;
+    const comVars = (merge as any).comVars ?? { };
     // 子步骤独享变量
-    const variable: Variable = merge.variable ? { ...localVariable, ...merge.variable } : localVariable;
+    let variable: Variable = merge.variable ? { ...localVariable, ...merge.variable, ...comVars } : localVariable;
+    variable = { ...variable, ...comVars };
     // 子步骤环境
     const context: Context = merge.context ? { ...this.context, ...merge.context } : this.context;
     // 子步骤配置

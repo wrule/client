@@ -26,6 +26,7 @@ export default class ComponentController extends CombinationController<Component
   /** @notice 结构适用于 ComponentExtraResult */
 
   private result: Result = {};
+  private comVars: any = { };
 
   /**
    * @inheritdoc
@@ -60,7 +61,8 @@ export default class ComponentController extends CombinationController<Component
           const value = this.variable.replace(item.value, REPLACE_MODE.AUTO);
           // 设置元件上下文变量
           this.internalVariable.set(key, value);
-          this.variable.set(key, value);
+          this.comVars[key] = value;
+          // this.variable.set(key, value);
           resultParams.push({ key, value });
         });
         this.result.params = resultParams;
@@ -83,7 +85,8 @@ export default class ComponentController extends CombinationController<Component
           {
             context: { variable: this.internalVariable },
             config: { bypass: error !== -1 },
-          },
+            comVars: this.comVars,
+          } as any,
         );
         if (instance.hasError()) {
           error = index;
