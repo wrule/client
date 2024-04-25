@@ -442,6 +442,7 @@ class Execute extends EventEmitter {
       // (result as any).envVariableValue = lastVarObj;
       this.changedVars = Object.keys(lastVarObj).length > 0 ? lastVarObj : undefined;
       // console.log(3333, this.changedVars);
+      Logger.info('VARS', oldVarsObj, varsObj, this.changedVars);
 
       const protocol = Buffer.allocUnsafe(4 * 8);
       const detail = this.result.getDetail();
