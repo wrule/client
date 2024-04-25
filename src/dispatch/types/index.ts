@@ -41,6 +41,10 @@ export interface ExecuteData {
   readonly steps: ControllerData[];
   /** 用例变量 */
   readonly variable?: Variable;
+
+  // 跨用例环境变量
+  readonly envVariableConfigs?: Variable;
+
   /** 使用的浏览器名称 对应 browser 中的 name */
   readonly browsers?: BrowserOptions[];
   /** 使用的设备名称 对应 device 中的 name */
