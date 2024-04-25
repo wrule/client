@@ -97,7 +97,8 @@ export const createExecuteListener = (data: WorkerTask): ExecuteEvents => {
       startTime: e.startTime,
       endTime: e.endTime,
       data: e.result,
-    };
+      envVariableValue: (e as any).envVariableValue,
+    } as any;
     channel.postMessage(msg, [msg.data.buffer]);
   };
 

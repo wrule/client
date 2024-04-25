@@ -414,6 +414,8 @@ class Execute extends EventEmitter {
    * |               Brotli(IDX)+Brotli(Header+Detail)               |
    * +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
    */
+
+  private changedVars: any = undefined;
   public async build(): Promise<Buffer> {
     const now = performance.now();
     try {
@@ -436,9 +438,10 @@ class Execute extends EventEmitter {
           lastVarObj[oldVarsObj[key]] = value;
         }
       });
-      console.log(2222, varsObj, oldVarsObj, lastVarObj);
-      (result as any).envVariableValue = lastVarObj;
-      console.log(3333, result);
+      // console.log(2222, varsObj, oldVarsObj, lastVarObj);
+      // (result as any).envVariableValue = lastVarObj;
+      this.changedVars = Object.keys(lastVarObj).length > 0 ? lastVarObj : undefined;
+      // console.log(3333, this.changedVars);
 
       const protocol = Buffer.allocUnsafe(4 * 8);
       const detail = this.result.getDetail();
@@ -633,7 +636,8 @@ class Execute extends EventEmitter {
           result,
           startTime: statusResult.startTime,
           endTime: statusResult.endTime,
-        });
+          envVariableValue: this.changedVars,
+        } as any);
       }
     } catch (e) {
       Logger.error(`[execute] ${e.message}`);
