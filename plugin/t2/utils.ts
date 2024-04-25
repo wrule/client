@@ -84,7 +84,7 @@ export const execute = async (options: T2WhaleOptions, timeout: number, body?: T
     if (!e.stack) {
       throw e;
     }
-    throw new Error(`连接到 T2 service ${server} 失败, 错误信息: [${e.message}]`);
+    throw new Error(`Error: failed to connect to T2 service, 错误信息: [${e.message}]`);
   }
 
   return result;
