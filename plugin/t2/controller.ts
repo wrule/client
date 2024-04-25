@@ -126,6 +126,7 @@ export default class T2Controller extends SingleController<T2ControllerData> {
         t2Server: {
           ...this.services,
         },
+        options: this.data.options,
         timeout,
       } as any, timeout, bodyStr);
       this.totalTime = result.totalTime;
