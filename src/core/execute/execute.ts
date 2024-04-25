@@ -425,6 +425,20 @@ class Execute extends EventEmitter {
           [VARIABLE_TYPE.EXECUTE]: this.context.variable.getVariables(VARIABLE_TYPE.EXECUTE),
         },
       };
+      let varsObj: any = { };
+      Object.entries(result.variable ?? { }).forEach(([key, value]) => {
+        varsObj = { ...varsObj, ...value };
+      });
+      const oldVarsObj = Object.fromEntries((this.data.envVariableConfigs ?? []).map((item) => [item.varName, item.variableId]));
+      let lastVarObj: any = { };
+      Object.entries(varsObj).forEach(([key, value]) => {
+        if (oldVarsObj[key]) {
+          lastVarObj[oldVarsObj[key]] = value;
+        }
+      });
+      console.log(2222, varsObj, oldVarsObj, lastVarObj);
+      (result as any).envVariableValue = lastVarObj;
+      console.log(3333, result);
 
       const protocol = Buffer.allocUnsafe(4 * 8);
       const detail = this.result.getDetail();

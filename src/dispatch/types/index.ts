@@ -43,7 +43,7 @@ export interface ExecuteData {
   readonly variable?: Variable;
 
   // 跨用例环境变量
-  readonly envVariableConfigs?: Variable;
+  readonly envVariableConfigs?: any[];
 
   /** 使用的浏览器名称 对应 browser 中的 name */
   readonly browsers?: BrowserOptions[];
