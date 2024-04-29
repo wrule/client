@@ -440,7 +440,16 @@ class Execute extends EventEmitter {
       });
       // console.log(2222, varsObj, oldVarsObj, lastVarObj);
       // (result as any).envVariableValue = lastVarObj;
-      this.changedVars = Object.keys(JSON.parse(JSON.stringify(lastVarObj))).length > 0 ? lastVarObj : undefined;
+
+      const kUndefined = Symbol('kUndefined');
+      Object.entries(lastVarObj).forEach(([key, value]) => {
+        if (value === kUndefined) {
+          lastVarObj[key] = undefined;
+        }
+      });
+      lastVarObj = JSON.parse(JSON.stringify(lastVarObj));
+
+      this.changedVars = Object.keys(lastVarObj).length > 0 ? lastVarObj : undefined;
       // console.log(3333, this.changedVars);
       Logger.info('VARS', oldVarsObj, varsObj, this.changedVars);
 
