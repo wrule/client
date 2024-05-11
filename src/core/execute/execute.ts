@@ -585,7 +585,6 @@ class Execute extends EventEmitter {
    */
   public async run(): Promise<void> {
     await this.beforeRun();
-    console.log(1111, this.data.envVariableConfigs);
     const now = performance.now();
     if (this.data.steps.length > 0) {
       const events = this.data.events || 0;

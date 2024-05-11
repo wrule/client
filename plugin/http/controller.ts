@@ -3,7 +3,7 @@
  * @author William Chan <root@williamchan.me>
  */
 import Got, { Options, Method, RequestError } from 'got';
-
+import crypto from 'node:crypto';
 import { CookieJar } from 'tough-cookie';
 import Request, { Response } from 'got/dist/source/core';
 import { changeContentFromVariables } from '@engine/core/utils';
@@ -29,6 +29,7 @@ import { SystemError, ExecuteError, ResponseError } from '@engine/core/error';
 import { PreContext, PostContext } from '@engine/core/types/vm';
 import iconv from 'iconv-lite';
 import { HTTPProxyServer } from '@engine/dispatch/types/server';
+import Logger from '@/logger';
 
 interface Delays {
   lookup?: number;
@@ -422,11 +423,19 @@ export default class HTTPController extends SingleController<HTTPControllerData>
    * @inheritdoc
    */
   protected async execute(): Promise<boolean> {
+    let httpId = 'http-' + crypto.randomUUID().split('-')[0];
+    let totalTime = 0;
     try {
       this.result.options = await this.getOptions();
+      const url = this.result.options.url?.toString() ?? '';
+      httpId += (url ? `-${url}` : '')
+      Logger.info(httpId, 'send');
+      totalTime = Date.now();
       const result = await Got(this.result.options) as Response;
+      Logger.info(httpId, 'finish', (Date.now() - totalTime) + 'ms');
       await this.responseHandler(result.request, result);
     } catch (e) {
+      Logger.info(httpId, 'error', e.message, (Date.now() - totalTime) + 'ms');
       // console.log(e.message);
       await this.responseHandler(e);
     }
