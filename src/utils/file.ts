@@ -28,7 +28,7 @@ export const getFullPath = (file: FileData): string => {
 };
 
 export const createReadStream = (file: FileData): fss.ReadStream => {
-  const data = fss.createReadStream(getFullPath(file));
+  const data = fss.createReadStream(getFullPath(file), 'utf-8');
   return data;
 };
 
