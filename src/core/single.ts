@@ -126,7 +126,6 @@ export default abstract class SingleController<T extends SingleControllerData> e
 
       return this.data.assert.map((item, index): AssertResult => {
         const name = item.name;
-        flog('[JDBC-item]', item);
         if (typeof item.fn === 'function') {
           try {
             let ret = item.fn.apply(undefined);
@@ -142,7 +141,6 @@ export default abstract class SingleController<T extends SingleControllerData> e
         if (fn) {
           const mode = REPLACE_MODE.AUTO;
           // const mode = item.fn === ASSERT.EXIST || item.fn === ASSERT.NOT_EXIST ? REPLACE_MODE.ORIGIN : REPLACE_MODE.AUTO;
-          flog('[JDBC-replace]', item.source, mode);
           const source = this.variable.replace(item.source, mode);
           const target = this.variable.replace(item.target, mode);
           const assertResult = {
@@ -154,12 +152,10 @@ export default abstract class SingleController<T extends SingleControllerData> e
             targetOrigin: item.target,
           } as AssertResult;
           try {
-            flog('[JDBC-s-t-1]', source, target);
             const ret = fn(source as never, target as never);
             assertResult.result = ret;
             return assertResult;
           } catch (e) {
-            flog('[JDBC-s-t-2]', source, target);
             assertResult.result = false;
             assertResult.error = e.message;
             return assertResult;
@@ -262,9 +258,7 @@ export default abstract class SingleController<T extends SingleControllerData> e
     if (this.state === CONTROLLER_STATE.ASSERT) {
       try {
         result.assert = await this.assert();
-        flog('[JDBC-result]', result);
         const index = result.assert?.findIndex((item) => item.result === false);
-        flog('[JDBC-index]', index);
         if (index !== undefined && index !== -1) {
           this.setError(new AssertError(result.assert || []));
         }

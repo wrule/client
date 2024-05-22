@@ -95,11 +95,9 @@ export default class JDBCController extends SingleController<JDBCControllerData>
    */
   protected async execute(): Promise<boolean> {
     try {
-      flog('[JDBC-execute]');
       const command = this.getCommand();
       const result = await execute(this.server, command, this.data.config?.timeout);
       this.totalTime = result.totalTime;
-      flog('[JDBC-execute-ok]');
       this.responseHandler(result);
     } catch (e) {
       throw new ExecuteError(e);
@@ -112,7 +110,6 @@ export default class JDBCController extends SingleController<JDBCControllerData>
    * @param result
    */
   private responseHandler(result: ExecuteResult): void {
-    flog('[JDBC-responseHandler]', result);
     this.result.command = result.command;
     // this.totalTime = result.totalTime;
     // this.result.network = result.network;
@@ -127,7 +124,6 @@ export default class JDBCController extends SingleController<JDBCControllerData>
     //   }
     // }
     if (result.rows && result.fields) {
-      flog('[JDBC-AFFECT_ROWS-1]');
       this.result.rows = result.rows;
       // this.result.fields = this.createFields(result.fields);
       this.result.fields = result.fields;
@@ -136,10 +132,8 @@ export default class JDBCController extends SingleController<JDBCControllerData>
       this.variable.setLocal('RESULT_DATA', proxyResult);
       this.variable.setLocal('RESULT_DATA_LENGTH', proxyResult.length);
     } else {
-      flog('[JDBC-AFFECT_ROWS-2]');
       const executeResult: JDBCExecuteResult = { ...result.data };
       this.result.result = executeResult;
-      flog('[JDBC-AFFECT_ROWS-3]', executeResult);
       this.variable.setLocal('AFFECT_ROWS', executeResult.rowsAffected);
     }
   }

@@ -67,7 +67,6 @@ export const execute = async (
   const server = `${opts.jdbcServiceHost}:${opts.jdbcServicePort}`;
   // const server = '10.10.31.32:9123';
   try {
-    flog('[JDBC-data-Got]');
     // select * from test2
     const data = await Got<Result>(`http://${server}/twhale/jdbc`, {
       method: 'POST',
@@ -93,7 +92,6 @@ export const execute = async (
       retry: 0,
       responseType: 'json',
     });
-    flog('[JDBC-data-Got-Data]', data.body);
     result.totalTime = data.timings.phases.total || 0;
     if (data.body.success !== true) {
       const error = new Error(data.body.error);
