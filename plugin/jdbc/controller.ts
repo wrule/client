@@ -234,7 +234,8 @@ export default class JDBCController extends SingleController<JDBCControllerData>
       type: CONTROLLER_TYPE.JDBC,
       extra: {
         serverId: data.serverId,
-      },
+        subType: (data as any).subType,
+      } as any,
     };
     return result;
   }
