@@ -326,7 +326,6 @@ class WorkerPool {
    * @returns {Promise<EventEmitter>}
    */
   public async runWithTask(data: ExecuteTaskData): Promise<EventEmitter> {
-    console.log('runWithTask', (data.execute as any).steps);
     const worker = await this.getIdleWorker();
     const event = worker.event;
     if (data.isCancel) {
