@@ -101,6 +101,7 @@ declare interface Execute {
  */
 class Execute extends EventEmitter {
   private readonly data!: ExecuteData;
+  private readonly libraryId!: string;
   private readonly context!: Context;
   private readonly result!: ResultManager;
   private readonly timeout!: number;
@@ -140,11 +141,12 @@ class Execute extends EventEmitter {
     try {
       this.id = data.id;
       this.data = data.execute as ExecuteData;
+      this.libraryId = (this.data as any).libraryId;
       this.timeout = data.timeout || CONFIG.WORKER_EXEC_TIMEOUT;
 
       // 这里还可有优化
       const variable = new VariableManager({
-        [VARIABLE_TYPE.ENV]: data.context.env.variable,
+        [VARIABLE_TYPE.ENV]: data.context.env.variable?.[this.libraryId] ?? { } as any,
         [VARIABLE_TYPE.EXECUTE]: this.data.variable,
       });
 
@@ -423,7 +425,7 @@ class Execute extends EventEmitter {
       const result: ExecuteResult = {
         ...this.getStatusResult(),
         variable: {
-          [VARIABLE_TYPE.ENV]: this.context.env.variable,
+          [VARIABLE_TYPE.ENV]: this.context.env.variable?.[this.libraryId] ?? { } as any,
           [VARIABLE_TYPE.EXECUTE]: this.context.variable.getVariables(VARIABLE_TYPE.EXECUTE),
         },
       };

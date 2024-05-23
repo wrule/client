@@ -292,8 +292,12 @@ export default class Dispatch extends EventEmitter {
           this.emit('reply', e);
         } else if (e.event === 'set-global-variable') {
           if (!this.context.env.variable) this.context.env.variable = {};
-          /** @fixme 这里 undefined 传递存在问题 */
-          this.context.env.variable[e.data.key] = decodeContentType(e.data.value);
+          Object.keys(this.context.env.variable).forEach((key) => {
+            let target = this.context.env.variable as any;
+            target[key] = target[key] ?? { };
+            /** @fixme 这里 undefined 传递存在问题 */
+            target[e.data.key] = decodeContentType(e.data.value);
+          });
           this.log('debug', `execute thread set global variable "${e.data.key}" successfully.`);
         } else if (e.event === 'interact-ask') {
           this.emit('interact-ask', e);
