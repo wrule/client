@@ -32,7 +32,11 @@ function hookClient(
   clientExt._clientOn = clientExt.on;
   clientExt._clientEmit = clientExt.emit;
 
-  clientExt._clientOn('joinRoom', (roomName) => {
+  clientExt._clientOn('joinRoom', (roomName: string) => {
+    if (roomName.startsWith('room-')) {
+      const targetRoom = io.sockets.adapter.rooms.get(roomName);
+      if (targetRoom && targetRoom.size > 0) return;
+    }
     clientExt.join(roomName);
   });
   clientExt._clientOn('leaveRoom', (roomName) => {
