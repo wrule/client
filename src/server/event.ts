@@ -3,7 +3,7 @@
  * @author William Chan <root@williamchan.me>
  */
 import { performance } from 'node:perf_hooks';
-import { Socket } from 'socket.io';
+import { Socket, Server } from 'socket.io';
 import Logger from '@/logger';
 import Dispatch, { ExecuteStatusCollection, ExecuteInteractAskMessage } from '@/dispatch';
 import {
@@ -25,6 +25,8 @@ import { COMMON_ERROR, createCommonErrorInfo } from '@/server/error/common';
 import { CALL_ERROR, createCallErrorInfo } from '@/server/error/call';
 import { dispatchCall } from '@/dispatch//call';
 import { DispatchStat } from '@/dispatch/types';
+import { hookClient } from './hook';
+import Contractor from './contractor';
 
 export interface DispatchTask {
   [key: string]: Dispatch;
@@ -51,8 +53,12 @@ export default class ClientEvent {
    * @param client
    * @param context
    */
-  public constructor(client: Socket, context: Context) {
+  public constructor(client: Socket, context: Context, io: Server) {
     this.client = client;
+
+    hookClient(this.client, io, (...args) => Contractor.onForward(...args));
+    Contractor.HelpToEmit(this.client as any, io);
+
     this.context = context;
     this.context.online[client.id] = this;
     Logger.info('[socket] client %s connected, ip=%s', client.id, client.handshake.address);

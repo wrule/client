@@ -11,6 +11,7 @@ import Logger from '@/logger';
 import { opts } from '@/config';
 import path from 'path';
 import { createProxyMiddleware } from 'http-proxy-middleware';
+import './contractor';
 
 const dispatch: DispatchTask = {};
 const online: OnlineClient = {};
@@ -50,10 +51,10 @@ export const createServer = async (port: number = opts.port, host: string = opts
   const io = new Server(server, {
     cors: {
       origin: '*',
-      methods: ['GET', 'POST'],
+      // methods: ['GET', 'POST'],
     },
     maxHttpBufferSize: 1024 * 1024 * 512,
-    transports: ['websocket'],
+    // transports: ['websocket'],
     pingTimeout: 90 * 1000,
     pingInterval: 60 * 1000,
   });
@@ -73,7 +74,7 @@ export const createServer = async (port: number = opts.port, host: string = opts
     process.exit(1);
   }
 
-  if (opts.token) {
+  if (opts.token && false) {
     io.use((socket, next) => {
       if (socket.handshake.auth && socket.handshake.auth.token && opts.token === socket.handshake.auth.token) {
         return next();
@@ -92,6 +93,6 @@ export const createServer = async (port: number = opts.port, host: string = opts
     const instance = new ClientEvent(client, {
       dispatch,
       online,
-    });
+    }, io);
   });
 };

@@ -452,11 +452,11 @@ class Execute extends EventEmitter {
       lastVarObj = JSON.parse(JSON.stringify(lastVarObj));
 
       this.changedVars = Object.keys(lastVarObj).length > 0 ? lastVarObj : undefined;
-      console.log('VARS');
-      console.log('variable', this.context.env.variable);
-      console.log('libraryId', (this.data as any).libraryId);
-      console.log('envVariableConfigs', this.data.envVariableConfigs);
-      console.log('needUpdate', this.changedVars);
+      // console.log('VARS');
+      // console.log('variable', this.context.env.variable);
+      // console.log('libraryId', (this.data as any).libraryId);
+      // console.log('envVariableConfigs', this.data.envVariableConfigs);
+      // console.log('needUpdate', this.changedVars);
       const protocol = Buffer.allocUnsafe(4 * 8);
       const detail = this.result.getDetail();
       const idx = Buffer.from(JSON.stringify(result));
