@@ -9,7 +9,6 @@ import { Server, Socket } from 'socket.io';
 import ClientEvent, { OnlineClient, DispatchTask } from '@/server/event';
 import Logger from '@/logger';
 import { opts } from '@/config';
-import path from 'path';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import './contractor';
 import xconfig from '@/xconfig';
