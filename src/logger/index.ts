@@ -27,7 +27,9 @@ const log4js = configure({
 });
 
 const Logger = log4js.getLogger('XEngine');
-// Logger.level = 'OFF';
+if (isDeveloper) {
+  Logger.level = 'OFF';
+}
 const log = console.log;
 console.log = (...args) => {
   const first = args[0];

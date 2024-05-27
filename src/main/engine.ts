@@ -46,7 +46,7 @@ process.title = 'XEngine';
 //  XEngine ${ENGINE_VERSION} (git-${process.env.GIT_COMMIT}) BuildID ${process.env.BUILD_TIME}
 //  --------------------------------------------------------------------------------------
 // \n`);
-console.log('##----------##');
+console.log('[🐥 小黄鸭调试法欢迎你]');
 if (opts.help) {
   program.help();
 }
