@@ -44,7 +44,7 @@ class Contractor {
     const params = data.args[0] ?? { };
     const requestId: string = params.requestId;
     if (requestId) {
-      let envName = (params.data?.env?.name ?? this.queueMap.get(requestId)?.envName);
+      let envName = (params.envName ?? params.data?.env?.name ?? this.queueMap.get(requestId)?.envName);
       if (envName) {
         const roomName = `room-${envName}`;
         const targetRoom = io.sockets.adapter.rooms.get(roomName);
