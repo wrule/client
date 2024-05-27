@@ -3,10 +3,12 @@ import { EmitData, HookData, SocketExt } from './hook';
 import { io, Socket as ClientSocket } from 'socket.io-client';
 import QueueMap from './queueMap';
 import path from 'path';
+import xconfig from '@/xconfig';
 
-let attachUrl = '';
-let attachEnvName = '';
+let attachUrl = xconfig.attachUrl;
+let attachEnvName = xconfig.attachEnvName;
 const triggerUrl = 'http://127.0.0.1:6419';
+const isAttachMode = !!(attachUrl && attachEnvName);
 
 try {
   const configPath = path.resolve('xconfig.json');
@@ -17,8 +19,6 @@ try {
 } catch (error) {
   console.log(`Failed to read xconfig.json`);
 }
-
-const isAttachMode = !!(attachUrl && attachEnvName);
 
 export
 class Contractor {

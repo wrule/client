@@ -12,6 +12,7 @@ import { opts } from '@/config';
 import path from 'path';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import './contractor';
+import xconfig from '@/xconfig';
 
 const dispatch: DispatchTask = {};
 const online: OnlineClient = {};
@@ -22,16 +23,7 @@ const online: OnlineClient = {};
  * @param host
  */
 export const createServer = async (port: number = opts.port, host: string = opts.host): Promise<void> => {
-  let proxyUrl = '';
-
-  try {
-    const configPath = path.resolve('xconfig.json');
-    Logger.info(`Read xconfig.json from ${configPath}`);
-    const config = require(configPath);
-    proxyUrl = config.proxyUrl;
-  } catch (error) {
-    Logger.warn(`Failed to read xconfig.json`);
-  }
+  const proxyUrl = xconfig.proxyUrl;
 
   if (proxyUrl) {
     const proxyMiddleware = createProxyMiddleware({
