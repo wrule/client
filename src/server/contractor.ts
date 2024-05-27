@@ -10,16 +10,6 @@ let attachEnvName = xconfig.attachEnvName;
 const triggerUrl = 'http://127.0.0.1:6419';
 const isAttachMode = !!(attachUrl && attachEnvName);
 
-try {
-  const configPath = path.resolve('xconfig.json');
-  console.log(`Read xconfig.json from ${configPath}`);
-  const config = require(configPath);
-  attachUrl = config.attachUrl;
-  attachEnvName = config.attachEnvName;
-} catch (error) {
-  console.log(`Failed to read xconfig.json`);
-}
-
 export
 class Contractor {
   public constructor() {
