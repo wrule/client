@@ -100,7 +100,6 @@ export default class DataSetController extends CombinationController<DataSetCont
       internalVariable = this.createInternalVariable();
     }
     for (let index = 0; index < this.data.steps.length; index++) {
-      this.context.deepIndexs?.push(index + 1);
       const step = this.data.steps[index];
       const variable: Variable = {};
       this.data.fields.forEach((field, idx) => {
@@ -115,7 +114,6 @@ export default class DataSetController extends CombinationController<DataSetCont
         config.context = { variable: internalVariable };
       }
       const instance = await this.executeChildController(step, index, config, this.data.type);
-      this.context.deepIndexs?.pop();
       if (cfg.skip) {
         success = null;
       } else if (instance.hasError()) {
