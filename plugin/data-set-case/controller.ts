@@ -131,8 +131,6 @@ export default class DataSetController extends CombinationController<DataSetCont
       }
     }
 
-    // setResult();
-
     return success;
   }
 
@@ -227,6 +225,7 @@ export default class DataSetController extends CombinationController<DataSetCont
   public async getDetailResult(): Promise<DataSetDetailResult> {
     return {
       fields: this.data.fields,
+      selectIndexList: (this.data as any).selectIndexList,
       rows: this.result.rows,
     };
   }

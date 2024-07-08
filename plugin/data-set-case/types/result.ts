@@ -14,6 +14,7 @@ export interface DataSetExtraResult {
 export interface DataSetDetailResult extends BaseDetailResult {
   fields: Fields[];
   rows: unknown[][];
+  selectIndexList?: number[];
 }
 
 export interface DataSetResult extends BaseResult<DataSetExtraResult> {
