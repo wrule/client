@@ -33,3 +33,4 @@ rust-http-proxy
 !.gitkeep
 
 xconfig.json
+*.log

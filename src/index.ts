@@ -7,6 +7,14 @@
 import { opts } from '@/config';
 import { isDeveloper } from '@/utils';
 
+process.on('uncaughtException', (error, origin) => {
+  console.log('[uncaught error 4]', error, origin);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.log('[uncaught error 5]', reason, promise);
+});
+
 if (opts.mock) {
   if (isDeveloper) {
     require('@/main/mock');

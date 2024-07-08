@@ -43,7 +43,7 @@ const encodeBufferDispatch = (data: DispatchData): Buffer => {
   const debugDataBuffer = Buffer.concat([
     protocol, contextSize, context, ...execute,
   ]);
-  console.log(execute);
+  // console.log(execute);
   return debugDataBuffer;
 };
 
@@ -146,7 +146,7 @@ createServer().then(() => {
     // });
   });
   client.on('call', (data) => {
-    console.log(data);
+    // console.log(data);
   });
   client.on('disconnect', () => {
     console.debug('server disconnected');
@@ -163,11 +163,11 @@ createServer().then(() => {
   });
   client.on('dispatch', (data: DispatchDoneMessage | DispatchErrorMessage | DispatchSuccessMessage) => {
     Logger.mark('[dispatch]');
-    console.log(data);
+    // console.log(data);
   });
   client.on('query', (data) => {
     Logger.mark('[query]');
-    console.log(data);
+    // console.log(data);
   });
   // global.query = (data: any): void => {
   //   client.emit('query', data)

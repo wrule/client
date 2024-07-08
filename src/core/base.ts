@@ -168,7 +168,7 @@ export default abstract class BaseController<T extends BaseControllerData> {
         } catch (error) { }
         return item;
       });
-      console.log(...jsArgs);
+      // console.log(...jsArgs);
     };
     vmContext.sys.sleep = sleep;
     /** @todo */

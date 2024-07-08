@@ -154,6 +154,26 @@ class Execute extends EventEmitter {
       const traceState = this.data.traceState;
       this.result = new ResultManager(this.data.steps);
       this.context = {
+        deepIndexs: [],
+        usecase: this.data,
+        requestId: data.requestId,
+        dataSetCountValue: {
+          isDataSet: false,
+          isCaseDataSet: false,
+
+          dataSetTotal: 0,
+          dataSetSuccessCount: 0,
+          dataSetFailCount: 0,
+          dataSetSkipCount: 0,
+          dataSetWaitCount: 0,
+
+          caseDataSetTotal: 0,
+          selectCaseDataSetTotal: 0,
+          caseDataSetSuccessCount: 0,
+          caseDataSetFailCount: 0,
+          caseDataSetSkipCount: 0,
+          caseDataSetWaitCount: 0,
+        },
         getGlobalIndex: (): number => ++this.globalIndex,
         setGlobalVariable: (key: string, value: ContentType): void => {
           this.emit('set-global-variable', { key, value });
@@ -459,6 +479,15 @@ class Execute extends EventEmitter {
       // console.log('needUpdate', this.changedVars);
       const protocol = Buffer.allocUnsafe(4 * 8);
       const detail = this.result.getDetail();
+      detail.forEach((item: any) => {
+        if (item.fields) {
+          const stepId = item.stepId;
+          const target: any = result.steps.find((step) => step.stepId === stepId);
+          if (target) {
+            target.sourceDataResponse = item;
+          }
+        }
+      });
       const idx = Buffer.from(JSON.stringify(result));
       protocol.writeUIntBE(0xC6963F, 0, 3); // 1100 0110 1001 0110 0011 1111
       protocol.writeUIntBE(1, 3, 1); // 协议版本
@@ -600,6 +629,7 @@ class Execute extends EventEmitter {
       }
       try {
         for (let index = 0; index < this.data.steps.length; index++) {
+          this.context.isLast = (index === this.data.steps.length - 1);
           const step = this.data.steps[index];
           const instance = await execute(step, this.context, { index, bypass });
           if (instance.hasError()) {
@@ -643,6 +673,7 @@ class Execute extends EventEmitter {
           result,
           startTime: statusResult.startTime,
           endTime: statusResult.endTime,
+          dataSetCountValue: this.context.dataSetCountValue,
         });
       } else {
         this.emit('done', {
@@ -650,6 +681,7 @@ class Execute extends EventEmitter {
           startTime: statusResult.startTime,
           endTime: statusResult.endTime,
           envVariableValue: this.changedVars,
+          dataSetCountValue: this.context.dataSetCountValue,
         } as any);
       }
     } catch (e) {

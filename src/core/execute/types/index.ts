@@ -15,6 +15,7 @@ import { InstanceResult } from '@/core/pool';
 import SingleController from '@/core/single';
 import CombinationController from '@/core/combination';
 import ResultManager from '@/core/result';
+import { CONTROLLER_TYPE } from '@/core/enum';
 
 export type ControllerInstance = SingleController<SingleControllerData> | CombinationController<CombinationControllerData>
 
@@ -43,6 +44,28 @@ export interface Context {
   readonly browsers?: BrowserOptions[];
   readonly traceState?: string;
   browser?: MultiRemoteBrowserAsync | Promise<MultiRemoteBrowserAsync>;
+  dataSetCountValue: {
+    isDataSet: boolean;
+    isCaseDataSet: boolean;
+
+    dataSetTotal: number;
+    dataSetSuccessCount: number;
+    dataSetFailCount: number;
+    dataSetSkipCount: number;
+    dataSetWaitCount: number;
+
+    caseDataSetTotal: number;
+    selectCaseDataSetTotal: number;
+    caseDataSetSuccessCount: number;
+    caseDataSetFailCount: number;
+    caseDataSetSkipCount: number;
+    caseDataSetWaitCount: number;
+  },
+  parentType?: CONTROLLER_TYPE;
+  requestId?: string;
+  usecase?: any;
+  isLast?: boolean;
+  deepIndexs?: number[];
 }
 
 export interface ExecuteConfigData {

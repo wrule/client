@@ -83,6 +83,8 @@ export interface ExecuteTaskData {
   readonly timeout?: number;
   /** 是否已被标记取消 */
   isCancel?: boolean;
+
+  requestId?: string;
 }
 
 export interface DispatchContext {

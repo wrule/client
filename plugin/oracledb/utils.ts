@@ -13,6 +13,8 @@ import { SocketInfo } from '@engine/utils/socket';
 import { CONFIG } from '@engine/config';
 import { timerExecute } from '@engine/core/utils';
 
+OracleDB.fetchAsString = [OracleDB.NUMBER];
+
 /**
  * 去掉前后空格和分号
  * @param command
@@ -71,6 +73,10 @@ export const execute = async (
             item[i] = await item[i].getData();
           } else if (item[i] instanceof Date) {
             item[i] = moment(item[i]).format('YYYY-MM-DD HH:mm:ss');
+          } else if (typeof item[i] === 'string') {
+            if (/^\.\d+$/.test(item[i])) {
+              item[i] = '0' + item[i];
+            }
           }
         }
       }

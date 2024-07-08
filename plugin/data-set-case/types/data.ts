@@ -57,7 +57,7 @@ export interface DataSourceConfig {
 }
 
 export interface DataSetControllerData extends CombinationControllerData {
-  type: CONTROLLER_TYPE.DATASET | CONTROLLER_TYPE.DATASET_CASE;
+  type: CONTROLLER_TYPE.DATASET_CASE;
   /** 数据源配置 */
   dataSource?: DataSourceConfig;
   csv?: FileData;

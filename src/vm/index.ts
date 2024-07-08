@@ -105,6 +105,7 @@ export default class VM extends EventEmitter {
         Buffer,
         URL,
         console: this.console,
+        JSON: JSON,
         ...this.timer.getTimer(),
         ...options.context,
       },

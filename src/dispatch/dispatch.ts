@@ -144,6 +144,7 @@ export default class Dispatch extends EventEmitter {
             option: opt,
             mode: (options & EXECUTE_OPTIONS.SYNC) !== 0 ? EXECUTE_MODE.SYNC : EXECUTE_MODE.ASYNC,
             id: index, // 严格按照给定的顺序
+            requestId,
           });
           offset = offset + 8 + size;
           index++;
@@ -166,6 +167,7 @@ export default class Dispatch extends EventEmitter {
           context,
           mode: item.mode ?? EXECUTE_MODE.SYNC,
           id: index, // 严格按照给定的顺序
+          requestId,
         });
       }
       return new Dispatch({ queue, context, requestId });

@@ -2,9 +2,9 @@
  * This file is part of the XEngine.
  * @author William Chan <root@williamchan.me>
  */
-import { DataSetExtraResult, DataSetDetailResult, DataSetResult } from '@plugin/data-set/types/result';
-import { DataSetControllerData } from '@plugin/data-set/types/data';
-import { createRows, RowsData } from '@plugin/data-set/utils';
+import { DataSetExtraResult, DataSetDetailResult, DataSetResult } from '@plugin/data-set-case/types/result';
+import { DataSetControllerData } from '@plugin/data-set-case/types/data';
+import { createRows, RowsData } from '@plugin/data-set-case/utils';
 import CombinationController, { ChildControllerConfig } from '@engine/core/combination';
 import logger from '@engine/logger';
 import { CombinationError } from '@engine/core/error';
@@ -100,6 +100,7 @@ export default class DataSetController extends CombinationController<DataSetCont
       internalVariable = this.createInternalVariable();
     }
     for (let index = 0; index < this.data.steps.length; index++) {
+      this.context.deepIndexs?.push(index + 1);
       const step = this.data.steps[index];
       const variable: Variable = {};
       this.data.fields.forEach((field, idx) => {
@@ -114,6 +115,7 @@ export default class DataSetController extends CombinationController<DataSetCont
         config.context = { variable: internalVariable };
       }
       const instance = await this.executeChildController(step, index, config, this.data.type);
+      this.context.deepIndexs?.pop();
       if (cfg.skip) {
         success = null;
       } else if (instance.hasError()) {
@@ -122,14 +124,16 @@ export default class DataSetController extends CombinationController<DataSetCont
     }
 
     if (cfg.skip) {
-      this.context.dataSetCountValue.dataSetSkipCount++;
+      this.context.dataSetCountValue.caseDataSetSkipCount++;
     } else {
       if (success) {
-        this.context.dataSetCountValue.dataSetSuccessCount++;
+        this.context.dataSetCountValue.caseDataSetSuccessCount++;
       } else {
-        this.context.dataSetCountValue.dataSetFailCount++;
+        this.context.dataSetCountValue.caseDataSetFailCount++;
       }
     }
+
+    // setResult();
 
     return success;
   }
@@ -160,13 +164,13 @@ export default class DataSetController extends CombinationController<DataSetCont
    */
   protected async execute(): Promise<boolean> {
     const data = await createRows(this.data, this.context.env.dataSource, this.config.maxCount);
+    const dataAny: any = this.data;
+    const selectIndexList: number[] = dataAny.isSelectAll ?
+      data.rows.map((_, index) => index) :
+      (dataAny.selectIndexList ?? []);
+    data.rows = selectIndexList.map((index) => data.rows[index]);
+    data.skip = selectIndexList.map((index) => data.skip[index]);
     const count = data.rows.length;
-
-    this.context.dataSetCountValue.dataSetTotal += count;
-    if (!this.data.steps || this.data.steps.length < 1) {
-      this.context.dataSetCountValue.dataSetSkipCount += count;
-    }
-
     this.result.rows = data.rows;
 
     if (this.data.steps.length > 0 && count > 0) {
@@ -213,22 +217,20 @@ export default class DataSetController extends CombinationController<DataSetCont
    * @inheritdoc
    */
   public async getExtraResult(): Promise<DataSetExtraResult> {
-    const result = {
+    return {
       config: this.config,
       result: this.result.result,
     };
-    return result;
   }
 
   /**
    * @inheritdoc
    */
   public async getDetailResult(): Promise<DataSetDetailResult> {
-    const result = {
+    return {
       fields: this.data.fields,
       rows: this.result.rows,
     };
-    return result;
   }
 
   /**
@@ -273,7 +275,7 @@ export default class DataSetController extends CombinationController<DataSetCont
   public static createInitResult(base: BaseResult, data: DataSetControllerData): DataSetResult {
     const result: DataSetResult = {
       ...base,
-      type: CONTROLLER_TYPE.DATASET,
+      type: CONTROLLER_TYPE.DATASET_CASE,
       extra: {
         config: data.config,
         result: [],

@@ -10,6 +10,7 @@ import BaseController from '@/core//base';
 import { SystemError } from '@/core/error';
 import { ControllerInstance } from '@/core/execute/types';
 import Logger from '@/logger';
+import { CONTROLLER_TYPE } from './enum';
 
 interface ConfigPart {
   readonly group?: number;
@@ -90,6 +91,7 @@ export default abstract class CombinationController<T extends CombinationControl
     data: ControllerData,
     index: number,
     merge: ChildControllerConfig,
+    parentType?: CONTROLLER_TYPE,
   ): Promise<ControllerInstance> {
     const localVariable = this.variable.local;
     const comVars = (merge as any).comVars ?? { };
@@ -108,7 +110,7 @@ export default abstract class CombinationController<T extends CombinationControl
       index,
       variable,
     };
-    const instance = await execute(data, context, config);
+    const instance = await execute(data, context, config, parentType);
     return instance;
   }
 }

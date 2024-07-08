@@ -87,7 +87,32 @@ export const execute = async <T extends ControllerData>(
   data: T,
   context: Context,
   config: ExecuteConfigData,
+  parentType?: CONTROLLER_TYPE,
 ): Promise<ControllerInstance> => {
+
+  const dataAny = data as any;
+
+  // 数据集存在情况处理
+  if (data.type === CONTROLLER_TYPE.DATASET) {
+    context.dataSetCountValue.isDataSet = true;
+  }
+  if (data.type === CONTROLLER_TYPE.DATASET_CASE) {
+    context.dataSetCountValue.isCaseDataSet = true;
+  }
+
+  // 数据集用例情况处理
+  if (data.type === CONTROLLER_TYPE.DATASET_CASE) {
+    context.dataSetCountValue.caseDataSetTotal += dataAny.caseDataSetTotal ?? 0;
+    context.dataSetCountValue.selectCaseDataSetTotal += (dataAny.selectIndexList ?? []).length;
+  }
+
+  // 数据集跳过情况处理
+  if (!dataAny.steps || dataAny.steps.length < 1) {
+    if (data.type === CONTROLLER_TYPE.DATASET_CASE) {
+      context.dataSetCountValue.caseDataSetSkipCount += (dataAny.selectIndexList ?? []).length;
+    }
+  }
+
   const Controller = CONTROLLER[data.type] || UnknownController;
   const extra: ControllerExtraConfig = {
     id: `${config.id ? `${config.id}_` : ''}${config.group !== undefined ? `${config.group}_` : ''}${config.index}`,
@@ -110,6 +135,16 @@ export const execute = async <T extends ControllerData>(
       });
     }
     if (config.bypass === true) {
+
+      if (data.type === CONTROLLER_TYPE.DATASET) {
+        // context.dataSetCountValue.dataSetSkipCount += (dataAny.config?.maxCount ?? 0);
+        context.dataSetCountValue.dataSetTotal += (dataAny.config?.maxCount ?? 0);
+      }
+
+      if (data.type === CONTROLLER_TYPE.DATASET_CASE) {
+        // context.dataSetCountValue.caseDataSetSkipCount += (dataAny.selectIndexList ?? []).length;
+      }
+
       instance.setStatus(CONTROLLER_STATUS.WAIT);
     } else {
       await instance.run(config.skip);
@@ -117,6 +152,15 @@ export const execute = async <T extends ControllerData>(
   } catch (e) {
     instance.setError(e);
   }
+
+  // 数据集失败情况处理
+  if (instance.hasError()) {
+    if (context.isLast) {
+      context.dataSetCountValue.dataSetSuccessCount--;
+      context.dataSetCountValue.dataSetFailCount++;
+    }
+  }
+
   return instance;
   // }
   // throw Error('system error');

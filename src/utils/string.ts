@@ -71,5 +71,10 @@ export const toString = (value: unknown): string | undefined => {
   if (Buffer.isBuffer(value)) {
     return value.toString('utf-8');
   }
+  if (typeof value === 'string') {
+    if (/^\.\d+$/.test(value)) {
+      return '0' + value;
+    }
+  }
   return (value as any).toString();
 };

@@ -14,7 +14,7 @@ import { TestDataSetData } from '@plugin/data-set/call';
  */
 type Call =
   'test-connect' |
-  'test-dataset';
+  'test-dataset' | 'test-dataset-case';
   // 'test-component' | // 这个不提供 当步骤执行吧
 
 /**
@@ -61,7 +61,7 @@ export interface ReplyTestConnectMessage extends BaseReplyCallMessage {
  * @on
  */
 export interface CallTestDataSetMessage extends BaseCallMessage {
-  call: 'test-dataset';
+  call: 'test-dataset' | 'test-dataset-case';
   params: TestDataSetData;
 }
 
@@ -71,7 +71,7 @@ export interface CallTestDataSetMessage extends BaseCallMessage {
  * @emit
  */
 export interface ReplyTestDataSetMessage extends BaseReplyCallMessage {
-  call: 'test-dataset';
+  call: 'test-dataset' | 'test-dataset-case';
   success: true;
   data: DataSetDetailResult;
 }

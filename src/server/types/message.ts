@@ -89,12 +89,14 @@ export interface ExecuteDoneMessage {
   data: Buffer;
   retry?: number;
   cancel?: boolean;
+  [name: string]: any;
 }
 
 export interface ExecuteDoneResult {
   startTime?: number;
   endTime?: number;
   result: Buffer;
+  [name: string]: any;
 }
 
 export type ExecuteMessageData =

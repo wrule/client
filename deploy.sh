@@ -4,3 +4,4 @@ sshpass -p "perfma@888!" ssh root@10.10.222.240 "source ~/.nvm/nvm.sh && cd /dat
 # zZVhsiWS
 # hdgzE35m
 sshpass -p "5d96Pk2R" ssh root@10.10.222.76 "cd /data && bash ./xen-update.sh"
+# d3fBbca0 78

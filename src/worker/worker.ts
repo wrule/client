@@ -35,6 +35,7 @@ import '@plugin/condition';
 import '@plugin/loop';
 import '@plugin/poll';
 import '@plugin/data-set';
+import '@plugin/data-set-case';
 
 import '@plugin/mysql';
 import '@plugin/redis';
@@ -46,6 +47,14 @@ import '@plugin/oracledb';
 import '@plugin/jdbc';
 // 临时
 import '@addon/tzt';
+
+process.on('uncaughtException', (error, origin) => {
+  console.log('[uncaught error 2]', error, origin);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.log('[uncaught error 3]', reason, promise);
+});
 
 // import '@plugin/browser';
 

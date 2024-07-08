@@ -429,13 +429,13 @@ export default class HTTPController extends SingleController<HTTPControllerData>
       this.result.options = await this.getOptions();
       const url = this.result.options.url?.toString() ?? '';
       httpId += (url ? `-${url}` : '')
-      Logger.info(httpId, 'send');
+      // Logger.info(httpId, 'send');
       totalTime = Date.now();
       const result = await Got(this.result.options) as Response;
-      Logger.info(httpId, 'finish', (Date.now() - totalTime) + 'ms');
+      // Logger.info(httpId, 'finish', (Date.now() - totalTime) + 'ms');
       await this.responseHandler(result.request, result);
     } catch (e) {
-      Logger.info(httpId, 'error', e.message, (Date.now() - totalTime) + 'ms');
+      // Logger.info(httpId, 'error', e.message, (Date.now() - totalTime) + 'ms');
       // console.log(e.message);
       await this.responseHandler(e);
     }

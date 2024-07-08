@@ -42,7 +42,13 @@ export default class VMConsole {
         dat.content.stack = `${dat.content.name}: ${dat.content.message}`;
       }
       try {
-        logs.push(JSON.parse(JSON.stringify(dat)));
+        const newArgs = JSON.parse(JSON.stringify(dat, (key, value) => {
+          if (value === undefined && key !== '0') return 'perfma-spec-undefined';
+          if (value === -Infinity) return 'perfma-spec--Infinity';
+          if (value === Infinity) return 'perfma-spec-Infinity';
+          return value;
+        }));
+        logs.push(newArgs);
       } catch (error) {
         logs.push(dat);
       }

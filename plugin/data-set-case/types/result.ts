@@ -17,6 +17,6 @@ export interface DataSetDetailResult extends BaseDetailResult {
 }
 
 export interface DataSetResult extends BaseResult<DataSetExtraResult> {
-  type: CONTROLLER_TYPE.DATASET | CONTROLLER_TYPE.DATASET_CASE;
+  type: CONTROLLER_TYPE.DATASET_CASE;
   steps: Result[][];
 }

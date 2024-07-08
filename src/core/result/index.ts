@@ -135,7 +135,10 @@ export default class ResultManager extends EventEmitter {
     if (this._stop) return;
     this.setBaseResult(instance);
     const id = instance.id;
-    this.detail[instance.stepId] = detailResult;
+    this.detail[instance.stepId] = {
+      ...detailResult,
+      stepId: instance.stepId,
+    } as any;
     if (extraResult) {
       const result = this.index.get(id);
       if (result) result.extra = extraResult;
@@ -224,7 +227,8 @@ export default class ResultManager extends EventEmitter {
    * @returns {T}
    */
   public getDetailById<T extends DetailResult>(id: number): T {
-    return this.detail[id] as T;
+    const result = this.detail[id] as T;
+    return result;
   }
 
   /**

@@ -90,7 +90,7 @@ export const createExecuteListener = (data: WorkerTask): ExecuteEvents => {
     };
     channel.postMessage(msg);
   };
-  const done = (e: ExecuteDoneResult): void => {
+  const done = (e: ExecuteDoneResult | any): void => {
     const msg: ExecuteDoneMessage = {
       event: 'done',
       executeId,
@@ -98,6 +98,7 @@ export const createExecuteListener = (data: WorkerTask): ExecuteEvents => {
       endTime: e.endTime,
       data: e.result,
       envVariableValue: (e as any).envVariableValue,
+      dataSetCountValue: e.dataSetCountValue,
     } as any;
     channel.postMessage(msg, [msg.data.buffer]);
   };
@@ -110,6 +111,7 @@ export const createExecuteListener = (data: WorkerTask): ExecuteEvents => {
       endTime: e.endTime,
       data: e.result,
       cancel: true,
+      dataSetCountValue: e.dataSetCountValue,
     };
     channel.postMessage(msg, [msg.data.buffer]);
   };
