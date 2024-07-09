@@ -100,13 +100,6 @@ export const execute = async <T extends ControllerData>(
     context.dataSetCountValue.isCaseDataSet = true;
   }
 
-  // 数据集跳过情况处理
-  if (!dataAny.steps || dataAny.steps.length < 1) {
-    if (data.type === CONTROLLER_TYPE.DATASET_CASE) {
-      context.dataSetCountValue.caseDataSetSkipCount += (dataAny.selectIndexList ?? []).length;
-    }
-  }
-
   const Controller = CONTROLLER[data.type] || UnknownController;
   const extra: ControllerExtraConfig = {
     id: `${config.id ? `${config.id}_` : ''}${config.group !== undefined ? `${config.group}_` : ''}${config.index}`,
@@ -133,10 +126,6 @@ export const execute = async <T extends ControllerData>(
       if (data.type === CONTROLLER_TYPE.DATASET) {
         // context.dataSetCountValue.dataSetSkipCount += (dataAny.config?.maxCount ?? 0);
         context.dataSetCountValue.dataSetTotal += (dataAny.config?.maxCount ?? 0);
-      }
-
-      if (data.type === CONTROLLER_TYPE.DATASET_CASE) {
-        // context.dataSetCountValue.caseDataSetSkipCount += (dataAny.selectIndexList ?? []).length;
       }
 
       instance.setStatus(CONTROLLER_STATUS.WAIT);
