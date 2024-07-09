@@ -497,6 +497,8 @@ class Execute extends EventEmitter {
           const target: any = result.steps.find((step) => step.stepId === stepId);
           if (target) {
             target.sourceDataResponse = item;
+            target.fields = item.fields;
+            target.rows = item.rows;
             target.selectIndexList = item.selectIndexList;
           }
         }
