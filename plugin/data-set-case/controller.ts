@@ -159,7 +159,7 @@ export default class DataSetController extends CombinationController<DataSetCont
    * @inheritdoc
    */
   protected async execute(): Promise<boolean> {
-    const data = await createRows(this.data, this.context.env.dataSource, this.config.maxCount);
+    const data = await createRows(this.data, this.context.env.dataSource, Infinity);
     const caseDataSetTotal = data.rows?.length ?? 0;
     const dataAny: any = this.data;
     const selectIndexList: number[] = dataAny.isSelectAll ?
