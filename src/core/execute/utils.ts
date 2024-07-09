@@ -124,7 +124,6 @@ export const execute = async <T extends ControllerData>(
     if (config.bypass === true) {
 
       if (data.type === CONTROLLER_TYPE.DATASET) {
-        // context.dataSetCountValue.dataSetSkipCount += (dataAny.config?.maxCount ?? 0);
         context.dataSetCountValue.dataSetTotal += (dataAny.config?.maxCount ?? 0);
       }
 
