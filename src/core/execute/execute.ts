@@ -370,22 +370,34 @@ class Execute extends EventEmitter {
     const result = this.result.getResult();
     const total = this.result.getSize();
     const statusCount = this.result.getStatusCount();
+
+    const isDataSet = this.context.dataSetCountValue.isDataSet || this.context.dataSetCountValue.isCaseDataSet;
+    const doneTotal = this.context.dataSetCountValue.dataSetSuccessCount + this.context.dataSetCountValue.caseDataSetSuccessCount;
+    const errorTotal = this.context.dataSetCountValue.dataSetFailCount + this.context.dataSetCountValue.caseDataSetFailCount;
+    const skipTotal = this.context.dataSetCountValue.dataSetSkipCount + this.context.dataSetCountValue.caseDataSetSkipCount;
+    const allTotal = this.context.dataSetCountValue.dataSetTotal + this.context.dataSetCountValue.selectCaseDataSetTotal;
+    if (isDataSet) {
+      statusCount[CONTROLLER_STATUS.DONE] = doneTotal;
+      statusCount[CONTROLLER_STATUS.ERROR] = errorTotal;
+      statusCount[CONTROLLER_STATUS.SKIP] = skipTotal;
+    }
+
     const ret: ExecuteStatus = {
       name: this.data.name,
       id: this.data.id,
       env: this.context.env.name,
       status: this.status,
-      progress: 1 - (
+      progress: isDataSet ? ((doneTotal + errorTotal + skipTotal) / allTotal) : (1 - (
         (
           statusCount[CONTROLLER_STATUS.WAIT]
           + statusCount[CONTROLLER_STATUS.INTERACT]
           + statusCount[CONTROLLER_STATUS.RUNNING]
         ) / total
-      ),
+      )),
       startTime: this.startTime,
       endTime: this.endTime,
       statusCount,
-      totalCount: total,
+      totalCount: isDataSet ? allTotal : total,
       steps: result,
       error: this.error,
     };
