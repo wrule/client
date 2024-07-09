@@ -160,6 +160,7 @@ export default class DataSetController extends CombinationController<DataSetCont
    */
   protected async execute(): Promise<boolean> {
     const data = await createRows(this.data, this.context.env.dataSource, this.config.maxCount);
+    const caseDataSetTotal = data.rows?.length ?? 0;
     const dataAny: any = this.data;
     const selectIndexList: number[] = dataAny.isSelectAll ?
       data.rows.map((_, index) => index) :
@@ -168,6 +169,9 @@ export default class DataSetController extends CombinationController<DataSetCont
     data.skip = selectIndexList.map((index) => data.skip[index]);
     const count = data.rows.length;
     this.result.rows = data.rows;
+
+    this.context.dataSetCountValue.caseDataSetTotal += caseDataSetTotal;
+    this.context.dataSetCountValue.selectCaseDataSetTotal += selectIndexList.length;
 
     if (this.data.steps.length > 0 && count > 0) {
       if (this.config.async) {
@@ -191,6 +195,7 @@ export default class DataSetController extends CombinationController<DataSetCont
         throw new CombinationError(group);
       }
     } else {
+      this.context.dataSetCountValue.caseDataSetSkipCount += selectIndexList.length;
       this.setStatus(CONTROLLER_STATUS.SKIP);
       logger.warn('[DATASET] steps=%d, count=%d skip.', this.data.steps.length, count);
     }

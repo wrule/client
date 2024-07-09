@@ -100,12 +100,6 @@ export const execute = async <T extends ControllerData>(
     context.dataSetCountValue.isCaseDataSet = true;
   }
 
-  // 数据集用例情况处理
-  if (data.type === CONTROLLER_TYPE.DATASET_CASE) {
-    context.dataSetCountValue.caseDataSetTotal += dataAny.caseDataSetTotal ?? 0;
-    context.dataSetCountValue.selectCaseDataSetTotal += (dataAny.selectIndexList ?? []).length;
-  }
-
   // 数据集跳过情况处理
   if (!dataAny.steps || dataAny.steps.length < 1) {
     if (data.type === CONTROLLER_TYPE.DATASET_CASE) {
