@@ -653,18 +653,11 @@ class Execute extends EventEmitter {
           const step = this.data.steps[index];
           const instance = await execute(step, this.context, { index, bypass });
 
-          // console.log(step.type, this.context.dataSetCountValue.currentHasError);
-
           if (
             step.type === CONTROLLER_TYPE.DATASET ||
             step.type === CONTROLLER_TYPE.DATASET_CASE
           ) {
-            const dataSetInstance = instance as DataSetController;
-            this.dataSetInstance = dataSetInstance;
-            if (this.context.dataSetCountValue.currentHasError) {
-              this.context.dataSetCountValue.currentHasError = false;
-              await dataSetInstance.CountExtFail();
-            }
+            this.dataSetInstance = instance as DataSetController;
           }
 
           if (instance.hasError()) {
@@ -682,7 +675,7 @@ class Execute extends EventEmitter {
           }
 
           if (this.context.isLast && this.context.dataSetCountValue.currentHasError) {
-            await this.dataSetInstance.CountExtFail();
+            await this.dataSetInstance?.CountExtFail();
           }
         }
         this.setStatus(error ? EXECUTE_STATUS.ERROR : EXECUTE_STATUS.DONE);
