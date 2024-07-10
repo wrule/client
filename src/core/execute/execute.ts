@@ -663,9 +663,7 @@ class Execute extends EventEmitter {
             this.dataSetInstance = dataSetInstance;
             if (this.context.dataSetCountValue.currentHasError) {
               this.context.dataSetCountValue.currentHasError = false;
-              await dataSetInstance.InitRowsData();
-              dataSetInstance.CountInc('Success', -1);
-              dataSetInstance.CountInc('Fail', 1);
+              await dataSetInstance.CountExtFail();
             }
           }
 
@@ -684,9 +682,7 @@ class Execute extends EventEmitter {
           }
 
           if (this.context.isLast && this.context.dataSetCountValue.currentHasError) {
-            await this.dataSetInstance.InitRowsData();
-            this.dataSetInstance.CountInc('Success', -1);
-            this.dataSetInstance.CountInc('Fail', 1);
+            await this.dataSetInstance.CountExtFail();
           }
         }
         this.setStatus(error ? EXECUTE_STATUS.ERROR : EXECUTE_STATUS.DONE);

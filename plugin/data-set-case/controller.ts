@@ -182,6 +182,15 @@ export default class DataSetController extends CombinationController<DataSetCont
     }
   }
 
+  private extFail = false;
+  public async CountExtFail() {
+    if (this.extFail) return;
+    this.extFail = true;
+    await this.InitRowsData();
+    this.CountInc('Success', -1);
+    this.CountInc('Fail', 1);
+  }
+
   /**
    * @inheritdoc
    */
