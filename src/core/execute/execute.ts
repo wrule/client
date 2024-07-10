@@ -374,11 +374,11 @@ class Execute extends EventEmitter {
     const total = this.result.getSize();
     const statusCount = this.result.getStatusCount();
 
-    const isDataSet = this.context.dataSetCountValue.isDataSet || this.context.dataSetCountValue.isCaseDataSet;
-    const doneTotal = this.context.dataSetCountValue.dataSetSuccessCount + this.context.dataSetCountValue.caseDataSetSuccessCount;
-    const errorTotal = this.context.dataSetCountValue.dataSetFailCount + this.context.dataSetCountValue.caseDataSetFailCount;
-    const skipTotal = this.context.dataSetCountValue.dataSetSkipCount + this.context.dataSetCountValue.caseDataSetSkipCount;
-    const allTotal = this.context.dataSetCountValue.dataSetTotal + this.context.dataSetCountValue.selectCaseDataSetTotal;
+    const isDataSet = this.context.dataSetCountValue.isCaseDataSet;
+    const doneTotal = this.context.dataSetCountValue.caseDataSetSuccessCount;
+    const errorTotal = this.context.dataSetCountValue.caseDataSetFailCount;
+    const skipTotal = this.context.dataSetCountValue.caseDataSetSkipCount;
+    const allTotal = this.context.dataSetCountValue.selectCaseDataSetTotal;
     if (isDataSet) {
       statusCount[CONTROLLER_STATUS.DONE] = doneTotal;
       statusCount[CONTROLLER_STATUS.ERROR] = errorTotal;
