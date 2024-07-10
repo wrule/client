@@ -122,12 +122,12 @@ export default class DataSetController extends CombinationController<DataSetCont
     }
 
     if (cfg.skip) {
-      this.context.dataSetCountValue.caseDataSetSkipCount++;
+      this.CountInc('Skip', 1);
     } else {
       if (success) {
-        this.context.dataSetCountValue.caseDataSetSuccessCount++;
+        this.CountInc('Success', 1);
       } else {
-        this.context.dataSetCountValue.caseDataSetFailCount++;
+        this.CountInc('Fail', 1);
       }
     }
 
@@ -155,11 +155,31 @@ export default class DataSetController extends CombinationController<DataSetCont
     return result;
   }
 
+  private SuccessCount = 0;
+  private FailCount = 0;
+  private SkipCount = 0;
+  private WaitCount = 0;
+  private RowsData!: RowsData;
+
+  public async InitRowsData() {
+    if (!this.RowsData)
+      this.RowsData = await createRows(this.data, this.context.env.dataSource, Infinity);
+  }
+
+  public CountInc(type: 'Success' | 'Fail' | 'Skip' | 'Wait', incNum: 1 | -1) {
+    const newCount = this[`${type}Count`] + incNum;
+    if (newCount >= 0 && newCount <= this.result.rows.length) {
+      this[`${type}Count`] = newCount;
+      this.context.dataSetCountValue[`caseDataSet${type}Count`] += incNum;
+    }
+  }
+
   /**
    * @inheritdoc
    */
   protected async execute(): Promise<boolean> {
-    const data = await createRows(this.data, this.context.env.dataSource, Infinity);
+    await this.InitRowsData();
+    const data = this.RowsData;
     const caseDataSetTotal = data.rows?.length ?? 0;
     const dataAny: any = this.data;
     const selectIndexList: number[] = dataAny.isSelectAll ?
