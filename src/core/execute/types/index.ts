@@ -60,6 +60,8 @@ export interface Context {
     caseDataSetFailCount: number;
     caseDataSetSkipCount: number;
     caseDataSetWaitCount: number;
+
+    currentHasError: boolean;
   },
   parentType?: CONTROLLER_TYPE;
   requestId?: string;

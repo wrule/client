@@ -122,15 +122,23 @@ export const execute = async <T extends ControllerData>(
         variable.setLocal(key, variableData[key]);
       });
     }
-    if (config.bypass === true) {
 
+    if (context.dataSetCountValue.currentHasError) {
+      context.dataSetCountValue.currentHasError = false;
+      if (data.type === CONTROLLER_TYPE.DATASET) {
+        context.dataSetCountValue.dataSetFailCount++;
+      }
+      if (data.type === CONTROLLER_TYPE.DATASET_CASE) {
+        context.dataSetCountValue.caseDataSetFailCount++;
+      }
+    }
+
+    if (config.bypass === true) {
       if (data.type === CONTROLLER_TYPE.DATASET) {
         const maxCount = (dataAny.config?.maxCount ?? 0);
         const data = await createRows(dataAny, context.env.dataSource, maxCount);
         context.dataSetCountValue.dataSetTotal += data.rows.length;
-        context.dataSetCountValue.dataSetSkipCount += data.rows.length;
       }
-
       if (data.type === CONTROLLER_TYPE.DATASET_CASE) {
         const data = await createRows(dataAny, context.env.dataSource, Infinity);
         const caseDataSetTotal = data.rows?.length ?? 0;
@@ -139,9 +147,7 @@ export const execute = async <T extends ControllerData>(
           (dataAny.selectIndexList ?? []);
         context.dataSetCountValue.caseDataSetTotal += caseDataSetTotal;
         context.dataSetCountValue.selectCaseDataSetTotal += selectIndexList.length;
-        context.dataSetCountValue.caseDataSetSkipCount += selectIndexList.length;
       }
-
       instance.setStatus(CONTROLLER_STATUS.WAIT);
     } else {
       await instance.run(config.skip);

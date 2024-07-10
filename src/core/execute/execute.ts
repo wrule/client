@@ -12,7 +12,7 @@ import type { ControllerData, Interact } from '@/core/types/data';
 import type { ExecuteTaskData, ExecuteData } from '@/dispatch';
 import VariableManager, { VARIABLE_TYPE, Variable } from '@/variable';
 import ResultManager, { StatusCount } from '@/core/result';
-import { EXECUTE_STATUS, EXECUTE_EVENTS, CONTROLLER_STATUS } from '@/core/enum';
+import { EXECUTE_STATUS, EXECUTE_EVENTS, CONTROLLER_STATUS, CONTROLLER_TYPE } from '@/core/enum';
 import type { Result, DetailResult } from '@/core/types/result';
 import type { Context, CookieManager, InputInteract } from '@/core/execute/types';
 import { execute, BEFORE_EXECUTE, BEFORE_DATASOURCE_EXECUTE } from '@/core/execute/utils';
@@ -648,6 +648,12 @@ class Execute extends EventEmitter {
           const step = this.data.steps[index];
           const instance = await execute(step, this.context, { index, bypass });
           if (instance.hasError()) {
+
+            if (
+              step.type !== CONTROLLER_TYPE.DATASET &&
+              step.type !== CONTROLLER_TYPE.DATASET_CASE
+            ) this.context.dataSetCountValue.currentHasError = true;
+
             error = true;
             if (!ignoreExecuteError) {
               bypass = true;
