@@ -188,6 +188,10 @@ export default class DataSetController extends CombinationController<DataSetCont
       this.context.dataSetCountValue.caseDataSetSuccessCount = 0;
     }
     this.context.dataSetCountValue.caseDataSetFailCount++;
+    const total = this.context.dataSetCountValue.dataSetTotal + this.context.dataSetCountValue.selectCaseDataSetTotal;
+    if (this.context.dataSetCountValue.caseDataSetFailCount > total) {
+      this.context.dataSetCountValue.caseDataSetFailCount = total;
+    }
   }
 
   /**

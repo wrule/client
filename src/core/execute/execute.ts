@@ -675,7 +675,7 @@ class Execute extends EventEmitter {
           }
 
           if (this.context.isLast && this.context.dataSetCountValue.currentHasError) {
-            await this.dataSetInstance?.CountExtFail();
+            this.dataSetInstance?.CountExtFail();
           }
         }
         this.setStatus(error ? EXECUTE_STATUS.ERROR : EXECUTE_STATUS.DONE);

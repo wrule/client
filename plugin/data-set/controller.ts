@@ -175,11 +175,15 @@ export default class DataSetController extends CombinationController<DataSetCont
   }
 
   public async CountExtFail() {
-    this.context.dataSetCountValue.caseDataSetSuccessCount--;
-    if (this.context.dataSetCountValue.caseDataSetSuccessCount < 0) {
-      this.context.dataSetCountValue.caseDataSetSuccessCount = 0;
+    this.context.dataSetCountValue.dataSetSuccessCount--;
+    if (this.context.dataSetCountValue.dataSetSuccessCount < 0) {
+      this.context.dataSetCountValue.dataSetSuccessCount = 0;
     }
-    this.context.dataSetCountValue.caseDataSetFailCount++;
+    this.context.dataSetCountValue.dataSetFailCount++;
+    const total = this.context.dataSetCountValue.dataSetTotal + this.context.dataSetCountValue.selectCaseDataSetTotal;
+    if (this.context.dataSetCountValue.dataSetFailCount > total) {
+      this.context.dataSetCountValue.dataSetFailCount = total;
+    }
   }
 
   /**
