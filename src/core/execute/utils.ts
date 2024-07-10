@@ -123,16 +123,6 @@ export const execute = async <T extends ControllerData>(
       });
     }
 
-    if (context.dataSetCountValue.currentHasError) {
-      context.dataSetCountValue.currentHasError = false;
-      if (data.type === CONTROLLER_TYPE.DATASET) {
-        context.dataSetCountValue.dataSetFailCount++;
-      }
-      if (data.type === CONTROLLER_TYPE.DATASET_CASE) {
-        context.dataSetCountValue.caseDataSetFailCount++;
-      }
-    }
-
     if (config.bypass === true) {
       if (data.type === CONTROLLER_TYPE.DATASET) {
         const maxCount = (dataAny.config?.maxCount ?? 0);

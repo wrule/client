@@ -647,13 +647,14 @@ class Execute extends EventEmitter {
           this.context.isLast = (index === this.data.steps.length - 1);
           const step = this.data.steps[index];
           const instance = await execute(step, this.context, { index, bypass });
-          if (instance.hasError()) {
 
+          console.log(step.type);
+
+          if (instance.hasError()) {
             if (
               step.type !== CONTROLLER_TYPE.DATASET &&
               step.type !== CONTROLLER_TYPE.DATASET_CASE
             ) this.context.dataSetCountValue.currentHasError = true;
-
             error = true;
             if (!ignoreExecuteError) {
               bypass = true;
