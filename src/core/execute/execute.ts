@@ -675,7 +675,22 @@ class Execute extends EventEmitter {
           }
 
           if (this.context.isLast && this.context.dataSetCountValue.currentHasError) {
-            this.dataSetInstance?.CountExtFail();
+            const dataSetCountValue: any = this.context.dataSetCountValue;
+            const successKeys = Object.keys(dataSetCountValue)
+              .filter((key) => key.includes('Success'));
+            const skipKeys = Object.keys(dataSetCountValue)
+              .filter((key) => key.includes('Skip'));
+            const failKeys = Object.keys(dataSetCountValue)
+              .filter((key) => key.includes('Fail'));
+            const successKey = [...successKeys, ...skipKeys].find((key) => dataSetCountValue[key] > 0);
+            if (successKey) dataSetCountValue[successKey]--;
+            const failKey = failKeys.find((key) => dataSetCountValue[key] > 0) ?? 'caseDataSetFailCount';
+            dataSetCountValue[failKey]++;
+            const total = this.context.dataSetCountValue.dataSetTotal + this.context.dataSetCountValue.selectCaseDataSetTotal;
+            const counts = [...successKeys, ...skipKeys, ...failKeys].map((key) => dataSetCountValue[key]);
+            let sum = 0;
+            counts.forEach((count) => sum += count);
+            if (sum > total) dataSetCountValue[failKey]--;
           }
         }
         this.setStatus(error ? EXECUTE_STATUS.ERROR : EXECUTE_STATUS.DONE);

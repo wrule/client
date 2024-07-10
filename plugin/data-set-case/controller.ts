@@ -182,18 +182,6 @@ export default class DataSetController extends CombinationController<DataSetCont
     }
   }
 
-  public async CountExtFail() {
-    this.context.dataSetCountValue.caseDataSetSuccessCount--;
-    if (this.context.dataSetCountValue.caseDataSetSuccessCount < 0) {
-      this.context.dataSetCountValue.caseDataSetSuccessCount = 0;
-    }
-    this.context.dataSetCountValue.caseDataSetFailCount++;
-    const total = this.context.dataSetCountValue.dataSetTotal + this.context.dataSetCountValue.selectCaseDataSetTotal;
-    if (this.context.dataSetCountValue.caseDataSetFailCount > total) {
-      this.context.dataSetCountValue.caseDataSetFailCount = total;
-    }
-  }
-
   /**
    * @inheritdoc
    */
