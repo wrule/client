@@ -174,6 +174,8 @@ class Execute extends EventEmitter {
           caseDataSetFailCount: 0,
           caseDataSetSkipCount: 0,
           caseDataSetWaitCount: 0,
+
+          currentHasError: false,
         },
         getGlobalIndex: (): number => ++this.globalIndex,
         setGlobalVariable: (key: string, value: ContentType): void => {
