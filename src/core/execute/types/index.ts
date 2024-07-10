@@ -61,7 +61,7 @@ export interface Context {
     caseDataSetSkipCount: number;
     caseDataSetWaitCount: number;
 
-    currentHasError: boolean;
+    currentHasError?: boolean;
   },
   parentType?: CONTROLLER_TYPE;
   requestId?: string;
