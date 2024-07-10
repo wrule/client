@@ -23,6 +23,7 @@ import { encodeBrotli, decodeWithOptionsAsObject } from '@/utils/zlib';
 import type { ContentType } from '@/utils/serialize/type';
 import { ExecuteDoneResult } from '@/server/types/message';
 import flog from '@/utils/jmlog';
+import DataSetController from '@plugin/data-set/controller';
 
 const stdoutWrite = process.stdout.write.bind(process.stdout);
 const stderrWrite = process.stderr.write.bind(process.stderr);
@@ -648,7 +649,20 @@ class Execute extends EventEmitter {
           const step = this.data.steps[index];
           const instance = await execute(step, this.context, { index, bypass });
 
-          console.log(step.type);
+          // console.log(step.type, this.context.dataSetCountValue.currentHasError);
+
+          if (
+            step.type === CONTROLLER_TYPE.DATASET ||
+            step.type === CONTROLLER_TYPE.DATASET_CASE
+          ) {
+            const dataSetInstance = instance as DataSetController;
+            if (this.context.dataSetCountValue.currentHasError) {
+              this.context.dataSetCountValue.currentHasError = false;
+              await dataSetInstance.InitRowsData();
+              dataSetInstance.CountInc('Success', -1);
+              dataSetInstance.CountInc('Fail', 1);
+            }
+          }
 
           if (instance.hasError()) {
             if (

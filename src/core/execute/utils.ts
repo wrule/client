@@ -148,20 +148,7 @@ export const execute = async <T extends ControllerData>(
 
   // 数据集失败情况处理
   if (instance.hasError()) {
-    if (
-      context.isLast &&
-      data.type !== CONTROLLER_TYPE.DATASET &&
-      data.type !== CONTROLLER_TYPE.DATASET_CASE
-    ) {
-      if (context.dataSetCountValue.dataSetSuccessCount > 0) {
-        context.dataSetCountValue.dataSetSuccessCount--;
-        context.dataSetCountValue.dataSetFailCount++;
-      }
-      else if (context.dataSetCountValue.caseDataSetSuccessCount > 0) {
-        context.dataSetCountValue.caseDataSetSuccessCount--;
-        context.dataSetCountValue.caseDataSetFailCount++;
-      }
-    }
+
   }
 
   return instance;

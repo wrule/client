@@ -122,12 +122,12 @@ export default class DataSetController extends CombinationController<DataSetCont
     }
 
     if (cfg.skip) {
-      this.countInc('Skip', 1);
+      this.CountInc('Skip', 1);
     } else {
       if (success) {
-        this.countInc('Success', 1);
+        this.CountInc('Success', 1);
       } else {
-        this.countInc('Fail', 1);
+        this.CountInc('Fail', 1);
       }
     }
 
@@ -159,10 +159,16 @@ export default class DataSetController extends CombinationController<DataSetCont
   private FailCount = 0;
   private SkipCount = 0;
   private WaitCount = 0;
+  private RowsData!: RowsData;
 
-  private countInc(type: 'Success' | 'Fail' | 'Skip' | 'Wait', incNum: 1 | -1) {
+  public async InitRowsData() {
+    if (!this.RowsData)
+      this.RowsData = await createRows(this.data, this.context.env.dataSource, this.config.maxCount);
+  }
+
+  public CountInc(type: 'Success' | 'Fail' | 'Skip' | 'Wait', incNum: 1 | -1) {
     const newCount = this[`${type}Count`] + incNum;
-    if (newCount >= 0 && newCount <= this.result.rows.length) {
+    if (newCount >= 0 && newCount <= this.RowsData.rows.length) {
       this[`${type}Count`] = newCount;
       this.context.dataSetCountValue[`dataSet${type}Count`] += incNum;
     }
@@ -172,7 +178,8 @@ export default class DataSetController extends CombinationController<DataSetCont
    * @inheritdoc
    */
   protected async execute(): Promise<boolean> {
-    const data = await createRows(this.data, this.context.env.dataSource, this.config.maxCount);
+    await this.InitRowsData();
+    const data = this.RowsData;
     const count = data.rows.length;
 
     this.context.dataSetCountValue.dataSetTotal += count;
