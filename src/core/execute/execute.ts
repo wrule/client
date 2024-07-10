@@ -684,7 +684,8 @@ class Execute extends EventEmitter {
               .filter((key) => key.includes('Fail'));
             const successKey = [...successKeys, ...skipKeys].find((key) => dataSetCountValue[key] > 0);
             if (successKey) dataSetCountValue[successKey]--;
-            const failKey = failKeys.find((key) => dataSetCountValue[key] > 0) ?? 'caseDataSetFailCount';
+            // const failKey = failKeys.find((key) => dataSetCountValue[key] > 0) ?? 'caseDataSetFailCount';
+            const failKey = 'caseDataSetFailCount';
             dataSetCountValue[failKey]++;
             const total = this.context.dataSetCountValue.dataSetTotal + this.context.dataSetCountValue.selectCaseDataSetTotal;
             const counts = [...successKeys, ...skipKeys, ...failKeys].map((key) => dataSetCountValue[key]);
