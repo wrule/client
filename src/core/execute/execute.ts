@@ -628,6 +628,8 @@ class Execute extends EventEmitter {
     Logger.info(`[execute] before run ${(performance.now() - now).toFixed(2)}ms`);
   }
 
+  private dataSetInstance!: DataSetController;
+
   /**
    * 步骤执行 async
    * @return {Promise<void>}
@@ -656,6 +658,7 @@ class Execute extends EventEmitter {
             step.type === CONTROLLER_TYPE.DATASET_CASE
           ) {
             const dataSetInstance = instance as DataSetController;
+            this.dataSetInstance = dataSetInstance;
             if (this.context.dataSetCountValue.currentHasError) {
               this.context.dataSetCountValue.currentHasError = false;
               await dataSetInstance.InitRowsData();
@@ -676,6 +679,12 @@ class Execute extends EventEmitter {
                 Logger.warn('[execute] bypass execute index %d..%d', index + 1, this.data.steps.length);
               }
             }
+          }
+
+          if (this.context.isLast && this.context.dataSetCountValue.currentHasError) {
+            await this.dataSetInstance.InitRowsData();
+            this.dataSetInstance.CountInc('Success', -1);
+            this.dataSetInstance.CountInc('Fail', 1);
           }
         }
         this.setStatus(error ? EXECUTE_STATUS.ERROR : EXECUTE_STATUS.DONE);
