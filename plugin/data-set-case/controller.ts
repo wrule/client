@@ -131,6 +131,8 @@ export default class DataSetController extends CombinationController<DataSetCont
       }
     }
 
+    this.result.result[group] = success;
+
     return success;
   }
 
@@ -208,7 +210,7 @@ export default class DataSetController extends CombinationController<DataSetCont
         // group = DataSet index, index = step index
         for (let group = 0; group < count; group++) {
           const success = await this.exec(group, { skip: data.skip[group] });
-          this.result.result.push(success);
+          // this.result.result.push(success);
           // not create record
           if (!this.config.ignoreError && success === false) {
             break;
