@@ -160,15 +160,23 @@ export default class DataSetController extends CombinationController<DataSetCont
   private SkipCount = 0;
   private WaitCount = 0;
   private RowsData!: RowsData;
+  private RowsCount = 0;
 
   public async InitRowsData() {
-    if (!this.RowsData)
+    if (!this.RowsData) {
       this.RowsData = await createRows(this.data, this.context.env.dataSource, Infinity);
+      const data = this.RowsData;
+      const dataAny: any = this.data;
+      const selectIndexList: number[] = dataAny.isSelectAll ?
+        data.rows.map((_, index) => index) :
+        ((dataAny.selectIndexList ?? []) as any[]).filter((index) => index < data.rows.length);
+      this.RowsCount = selectIndexList.length;
+    }
   }
 
   public CountInc(type: 'Success' | 'Fail' | 'Skip' | 'Wait', incNum: 1 | -1) {
     const newCount = this[`${type}Count`] + incNum;
-    if (newCount >= 0 && newCount <= this.result.rows.length) {
+    if (newCount >= 0 && newCount <= this.RowsCount) {
       this[`${type}Count`] = newCount;
       this.context.dataSetCountValue[`caseDataSet${type}Count`] += incNum;
     }
@@ -184,7 +192,7 @@ export default class DataSetController extends CombinationController<DataSetCont
     const dataAny: any = this.data;
     const selectIndexList: number[] = dataAny.isSelectAll ?
       data.rows.map((_, index) => index) :
-      (dataAny.selectIndexList ?? []);
+      ((dataAny.selectIndexList ?? []) as any[]).filter((index) => index < data.rows.length);
     data.rows = selectIndexList.map((index) => data.rows[index]);
     data.skip = selectIndexList.map((index) => data.skip[index]);
     const count = data.rows.length;
