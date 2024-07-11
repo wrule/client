@@ -687,14 +687,19 @@ class Execute extends EventEmitter {
             let dscFail = this.context.dataSetCountValue.caseDataSetFailCount;
             let dscSkip = this.context.dataSetCountValue.caseDataSetSkipCount;
             const dscTotal = this.context.dataSetCountValue.selectCaseDataSetTotalRows;
+            const allSuccess = dsSuccess + dscSuccess;
+            const allTotal = dsTotal + dscTotal;
 
-            // 处理逻辑
-            if (hasDsc && dscSuccess === dscTotal) {
-              dscSuccess--;
-              dscFail++;
-            } else if (hasDs && dsSuccess === dsTotal) {
-              dsSuccess--;
-              dsFail++;
+            if (allTotal === 0 || allSuccess === allTotal) {
+              if (hasDsc) {
+                dscFail++;
+                dscSuccess--;
+                if (dscSuccess < 0) dscSuccess = 0;
+              } else if (hasDs) {
+                dsFail++;
+                dsSuccess--;
+                if (dsSuccess < 0) dsSuccess = 0;
+              }
             }
 
             this.context.dataSetCountValue.dataSetSuccessCount = dsSuccess;
