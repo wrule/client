@@ -675,24 +675,25 @@ class Execute extends EventEmitter {
           }
 
           if (this.context.isLast && this.context.dataSetCountValue.currentHasError) {
-            // const dataSetCountValue: any = this.context.dataSetCountValue;
-            // const successKeys = Object.keys(dataSetCountValue)
-            //   .filter((key) => key.includes('Success'));
-            // const skipKeys = Object.keys(dataSetCountValue)
-            //   .filter((key) => key.includes('Skip'));
-            // const failKeys = Object.keys(dataSetCountValue)
-            //   .filter((key) => key.includes('Fail'));
-            // const successKey = [...successKeys, ...skipKeys].find((key) => dataSetCountValue[key] > 0);
-            // if (this.context.dataSetCountValue.caseDataSetSuccessCount > 0)
-            //   this.context.dataSetCountValue.caseDataSetSuccessCount--;
-            // // const failKey = failKeys.find((key) => dataSetCountValue[key] > 0) ?? 'caseDataSetFailCount';
-            // const failKey = 'caseDataSetFailCount';
-            // dataSetCountValue[failKey]++;
-            // const total = this.context.dataSetCountValue.dataSetTotal + this.context.dataSetCountValue.selectCaseDataSetTotal;
-            // const counts = [...successKeys, ...skipKeys, ...failKeys].map((key) => dataSetCountValue[key]);
-            // let sum = 0;
-            // counts.forEach((count) => sum += count);
-            // if (sum > total) dataSetCountValue[failKey]--;
+            const hasDs = this.context.dataSetCountValue.isDataSet;
+            const hasDsc = this.context.dataSetCountValue.isCaseDataSet;
+            let dsSuccess = this.context.dataSetCountValue.dataSetSuccessCount;
+            let dsFail = this.context.dataSetCountValue.dataSetFailCount;
+            let dsSkip = this.context.dataSetCountValue.dataSetSkipCount;
+            const dsTotal = this.context.dataSetCountValue.dataSetTotal;
+            let dscSuccess = this.context.dataSetCountValue.caseDataSetSuccessCount;
+            let dscFail = this.context.dataSetCountValue.caseDataSetFailCount;
+            let dscSkip = this.context.dataSetCountValue.caseDataSetSkipCount;
+            const dscTotal = this.context.dataSetCountValue.selectCaseDataSetTotal;
+
+            // 处理逻辑
+
+            this.context.dataSetCountValue.dataSetSuccessCount = dsSuccess;
+            this.context.dataSetCountValue.dataSetFailCount = dsFail;
+            this.context.dataSetCountValue.dataSetSkipCount = dsSkip;
+            this.context.dataSetCountValue.caseDataSetSuccessCount = dscSuccess;
+            this.context.dataSetCountValue.caseDataSetFailCount = dscFail;
+            this.context.dataSetCountValue.caseDataSetSkipCount = dscSkip;
           }
         }
         this.setStatus(error ? EXECUTE_STATUS.ERROR : EXECUTE_STATUS.DONE);
