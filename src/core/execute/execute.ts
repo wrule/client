@@ -376,7 +376,8 @@ class Execute extends EventEmitter {
     const total = this.result.getSize();
     const statusCount = this.result.getStatusCount();
 
-    const isDataSet = this.context.dataSetCountValue.isCaseDataSet;
+    const isDataSet = this.context.dataSetCountValue.isCaseDataSet &&
+      this.data.isCaseDataSetStatistic;
     const doneTotal = this.context.dataSetCountValue.caseDataSetSuccessCount;
     const errorTotal = this.context.dataSetCountValue.caseDataSetFailCount;
     const skipTotal = this.context.dataSetCountValue.caseDataSetSkipCount;
