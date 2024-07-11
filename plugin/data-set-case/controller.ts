@@ -87,6 +87,7 @@ export default class DataSetController extends CombinationController<DataSetCont
         ]);
         // 引用关系数据会刷新的
         detailResult.interact = this.data.interact;
+        (detailResult as any).id = this.data.id;
         this.context.result.setResult(this, detailResult, extraResult);
       } catch (error) { }
     };
