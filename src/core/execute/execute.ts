@@ -53,6 +53,7 @@ export interface ExecuteStatus {
   /** 执行过程中外层遇到的致命错误 */
   error: string[];
   steps: Result[];
+  isCaseDataSetStatistic?: boolean;
 }
 
 export interface ExecuteResult extends ExecuteStatus {
@@ -406,6 +407,7 @@ class Execute extends EventEmitter {
       totalCount: isDataSet ? allTotal : total,
       steps: result,
       error: this.error,
+      isCaseDataSetStatistic: this.data.isCaseDataSetStatistic,
     };
     return ret;
   }
