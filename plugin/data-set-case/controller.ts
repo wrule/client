@@ -216,7 +216,7 @@ export default class DataSetController extends CombinationController<DataSetCont
         throw new CombinationError(group);
       }
     } else {
-      this.context.dataSetCountValue.caseDataSetSkipCount += selectIndexList.length;
+      this.context.dataSetCountValue.caseDataSetSkipCount += this.result.rows.length;
       this.setStatus(CONTROLLER_STATUS.SKIP);
       logger.warn('[DATASET] steps=%d, count=%d skip.', this.data.steps.length, count);
     }
