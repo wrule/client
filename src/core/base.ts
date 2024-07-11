@@ -390,6 +390,7 @@ export default abstract class BaseController<T extends BaseControllerData> {
         ]);
         // 引用关系数据会刷新的
         detailResult.interact = this.data.interact;
+        (detailResult as any).id = this.data.id;
         this.context.result.setResult(this, detailResult, extraResult);
       } catch (e) {
         this.setError(new ERROR.SystemError(`record create failed, ${e.message}`));
