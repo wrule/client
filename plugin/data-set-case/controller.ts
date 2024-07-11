@@ -122,12 +122,12 @@ export default class DataSetController extends CombinationController<DataSetCont
     }
 
     if (cfg.skip) {
-      this.CountInc('Skip', 1);
+      this.context.dataSetCountValue.caseDataSetSkipCount++;
     } else {
       if (success) {
-        this.CountInc('Success', 1);
+        this.context.dataSetCountValue.caseDataSetSuccessCount++;
       } else {
-        this.CountInc('Fail', 1);
+        this.context.dataSetCountValue.caseDataSetFailCount++;
       }
     }
 
@@ -176,14 +176,6 @@ export default class DataSetController extends CombinationController<DataSetCont
     }
   }
 
-  public CountInc(type: 'Success' | 'Fail' | 'Skip' | 'Wait', incNum: 1 | -1) {
-    const newCount = this[`${type}Count`] + incNum;
-    if (newCount >= 0 && newCount <= this.RowsCount) {
-      this[`${type}Count`] = newCount;
-      this.context.dataSetCountValue[`caseDataSet${type}Count`] += incNum;
-    }
-  }
-
   /**
    * @inheritdoc
    */
@@ -201,7 +193,7 @@ export default class DataSetController extends CombinationController<DataSetCont
     this.result.rows = data.rows;
 
     this.context.dataSetCountValue.caseDataSetTotal += caseDataSetTotal;
-    this.context.dataSetCountValue.selectCaseDataSetTotal += selectIndexList.length;
+    this.context.dataSetCountValue.selectCaseDataSetTotal += this.result.rows.length;
 
     if (this.data.steps.length > 0 && count > 0) {
       if (this.config.async) {
