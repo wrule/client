@@ -163,6 +163,7 @@ class Execute extends EventEmitter {
           isCaseDataSet: false,
 
           dataSetTotal: 0,
+          dataSetTotalRows: 0,
           dataSetSuccessCount: 0,
           dataSetFailCount: 0,
           dataSetSkipCount: 0,
@@ -170,6 +171,7 @@ class Execute extends EventEmitter {
 
           caseDataSetTotal: 0,
           selectCaseDataSetTotal: 0,
+          selectCaseDataSetTotalRows: 0,
           caseDataSetSuccessCount: 0,
           caseDataSetFailCount: 0,
           caseDataSetSkipCount: 0,
@@ -680,13 +682,20 @@ class Execute extends EventEmitter {
             let dsSuccess = this.context.dataSetCountValue.dataSetSuccessCount;
             let dsFail = this.context.dataSetCountValue.dataSetFailCount;
             let dsSkip = this.context.dataSetCountValue.dataSetSkipCount;
-            const dsTotal = this.context.dataSetCountValue.dataSetTotal;
+            const dsTotal = this.context.dataSetCountValue.dataSetTotalRows;
             let dscSuccess = this.context.dataSetCountValue.caseDataSetSuccessCount;
             let dscFail = this.context.dataSetCountValue.caseDataSetFailCount;
             let dscSkip = this.context.dataSetCountValue.caseDataSetSkipCount;
-            const dscTotal = this.context.dataSetCountValue.selectCaseDataSetTotal;
+            const dscTotal = this.context.dataSetCountValue.selectCaseDataSetTotalRows;
 
             // 处理逻辑
+            if (hasDsc && dscSuccess === dscTotal) {
+              dscSuccess--;
+              dscFail++;
+            } else if (hasDs && dsSuccess === dsTotal) {
+              dsSuccess--;
+              dsFail++;
+            }
 
             this.context.dataSetCountValue.dataSetSuccessCount = dsSuccess;
             this.context.dataSetCountValue.dataSetFailCount = dsFail;

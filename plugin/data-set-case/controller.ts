@@ -130,6 +130,7 @@ export default class DataSetController extends CombinationController<DataSetCont
         this.context.dataSetCountValue.caseDataSetFailCount++;
       }
     }
+    this.context.dataSetCountValue.selectCaseDataSetTotalRows++;
 
     this.result.result[group] = success;
 

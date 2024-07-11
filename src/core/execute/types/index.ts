@@ -49,6 +49,7 @@ export interface Context {
     isCaseDataSet: boolean;
 
     dataSetTotal: number;
+    dataSetTotalRows: number;
     dataSetSuccessCount: number;
     dataSetFailCount: number;
     dataSetSkipCount: number;
@@ -56,6 +57,7 @@ export interface Context {
 
     caseDataSetTotal: number;
     selectCaseDataSetTotal: number;
+    selectCaseDataSetTotalRows: number;
     caseDataSetSuccessCount: number;
     caseDataSetFailCount: number;
     caseDataSetSkipCount: number;
