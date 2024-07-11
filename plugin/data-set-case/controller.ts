@@ -157,16 +157,14 @@ export default class DataSetController extends CombinationController<DataSetCont
     return result;
   }
 
-  private SuccessCount = 0;
-  private FailCount = 0;
-  private SkipCount = 0;
-  private WaitCount = 0;
   private RowsData!: RowsData;
   private RowsCount = 0;
+  private RowsCountTotal = 0;
 
   public async InitRowsData() {
     if (!this.RowsData) {
       this.RowsData = await createRows(this.data, this.context.env.dataSource, Infinity);
+      this.RowsCountTotal = this.RowsData.rows.length;
       const data = this.RowsData;
       const dataAny: any = this.data;
       const selectIndexList: number[] = dataAny.isSelectAll ?
@@ -174,6 +172,7 @@ export default class DataSetController extends CombinationController<DataSetCont
         ((dataAny.selectIndexList ?? []) as any[]).filter((index) => index < data.rows.length);
       this.RowsCount = selectIndexList.length;
     }
+    return [this.RowsCount, this.RowsCountTotal];
   }
 
   /**

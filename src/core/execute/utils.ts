@@ -16,6 +16,7 @@ import {
   DataSourcePool,
 } from '@/core/execute/types';
 import { createRows } from '@plugin/data-set-case/utils';
+import DataSetController from '@plugin/data-set/controller';
 
 export const CONTROLLER: Record<string, ControllerStatic> = {};
 export const BEFORE_EXECUTE: Record<string, BeforeExecuteFunction> = {};
@@ -124,19 +125,15 @@ export const execute = async <T extends ControllerData>(
     }
 
     if (config.bypass === true) {
+      const dsc = instance as DataSetController;
       if (data.type === CONTROLLER_TYPE.DATASET) {
-        const maxCount = (dataAny.config?.maxCount ?? 0);
-        const data = await createRows(dataAny, context.env.dataSource, maxCount);
-        context.dataSetCountValue.dataSetTotal += data.rows.length;
+        const counts = await dsc.InitRowsData();
+        context.dataSetCountValue.dataSetTotal += counts[1];
       }
       if (data.type === CONTROLLER_TYPE.DATASET_CASE) {
-        const data = await createRows(dataAny, context.env.dataSource, Infinity);
-        const caseDataSetTotal = data.rows?.length ?? 0;
-        const selectIndexList: number[] = dataAny.isSelectAll ?
-          data.rows.map((_, index) => index) :
-          (dataAny.selectIndexList ?? []);
-        context.dataSetCountValue.caseDataSetTotal += caseDataSetTotal;
-        context.dataSetCountValue.selectCaseDataSetTotal += selectIndexList.length;
+        const counts = await dsc.InitRowsData();
+        context.dataSetCountValue.caseDataSetTotal += counts[1];
+        context.dataSetCountValue.selectCaseDataSetTotal += counts[0];
       }
       instance.setStatus(CONTROLLER_STATUS.WAIT);
     } else {

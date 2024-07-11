@@ -157,15 +157,12 @@ export default class DataSetController extends CombinationController<DataSetCont
     return result;
   }
 
-  private SuccessCount = 0;
-  private FailCount = 0;
-  private SkipCount = 0;
-  private WaitCount = 0;
   private RowsData!: RowsData;
 
   public async InitRowsData() {
     if (!this.RowsData)
       this.RowsData = await createRows(this.data, this.context.env.dataSource, this.config.maxCount);
+    return [this.RowsData.rows.length, this.RowsData.rows.length];
   }
 
   /**
