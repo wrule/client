@@ -79,6 +79,8 @@ export default class DataSetController extends CombinationController<DataSetCont
    */
   private async exec(group: number, cfg: { skip?: boolean; async?: boolean} = {}): Promise<boolean | null> {
 
+    this.result.result[group] = 0 as any;
+
     const setResult = async () => {
       try {
         const [extraResult, detailResult] = await Promise.all([
