@@ -85,10 +85,10 @@ export default class VM extends EventEmitter {
     super();
     this.timeout = options.timeout || this.timeout;
     if (options.debug === undefined && isDeveloper) {
-      this.console = console;
+      this.console = new VMConsole(this.logs);
     } else {
       // this.console = options.debug ? console : console;
-      this.console = options.debug ? console : new VMConsole(this.logs);
+      this.console = options.debug ? new VMConsole(this.logs) : new VMConsole(this.logs);
     }
     // this.console = new VMConsole(this.logs);
     const onTimerEnd = (): void => {
