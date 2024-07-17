@@ -74,11 +74,12 @@ export const execute = async (
           } else if (item[i] instanceof Date) {
             item[i] = moment(item[i]).format('YYYY-MM-DD HH:mm:ss');
           } else if (typeof item[i] === 'string') {
-            if (/^\.\d+$/.test(item[i])) {
-              item[i] = Number('0' + item[i]);
-            }
-            if (item[i].length < 17 && /^\d+$/.test(item[i])) {
-              item[i] = Number(item[i]);
+            let value = item[i] as string;
+            if (/^(\d|\.)+$/.test(item[i])) {
+              if (value.startsWith('.')) value = `0${value}`;
+              const num = Number(value);
+              if (num.toString() !== value) item[i] = value;
+              else item[i] = num;
             }
           }
         }
