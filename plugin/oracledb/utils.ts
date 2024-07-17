@@ -75,7 +75,10 @@ export const execute = async (
             item[i] = moment(item[i]).format('YYYY-MM-DD HH:mm:ss');
           } else if (typeof item[i] === 'string') {
             if (/^\.\d+$/.test(item[i])) {
-              item[i] = '0' + item[i];
+              item[i] = Number('0' + item[i]);
+            }
+            if (item[i].length < 17 && /^\d+$/.test(item[i])) {
+              item[i] = Number(item[i]);
             }
           }
         }
