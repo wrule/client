@@ -2048,10 +2048,10 @@
   dependencies:
     undici-types "~5.26.4"
 
-"@types/oracledb@^5.2.3":
-  version "5.3.1"
-  resolved "http://npm.perfma-inc.com:80/@types%2foracledb/-/oracledb-5.3.1.tgz#667a7ea97eb3f558c14a796a924ae08aa9a74a41"
-  integrity sha512-FXxNytI8CQ16pwAlUwRXwQeuLS/PSDuUcQQddUSbWeuFnpzMEgjMz5+7m531Q/y1RIUzZ+HU7mIvidB4oZ0bEA==
+"@types/oracledb@^6.5.1":
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/@types/oracledb/-/oracledb-6.5.1.tgz#17d021cabc9d216dfa6d3d65ae3ee585c33baab3"
+  integrity sha512-Ll0bKGXmCZVngBL3juSaytA8Jeocx0VghDHTt+FEC2bs8fdl9pzoaBXYWXjBUxCCT8Y/69m5AzuTgBd79j24WA==
   dependencies:
     "@types/node" "*"
 
@@ -6214,9 +6214,10 @@ optionator@^0.9.3:
     prelude-ls "^1.2.1"
     type-check "^0.4.0"
 
-"oracledb@git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-oracledb.git#master":
-  version "5.3.0"
-  resolved "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-oracledb.git#3fe59ca136c79b5a5400dd3bf22963e86017b9aa"
+oracledb@^6.5.1:
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/oracledb/-/oracledb-6.5.1.tgz#814d985035acdb1a6470b1152af0ca3767569ede"
+  integrity sha512-JzoSGei1wnvmqgKnAZK1W650mzHTZXx+7hClV4mwsbY/ZjUtrpnojNJMYJ2jkOhj7XG5oJPfXc4GqDKaNzkxqg==
 
 os-dns-native@^1.2.0:
   version "1.2.1"

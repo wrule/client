@@ -13,8 +13,19 @@ import { SocketInfo } from '@engine/utils/socket';
 import { CONFIG } from '@engine/config';
 import { timerExecute } from '@engine/core/utils';
 
+const oracledb = OracleDB;
+
 // OracleDB.fetchAsString = [OracleDB.NUMBER];
-OracleDB.fetchAsBuffer = [OracleDB.NUMBER];
+OracleDB.fetchTypeHandler = (metaData) => {
+  if (metaData.dbType == oracledb.DB_TYPE_NUMBER) {
+    return {
+      type: oracledb.STRING,
+      converter: (value: any) => {
+        return (typeof value) + '@' + value.toString();
+      },
+    };
+  }
+};
 
 /**
  * 去掉前后空格和分号
@@ -74,9 +85,6 @@ export const execute = async (
             item[i] = await item[i].getData();
           } else if (item[i] instanceof Date) {
             item[i] = moment(item[i]).format('YYYY-MM-DD HH:mm:ss');
-          } else if (Buffer.isBuffer(item[i])) {
-            const buffer: Buffer = item[i];
-            item[i] = 'Buffer-' + buffer.toString('base64');
           }
         }
       }
