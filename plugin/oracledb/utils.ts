@@ -13,7 +13,8 @@ import { SocketInfo } from '@engine/utils/socket';
 import { CONFIG } from '@engine/config';
 import { timerExecute } from '@engine/core/utils';
 
-OracleDB.fetchAsString = [OracleDB.NUMBER];
+// OracleDB.fetchAsString = [OracleDB.NUMBER];
+OracleDB.fetchAsBuffer = [OracleDB.NUMBER];
 
 /**
  * 去掉前后空格和分号
@@ -73,14 +74,9 @@ export const execute = async (
             item[i] = await item[i].getData();
           } else if (item[i] instanceof Date) {
             item[i] = moment(item[i]).format('YYYY-MM-DD HH:mm:ss');
-          } else if (typeof item[i] === 'string') {
-            let value = item[i] as string;
-            if (/^(\d|\.)+$/.test(item[i])) {
-              if (value.startsWith('.')) value = `0${value}`;
-              const num = Number(value);
-              if (num.toString() !== value) item[i] = value;
-              else item[i] = num;
-            }
+          } else if (Buffer.isBuffer(item[i])) {
+            const buffer: Buffer = item[i];
+            item[i] = 'Buffer-' + buffer.toString('base64');
           }
         }
       }
