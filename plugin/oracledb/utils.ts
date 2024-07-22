@@ -21,6 +21,7 @@ OracleDB.fetchTypeHandler = (metaData) => {
     return {
       type: oracledb.STRING,
       converter: (value: any) => {
+        if (value == null) return value;
         if (value.startsWith('.')) value = `0${value}`;
         const num = Number(value);
         if (num.toString() !== value) return value;
