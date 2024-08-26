@@ -44,7 +44,7 @@ export default class ResultManager extends EventEmitter {
   private detail: DetailResult[] = [];
   /** @var {Result[]} result */
   private result: Result[] = [];
-  private statusCount: StatusCount = {
+  private statusCount: StatusCount | any = {
     [CONTROLLER_STATUS.DONE]: 0,
     [CONTROLLER_STATUS.INTERACT]: 0,
     [CONTROLLER_STATUS.ERROR]: 0,
