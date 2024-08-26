@@ -5955,12 +5955,6 @@ node-rsa@^1.1.1:
   dependencies:
     asn1 "^0.2.4"
 
-"node-t2sdk@git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-t2sdk.git#master":
-  version "0.0.1"
-  resolved "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-t2sdk.git#0acbbad8d85bd86dd099144ff1343ac844d00a2a"
-  dependencies:
-    node-addon-api "^5.0.0"
-
 "node-tzt@git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-tzt.git#master":
   version "0.0.1"
   resolved "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-tzt.git#7fd2ed2410e6a8a4bfab34c4d58ded26558604e9"

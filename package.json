@@ -29,8 +29,7 @@
     "assets": [
       "node_modules/oracledb/build/Release/oracledb-6.5.1-linux-x64.node",
       "node_modules/bufferutil/build/Release/bufferutil.node",
-      "node_modules/utf-8-validate/build/Release/validation.node",
-      "node_modules/node-t2sdk/build/Release/t2sdk.node"
+      "node_modules/utf-8-validate/build/Release/validation.node"
     ]
   },
   "scripts": {
@@ -89,7 +88,6 @@
     "mustache": "^4.2.0",
     "mysql2": "^2.3.3",
     "node-rsa": "^1.1.1",
-    "node-t2sdk": "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-t2sdk.git#master",
     "node-tzt": "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-tzt.git#master",
     "oracledb": "^6.5.1",
     "papaparse": "^5.3.2",
