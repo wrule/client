@@ -21,7 +21,6 @@ import {
 const REQUIRE_MODULE = {
   lodash: true,
   'crypto-js': true,
-  'multi-crypto-js': true,
   'fast-xml-parser': true,
   'node-rsa': true,
   cheerio: true,

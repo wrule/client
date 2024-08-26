@@ -23,7 +23,6 @@
       "node_modules/mime/**/*.js",
       "node_modules/jsonpath-plus/dist/index-node-cjs.cjs",
       "node_modules/xlsx/xlsx.js",
-      "node_modules/multi-crypto-js/index.js",
       "node_modules/yaml/dist/index.js",
       "node_modules/mustache/mustache.js"
     ],
@@ -87,7 +86,6 @@
     "moment": "^2.29.4",
     "mongodb": "4.1.4",
     "mssql": "9.0.1",
-    "multi-crypto-js": "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-multi-crypto.git#master",
     "mustache": "^4.2.0",
     "mysql2": "^2.3.3",
     "node-dubbo": "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-dubbo.git#master",

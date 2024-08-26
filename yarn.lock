@@ -5794,13 +5794,6 @@ mssql@9.0.1:
     tarn "^3.0.2"
     tedious "^15.0.1"
 
-"multi-crypto-js@git+ssh://git@gitlab.perfma-inc.com:fed/node/client-multi-crypto.git#master":
-  version "1.0.3"
-  resolved "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-multi-crypto.git#4771bab8e04b4c7cb6f7b2bad1538c9ffb7526c0"
-  dependencies:
-    crypto-js "^4.1.1"
-    jsbn "1.1.0"
-
 multimatch@5.0.0:
   version "5.0.0"
   resolved "http://npm.perfma-inc.com:80/multimatch/-/multimatch-5.0.0.tgz#932b800963cea7a31a033328fa1e0c3a1874dbe6"
