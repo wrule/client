@@ -3,9 +3,10 @@
  * @author William Chan <root@williamchan.me>
  */
 import get from 'lodash/get';
-import Mock from 'better-mock';
 import { tokenization, Tokens, VARIABLE_TAG, VARIABLE_TAG_FUNCTION, VARIABLE_TAG_RIGHT } from '@/variable/utils';
 import { isObject } from '@/utils/index';
+
+const Mock: any = { };
 
 export enum REPLACE_MODE {
   AUTO, // 如果是单个变量就输出对象, 如果没有变量则输出原始字符串

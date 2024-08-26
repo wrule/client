@@ -2,7 +2,6 @@
  * This file is part of the XEngine.
  * @author William Chan <root@williamchan.me>
  */
-import Mock from 'better-mock';
 import { XMLBuilder, XMLParser } from 'fast-xml-parser';
 import http, { IncomingHttpHeaders } from 'node:http';
 import get from 'lodash/get';
@@ -16,6 +15,8 @@ import { Request, ResponseData } from '@mock/http/types/server';
 import { createVariables } from '@mock/http/utils';
 import ApplicationBase from '@mock/http/application/base';
 import HeaderManager from '@plugin/http/utils/params-manager/header';
+
+const Mock: any = { };
 
 const xmlBuilder = new XMLBuilder({
   attributeNamePrefix: '#',

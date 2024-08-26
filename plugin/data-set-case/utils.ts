@@ -2,7 +2,6 @@
  * This file is part of the XEngine.
  * @author William Chan <root@williamchan.me>
  */
-import Mock from 'better-mock';
 import Papa from 'papaparse';
 import { DataSetControllerData, DataSourceConfig } from '@plugin/data-set-case/types/data';
 import { DATASET_FIELDS_MODE } from '@engine/core/enum/data-set';
@@ -13,6 +12,8 @@ import { CONFIG } from '@engine/config';
 import { FileData, createReadStream, downloadFile } from '@engine/utils/file';
 import { DATASOURCE_EXECUTE } from '@engine/core/execute';
 import Logger from '@/logger';
+
+const Mock: any = { };
 
 export interface RowsData {
   rows: unknown[][];
