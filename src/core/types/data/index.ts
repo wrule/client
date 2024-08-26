@@ -2,7 +2,6 @@
  * This file is part of the XEngine.
  * @author William Chan <root@williamchan.me>
  */
-// import { DubboControllerData } from '@plugin/dubbo/types/data';
 // import { MySQLControllerData } from '@plugin/mysql/types/data';
 // import { RedisControllerData } from '@plugin/redis/types/data';
 // import { MongoDBControllerData } from '@plugin/mongodb/types/data';

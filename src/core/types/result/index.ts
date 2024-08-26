@@ -6,7 +6,6 @@
 import { CONTROLLER_TYPE, CONTROLLER_STATUS, CONTROLLER_ERROR } from '@/core/enum';
 import { Interact } from '@/core/types/data';
 // import { HTTPResult, HTTPExtraResult, HTTPDetailResult } from '@/core/types/result/protocol/http';
-// import { DubboResult, DubboExtraResult, DubboDetailResult } from '@/core/types/result/protocol/dubbo';
 // import { T2Result, T2ExtraResult, T2DetailResult } from '@/core/types/result/protocol/t2';
 
 // import { ComponentResult, ComponentExtraResult, ComponentDetailResult } from '@/core/types/result/combination/component';

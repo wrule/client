@@ -15,7 +15,6 @@ import { JSON_TYPE } from '@/utils/json-schema';
 import { httpServer, dataSource, server, browser } from '@/dev/data/server';
 
 import { HTTPControllerData } from '@plugin/http/types/data';
-import { DubboControllerData } from '@plugin/dubbo/types/data';
 import { T2ControllerData } from '@plugin/t2/types/data';
 import { GRPCControllerData } from '@plugin/grpc/types/data';
 import { MySQLControllerData } from '@plugin/mysql/types/data';
@@ -36,7 +35,7 @@ import { BrowserControllerData } from '@plugin/browser/types/data';
 
 type SingleControllerDataGroup =
 
-  HTTPControllerData |DubboControllerData | T2ControllerData |
+  HTTPControllerData | T2ControllerData |
   MySQLControllerData | RedisControllerData | MongoDBControllerData | OracleDBControllerData | MSSQLControllerData |
   PostgreSQLControllerData |
   ScriptControllerData | SleepControllerData |
