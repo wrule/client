@@ -88,7 +88,6 @@
     "mustache": "^4.2.0",
     "mysql2": "^2.3.3",
     "node-rsa": "^1.1.1",
-    "node-tzt": "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-tzt.git#master",
     "oracledb": "^6.5.1",
     "papaparse": "^5.3.2",
     "pg": "^8.8.0",
