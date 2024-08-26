@@ -2,7 +2,7 @@
  * This file is part of the XEngine.
  * @author William Chan <root@williamchan.me>
  */
-import { exec } from 'pkg-preview';
+import { exec } from 'pkg';
 import os from 'node:os';
 
 import yargs from 'yargs';

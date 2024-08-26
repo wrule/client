@@ -91,6 +91,7 @@
     "papaparse": "^5.3.2",
     "pg": "^8.8.0",
     "pg-pool": "^3.5.2",
+    "pkg": "5.5.2",
     "proper-lockfile": "^4.1.2",
     "socket.io": "^4.5.3",
     "tough-cookie": "^4.1.2",
