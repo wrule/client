@@ -27,7 +27,7 @@ const name = argv.platform ? argv.platform : ((): string => {
   throw new Error('Unknown platform');
 })();
 
-const arch = argv.arch ? argv.arch : os.arch();
+const arch = os.arch();
 
 console.log(`> build platform: ${name}`);
 console.log(`> build arch: ${arch}`);
