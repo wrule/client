@@ -36,8 +36,6 @@ const args = [
   'package.json',
   // '--debug',
   '--no-native-build',
-  '--compress',
-  'Brotli',
   '--targets',
   `node16-${name}-${arch}`,
   '--output',
