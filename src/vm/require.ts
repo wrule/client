@@ -30,7 +30,6 @@ const REQUIRE_MODULE = {
   mime: true,
   'jsonpath-plus': true,
   // webdriverio: true,
-  xlsx: true,
   yaml: true,
   mustache: true,
   // atob @todo
