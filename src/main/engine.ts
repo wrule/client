@@ -15,7 +15,6 @@ import VM from '@/vm';
 
 // 下个版本去掉
 require('oracledb');
-require('node-t2sdk');
 
 if (opts.printConfig) {
   console.log(CONFIG);

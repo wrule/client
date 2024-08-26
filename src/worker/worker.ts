@@ -24,7 +24,6 @@ import '@plugin/sleep';
 import '@plugin/script';
 
 import '@plugin/http';
-import '@plugin/t2';
 import '@plugin/t3';
 import '@plugin/tcp';
 import '@plugin/grpc';

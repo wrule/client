@@ -27,7 +27,6 @@ const plugins = [
   'sleep',
   'script',
   'http',
-  't2',
   'tcp',
   'grpc',
   'component',

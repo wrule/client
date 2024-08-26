@@ -15,7 +15,6 @@
 // import { DataSetControllerData } from '@plugin/data-set/types/data';
 // import { ScriptControllerData } from '@plugin/script/types/data';
 // import { SleepControllerData } from '@plugin/sleep/types/data';
-// import { T2ControllerData } from '@plugin/t2/types/data';
 
 import { Assignment } from '@/core/types/data/assignment';
 import { Assert } from '@/core/types/data/assert';
