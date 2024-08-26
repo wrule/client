@@ -28,7 +28,6 @@ const REQUIRE_MODULE = {
   moment: true,
   uuid: true,
   chai: true,
-  mockjs: 'better-mock',
   mime: true,
   'jsonpath-plus': true,
   // webdriverio: true,
