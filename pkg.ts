@@ -10,7 +10,7 @@ import { hideBin } from 'yargs/helpers';
 
 const argv = yargs(hideBin(process.argv)).parseSync();
 
-const name = argv.platform ? argv.platform : ((): string => {
+const name = ((): string => {
   const platform = os.platform();
   if (os.version().indexOf('Alpine') !== -1) {
     return 'alpine';
