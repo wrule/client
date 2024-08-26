@@ -5912,15 +5912,6 @@ node-addon-api@^6.1.0:
   resolved "http://npm.perfma-inc.com:80/node-addon-api/-/node-addon-api-6.1.0.tgz#ac8470034e58e67d0c6f1204a18ae6995d9c0d76"
   integrity sha512-+eawOlIgy680F0kBzPUNFhMZGtJ1YmqM6l4+Crf4IkImjYrO/mqPwRMh352g23uIaQKFItcQ64I7KMaJxHgAVA==
 
-"node-dubbo@git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-dubbo.git#master":
-  version "0.1.2"
-  resolved "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-dubbo.git#8d79235a75446865f568f056e0273eedda0862b3"
-  dependencies:
-    compare-versions "^4.1.3"
-    hessian.js "^2.10.0"
-    node-zookeeper-client "^1.1.3"
-    wait-until-queue "^1.0.2"
-
 node-fetch@2.6.7:
   version "2.6.7"
   resolved "http://npm.perfma-inc.com:80/node-fetch/-/node-fetch-2.6.7.tgz#24de9fba827e3b4ae44dc8b20256a379160052ad"

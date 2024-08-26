@@ -88,7 +88,6 @@
     "mssql": "9.0.1",
     "mustache": "^4.2.0",
     "mysql2": "^2.3.3",
-    "node-dubbo": "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-dubbo.git#master",
     "node-rsa": "^1.1.1",
     "node-t2sdk": "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-t2sdk.git#master",
     "node-tzt": "git+ssh://git@gitlab.perfma-inc.com:fed/node/client-node-tzt.git#master",
