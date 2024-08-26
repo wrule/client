@@ -51,7 +51,7 @@ export default class ResultManager extends EventEmitter {
     [CONTROLLER_STATUS.RUNNING]: 0,
     [CONTROLLER_STATUS.SKIP]: 0,
     [CONTROLLER_STATUS.WAIT]: 0,
-    [CONTROLLER_STATUS.CANCEL]: 0,
+    // [CONTROLLER_STATUS.CANCEL]: 0,
   };
 
   /** update level */
