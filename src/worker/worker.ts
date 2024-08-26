@@ -43,8 +43,6 @@ import '@plugin/rabbitmq';
 import '@plugin/mssql';
 import '@plugin/oracledb';
 import '@plugin/jdbc';
-// 临时
-import '@addon/tzt';
 
 process.on('uncaughtException', (error, origin) => {
   console.log('[uncaught error 2]', error, origin);
