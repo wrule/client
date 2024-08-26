@@ -37,7 +37,7 @@ const args = [
   // '--debug',
   '--no-native-build',
   '--targets',
-  `node16-${name}-${arch}`,
+  `node18-${name}-${arch}`,
   '--output',
   `bin/XEngine-${name}-${arch}`,
 ];
